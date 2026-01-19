@@ -1553,7 +1553,7 @@
 // const token = localStorage.getItem('token'); 
 //     if (!token) throw new Error('No token found');
 
-                const res = await fetch('https://samplef-server.onrender.com/api/marketplace/nfts');
+                const res = await fetch('https://changes-sample.onrender.com/api/marketplace/nfts');
                 if (!res.ok) throw new Error('Failed to load NFTs');
                 const nfts = await res.json();
                 
@@ -1711,9 +1711,9 @@
 //     if (!token) throw new Error('No token found');
 
                 const [nftsRes, auctionsRes, exhibitionsRes] = await Promise.all([
-                    fetch('https://samplef-server.onrender.com/api/marketplace/nfts'),
-                    fetch('https://samplef-server.onrender.com/api/marketplace/auctions'),
-                    fetch('https://samplef-server.onrender.com/api/marketplace/exhibitions')
+                    fetch('https://changes-sample.onrender.com/api/marketplace/nfts'),
+                    fetch('https://changes-sample.onrender.com/api/marketplace/auctions'),
+                    fetch('https://changes-sample.onrender.com/api/marketplace/exhibitions')
                 ]);
                 
                 if (nftsRes.ok) allNFTs = await nftsRes.json();
@@ -1969,7 +1969,7 @@ document
 const token = localStorage.getItem('token'); 
     if (!token) throw new Error('No token found');
 
-                const res = await fetch(`https://samplef-server.onrender.com/api/marketplace/search?q=${encodeURIComponent(query)}`);
+                const res = await fetch(`https://changes-sample.onrender.com/api/marketplace/search?q=${encodeURIComponent(query)}`);
                 if (!res.ok) throw new Error('Search failed');
                 
                 const results = await res.json();
@@ -2042,7 +2042,7 @@ const token = localStorage.getItem('token');
 const token = localStorage.getItem('token'); 
     if (!token) throw new Error('No token found');
 
-                await fetch(`https://samplef-server.onrender.com/api/marketplace/nfts/${nftId}/like`, {
+                await fetch(`https://changes-sample.onrender.com/api/marketplace/nfts/${nftId}/like`, {
                     method: 'POST',
                      headers: {
         'Content-Type': 'application/json',
@@ -2128,7 +2128,7 @@ const token = localStorage.getItem('token');
 const token = localStorage.getItem('token'); 
     if (!token) throw new Error('No token found');
 
-                await fetch(`https://samplef-server.onrender.com/api/marketplace/nfts/${nftId}/view`, { method: 'POST' });
+                await fetch(`https://changes-sample.onrender.com/api/marketplace/nfts/${nftId}/view`, { method: 'POST' });
             } catch (err) {
                 console.error('View increment error:', err);
             }
@@ -2138,7 +2138,7 @@ const token = localStorage.getItem('token');
             const nft = allNFTs.find(n => n._id === nftId);
             if (!nft) return;
             
-            const sessionRes = await fetch('https://samplef-server.onrender.com/api/auth/session');
+            const sessionRes = await fetch('https://changes-sample.onrender.com/api/auth/session');
             const session = await sessionRes.json();
             
             if (!session.authenticated) {
@@ -2172,7 +2172,7 @@ const token = localStorage.getItem('token');
 const token = localStorage.getItem('token'); 
     if (!token) throw new Error('No token found');
 
-                const res = await fetch(`https://samplef-server.onrender.com/api/marketplace/nfts/${nftId}/buy`, {
+                const res = await fetch(`https://changes-sample.onrender.com/api/marketplace/nfts/${nftId}/buy`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`

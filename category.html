@@ -693,7 +693,7 @@
 const token = localStorage.getItem('token'); 
     if (!token) throw new Error('No token found');
 
-                const res = await fetch('https://samplef-server.onrender.com/api/marketplace/nfts');
+                const res = await fetch('https://changes-sample.onrender.com/api/marketplace/nfts');
                 if (res.ok) {
                     allNFTs = await res.json();
                     filterAndRender();
@@ -805,7 +805,7 @@ const token = localStorage.getItem('token');
 const token = localStorage.getItem('token'); 
     if (!token) throw new Error('No token found');
 
-                await fetch(`https://samplef-server.onrender.com/api/marketplace/nfts/${nftId}/like`, {
+                await fetch(`https://changes-sample.onrender.com/api/marketplace/nfts/${nftId}/like`, {
                     method: 'POST',
                      headers: {
         'Content-Type': 'application/json',

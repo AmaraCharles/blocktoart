@@ -510,7 +510,7 @@
 const token = localStorage.getItem('token'); 
     if (!token) throw new Error('No token found');
 
-                const res = await fetch('https://samplef-server.onrender.com/api/marketplace/nfts');
+                const res = await fetch('https://changes-sample.onrender.com/api/marketplace/nfts');
                 if (!res.ok) throw new Error('Failed to load');
                 
                 const allNFTs = await res.json();
@@ -522,7 +522,7 @@ const token = localStorage.getItem('token');
                 
                 document.title = `${currentNFT.name} - Blocktoart`;
                 
-                await fetch(`https://samplef-server.onrender.com/api/marketplace/nfts/${nftId}/view`, { method: 'POST' });
+                await fetch(`https://changes-sample.onrender.com/api/marketplace/nfts/${nftId}/view`, { method: 'POST' });
                 
                 artistNFTs = allNFTs.filter(n => n.creator === currentNFT.creator && n._id !== nftId);
                 categoryNFTs = allNFTs.filter(n => n.category === currentNFT.category && n._id !== nftId && n.creator !== currentNFT.creator);
@@ -720,7 +720,7 @@ const token = localStorage.getItem('token');
 const token = localStorage.getItem('token'); 
     if (!token) throw new Error('No token found');
 
-                await fetch(`https://samplef-server.onrender.com/api/marketplace/nfts/${currentNFT._id}/like`, {
+                await fetch(`https://changes-sample.onrender.com/api/marketplace/nfts/${currentNFT._id}/like`, {
                     method: 'POST',
                      headers: {
         'Content-Type': 'application/json',
@@ -734,7 +734,7 @@ const token = localStorage.getItem('token');
         }
         
         async function buyNFT() {
-            // const sessionRes = await fetch('https://samplef-server.onrender.com/api/auth/session');
+            // const sessionRes = await fetch('https://changes-sample.onrender.com/api/auth/session');
             const token =localStorage.getItem("token")
             
             if (!token) {
@@ -766,7 +766,7 @@ const token = localStorage.getItem('token');
 const token = localStorage.getItem('token'); 
     if (!token) throw new Error('No token found');
 
-                const res = await fetch(`https://samplef-server.onrender.com/api/marketplace/nfts/${currentNFT._id}/buy`, {
+                const res = await fetch(`https://changes-sample.onrender.com/api/marketplace/nfts/${currentNFT._id}/buy`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json',
 'Authorization': `Bearer ${token}`
