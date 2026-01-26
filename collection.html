@@ -552,7 +552,7 @@
                  <img src="./logo.png" width="150" height="50" alt="">
             </a>
             
-            <div class="vx-search-container">
+            <!-- <div class="vx-search-container">
                 <i class="bi bi-search vx-search-icon"></i>
                 <input type="text" class="vx-search-input" id="headerSearchInput" placeholder="Search collections, NFTs, creators...">
                 <span class="vx-search-shortcut">⌘K</span>
@@ -561,20 +561,11 @@
             <div class="vx-header-actions">
                 <a href="/dashboard.html" class="vx-btn-login"><i class="bi bi-box-arrow-in-right"></i> Login</a>
                 <a href="/dashboard.html" class="vx-btn-signup"><i class="bi bi-person-plus"></i> Sign Up</a>
-            </div>
+            </div> -->
         </div>
     </header>
     
-    <section class="vx-hero">
-        <div class="vx-hero-content">
-            <h1>Discover NFTs</h1>
-            <p>Explore unique digital assets across all categories. Find your next collectible, artwork, or investment in our curated marketplace.</p>
-            <div class="vx-hero-search">
-                <input type="text" id="heroSearchInput" placeholder="Search NFTs, collections, or creators...">
-                <button onclick="performSearch()">Search</button>
-            </div>
-        </div>
-    </section>
+    
     
     <main class="vx-main">
         <aside class="vx-sidebar">
@@ -597,7 +588,7 @@
             
             <div class="vx-price-range">
                 <h6>Price Range</h6>
-                <div class="vx-price-inputs">
+                <div class="vx-price-inputs" style="display:flex;flex-direction: column;">
                     <input type="number" id="minPrice" placeholder="Min WETH">
                     <input type="number" id="maxPrice" placeholder="Max WETH">
                 </div>
@@ -606,9 +597,9 @@
         
         <section class="vx-results">
             <div class="vx-results-header">
-                <div class="vx-results-count">
-                    Showing <span id="resultCount">0</span> results in <strong id="categoryName">All Categories</strong>
-                </div>
+                <!-- <div class="vx-results-count">
+                    Showing <span id="resultCount">0</span> results in All Collections </strong>
+                </div> -->
                 <div class="vx-results-actions">
                     <select class="vx-sort-select" id="sortSelect">
                         <option value="newest">Most Recent</option>
@@ -641,202 +632,191 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        let allNFTs = [];
-        let currentCategory = 'all';
-        let likedNFTs = JSON.parse(localStorage.getItem('likedNFTs') || '[]');
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const categoryParam = params.get('category');
-            if (categoryParam) {
-                currentCategory = categoryParam;
-                document.querySelectorAll('.vx-category-item').forEach(item => {
-                    item.classList.toggle('active', item.dataset.category === categoryParam);
-                });
-            }
-            loadNFTs();
-            setupEventListeners();
+let allNFTs = [];
+let likedNFTs = JSON.parse(localStorage.getItem('likedNFTs') || '[]');
+let collectionId = null;
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const params = new URLSearchParams(window.location.search);
+    collectionId = params.get('id');
+    if (!collectionId) return;
+
+    await loadNFTs();
+    setupEventListeners();
+});
+
+function setupEventListeners() {
+    document.getElementById('sortSelect')?.addEventListener('change', filterAndRender);
+    document.getElementById('minPrice')?.addEventListener('input', filterAndRender);
+    document.getElementById('maxPrice')?.addEventListener('input', filterAndRender);
+
+    document.getElementById('heroSearchInput')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') performSearch();
+    });
+}
+
+async function loadNFTs() {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) throw new Error('No token found');
+
+        const res = await fetch('https://changes-sample.onrender.com/api/marketplace/nfts', {
+            headers: { 'Authorization': `Bearer ${token}` }
         });
-        
-        function setupEventListeners() {
-            document.querySelectorAll('.vx-category-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    document.querySelectorAll('.vx-category-item').forEach(i => i.classList.remove('active'));
-                    item.classList.add('active');
-                    currentCategory = item.dataset.category;
-                    updateURL();
-                    filterAndRender();
-                });
-            });
-            
-            document.getElementById('sortSelect').addEventListener('change', filterAndRender);
-            document.getElementById('minPrice').addEventListener('input', filterAndRender);
-            document.getElementById('maxPrice').addEventListener('input', filterAndRender);
-            
-            document.getElementById('heroSearchInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') performSearch();
-            });
-        }
-        
-        function updateURL() {
-            const url = new URL(window.location);
-            if (currentCategory === 'all') {
-                url.searchParams.delete('category');
-            } else {
-                url.searchParams.set('category', currentCategory);
-            }
-            window.history.pushState({}, '', url);
-        }
-        
-        async function loadNFTs() {
-            try {
-const token = localStorage.getItem('token'); 
-    if (!token) throw new Error('No token found');
+        if (!res.ok) throw new Error('Failed to fetch NFTs');
 
-                const res = await fetch('https://changes-sample.onrender.com/api/marketplace/nfts');
-                if (res.ok) {
-                    allNFTs = await res.json();
-                    filterAndRender();
-                }
-            } catch (err) {
-                console.error('Failed to load NFTs:', err);
-            }
-        }
-        
-        function filterAndRender() {
-            let filtered = [...allNFTs];
-            
-            if (currentCategory !== 'all') {
-                filtered = filtered.filter(n => n.category === currentCategory);
-            }
-            
-            const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
-            const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
-            filtered = filtered.filter(n => {
-                const price = n.price || 0;
-                return price >= minPrice && price <= maxPrice;
-            });
-            
-            const sortValue = document.getElementById('sortSelect').value;
-            switch (sortValue) {
-                case 'oldest':
-                    filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-                    break;
-                case 'price-low':
-                    filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
-                    break;
-                case 'price-high':
-                    filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
-                    break;
-                case 'likes':
-                    filtered.sort((a, b) => (b.likes || 0) - (a.likes || 0));
-                    break;
-                default:
-                    filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            }
-            
-            document.getElementById('resultCount').textContent = filtered.length;
-            const categoryItem = document.querySelector(`.vx-category-item[data-category="${currentCategory}"]`);
-            document.getElementById('categoryName').textContent = categoryItem ? categoryItem.textContent : 'All Categories';
-            
-            renderNFTGrid(filtered);
-        }
-        
-        function renderNFTGrid(nfts) {
-            const grid = document.getElementById('nftGrid');
-            
-            if (nfts.length === 0) {
-                grid.innerHTML = `
-                    <div class="vx-empty-state">
-                        <i class="bi bi-search"></i>
-                        <h4>No NFTs found</h4>
-                        <p>Try adjusting your filters or search terms</p>
-                        <button class="vx-clear-btn" onclick="clearFilters()">Clear All Filters</button>
+        const nfts = await res.json();
+
+        // Only include NFTs belonging to this collection
+        allNFTs = nfts.filter(nft => nft.collectionId === collectionId);
+
+        filterAndRender();
+    } catch (err) {
+        console.error('Failed to load NFTs:', err);
+    }
+}
+
+function filterAndRender() {
+    let filtered = [...allNFTs];
+
+    const minPrice = parseFloat(document.getElementById('minPrice')?.value) || 0;
+    const maxPrice = parseFloat(document.getElementById('maxPrice')?.value) || Infinity;
+    filtered = filtered.filter(nft => {
+        const price = nft.price || 0;
+        return price >= minPrice && price <= maxPrice;
+    });
+
+    const sortValue = document.getElementById('sortSelect')?.value || 'newest';
+    switch (sortValue) {
+        case 'oldest':
+            filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+            break;
+        case 'price-low':
+            filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
+            break;
+        case 'price-high':
+            filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
+            break;
+        case 'likes':
+            filtered.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+            break;
+        default:
+            filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+
+    // document.getElementById('resultCount')?.textContent = filtered.length;
+    renderNFTGrid(filtered);
+}
+
+function renderNFTGrid(nfts) {
+    const grid = document.getElementById('nftGrid');
+    if (!grid) return;
+
+    if (nfts.length === 0) {
+        grid.innerHTML = `
+            <div class="vx-empty-state">
+                <i class="bi bi-search"></i>
+                <h4>No NFTs found in this collection</h4>
+                <p>Try adjusting your filters or search terms</p>
+                <button class="vx-clear-btn" onclick="clearFilters()">Clear All Filters</button>
+            </div>
+        `;
+        return;
+    }
+
+    grid.innerHTML = nfts.map(nft => {
+        const isLiked = likedNFTs.includes(nft._id);
+        const statusBadge = nft.status === 'auction' ? 'Auction' : nft.status === 'listed' ? 'For Sale' : '';
+
+        return `
+            <div class="vx-nft-card" role="link" tabindex="0"
+                 onclick="goToBid('${nft._id}')"
+                 onkeydown="handleCardKey(event, '${nft._id}')"
+                 data-testid="card-nft-${nft._id}">
+
+                <div class="vx-nft-image-container">
+                    <img src="${nft.imageUrl}" alt="${nft.name}" class="vx-nft-image">
+                    ${statusBadge ? `<span class="vx-nft-badge">${statusBadge}</span>` : ''}
+                    <button class="vx-nft-like ${isLiked ? 'liked' : ''}"
+                            onclick="event.stopPropagation(); toggleLike('${nft._id}')"
+                            data-testid="button-like-${nft._id}">
+                        <i class="bi bi-heart${isLiked ? '-fill' : ''}"></i>
+                        <div class="vx-likes-count">${nft.likes || 0}</div>
+                    </button>
+                </div>
+
+                <div class="vx-nft-content">
+                    <h6 class="vx-nft-title">${nft.name}</h6>
+                    <p class="vx-nft-creator">by ${nft.creator || 'Unknown'}</p>
+                    <div class="vx-nft-footer">
+                        <div class="vx-nft-price">
+                            ${nft.price ? nft.price.toFixed(2) + ' ' + (nft.currency || 'ETH') : 'Not listed'}
+                            <small>Current Price</small>
+                        </div>
                     </div>
-                `;
-                return;
-            }
-            
-            grid.innerHTML = nfts.map(nft => {
-                const isLiked = likedNFTs.includes(nft._id);
-                const statusBadge = nft.status === 'auction' ? 'Auction' : nft.status === 'listed' ? 'For Sale' : '';
-                
-                return `
-                    <a href="artwork.html?id=${nft._id}" class="vx-nft-card" data-testid="card-nft-${nft._id}">
-                        <div class="vx-nft-image-container">
-                            <img src="${nft.imageUrl}" alt="${nft.name}" class="vx-nft-image">
-                            ${statusBadge ? `<span class="vx-nft-badge">${statusBadge}</span>` : ''}
-                            <button class="vx-nft-like ${isLiked ? 'liked' : ''}" onclick="event.preventDefault(); event.stopPropagation(); toggleLike('${nft._id}')" data-testid="button-like-${nft._id}">
-                                <i class="bi bi-heart${isLiked ? '-fill' : ''}"></i>
-                                <div class="vx-likes-count">${nft.likes || 0}</div>
-                            </button>
-                        </div>
-                        <div class="vx-nft-content">
-                            <h6 class="vx-nft-title">${nft.name}</h6>
-                            <p class="vx-nft-creator">by ${nft.creator || 'Unknown'}</p>
-                            <div class="vx-nft-footer">
-                                <div class="vx-nft-price">
-                                    ${nft.price ? nft.price.toFixed(2) + ' ' + (nft.currency || 'ETH') : 'Not listed'}
-                                    <small>Current Price</small>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                `;
-            }).join('');
-        }
-        
-        async function toggleLike(nftId) {
-            const isLiked = likedNFTs.includes(nftId);
-            if (isLiked) {
-                likedNFTs = likedNFTs.filter(id => id !== nftId);
-            } else {
-                likedNFTs.push(nftId);
-            }
-            localStorage.setItem('likedNFTs', JSON.stringify(likedNFTs));
-            
-            const nft = allNFTs.find(n => n._id === nftId);
-            if (nft) {
-                nft.likes = isLiked ? Math.max(0, (nft.likes || 0) - 1) : (nft.likes || 0) + 1;
-            }
-            filterAndRender();
-            
-            try {
-const token = localStorage.getItem('token'); 
-    if (!token) throw new Error('No token found');
+                </div>
+            </div>
+        `;
+    }).join('');
+}
 
-                await fetch(`https://changes-sample.onrender.com/api/marketplace/nfts/${nftId}/like`, {
-                    method: 'POST',
-                     headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // ✅ Send JWT
-     },
-                    body: JSON.stringify({ unlike: isLiked })
-                });
-            } catch (err) {
-                console.error('Like sync error:', err);
-            }
-        }
-        
-        function clearFilters() {
-            currentCategory = 'all';
-            document.querySelectorAll('.vx-category-item').forEach(i => {
-                i.classList.toggle('active', i.dataset.category === 'all');
-            });
-            document.getElementById('minPrice').value = '';
-            document.getElementById('maxPrice').value = '';
-            document.getElementById('sortSelect').value = 'newest';
-            updateURL();
-            filterAndRender();
-        }
-        
-        function performSearch() {
-            const query = document.getElementById('heroSearchInput').value.trim();
-            if (query) {
-                window.location.href = `/marketplace?search=${encodeURIComponent(query)}`;
-            }
-        }
-    </script>
+function goToBid(nftId) {
+    window.location.href = `artwork.html?id=${nftId}`;
+}
+
+function handleCardKey(e, nftId) {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        goToBid(nftId);
+    }
+}
+
+async function toggleLike(nftId) {
+    const isLiked = likedNFTs.includes(nftId);
+    if (isLiked) {
+        likedNFTs = likedNFTs.filter(id => id !== nftId);
+    } else {
+        likedNFTs.push(nftId);
+    }
+    localStorage.setItem('likedNFTs', JSON.stringify(likedNFTs));
+
+    const nft = allNFTs.find(n => n._id === nftId);
+    if (nft) {
+        nft.likes = isLiked ? Math.max(0, (nft.likes || 0) - 1) : (nft.likes || 0) + 1;
+    }
+    filterAndRender();
+
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) throw new Error('No token found');
+
+        await fetch(`https://changes-sample.onrender.com/api/marketplace/nfts/${nftId}/like`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ unlike: isLiked })
+        });
+    } catch (err) {
+        console.error('Like sync error:', err);
+    }
+}
+
+function clearFilters() {
+    document.getElementById('minPrice').value = '';
+    document.getElementById('maxPrice').value = '';
+    document.getElementById('sortSelect').value = 'newest';
+    filterAndRender();
+}
+
+function performSearch() {
+    const query = document.getElementById('heroSearchInput').value.trim();
+    if (query) {
+        window.location.href = `/marketplace?search=${encodeURIComponent(query)}`;
+    }
+}
+</script>
 <!-- Smartsupp Live Chat script -->
 <!-- Smartsupp Live Chat script -->
 <script type="text/javascript">
