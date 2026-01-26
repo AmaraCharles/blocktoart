@@ -169,8 +169,8 @@
       width: 120px;
     }
 
-    .mobile-menu-btn {
-      display: none;
+    /* .mobile-menu-btn {
+      display: block;
       flex-direction: column;
       gap: 5px;
       background: none;
@@ -182,7 +182,7 @@
       width: 25px;
       height: 2px;
       background: #183b56;
-    }
+    } */
 
     /* Hero Section */
     .hero {
@@ -848,48 +848,332 @@
 <body>
   <!-- Header -->
   <header class="header">
-    <div class="container">
-      <nav class="nav">
-        <a href="#" class="logo">
-          <img src="https://ext.same-assets.com/1749930335/2291913564.svg" alt="Blocktoart">
-          <span>Blocktoart</span>
-        </a>
+  <div class="container">
+    <nav class="nav">
+      <!-- Logo -->
+      <a href="#" class="logo">
+        <span>Blocktoart</span>
+      </a>
 
-        <ul class="nav-menu">
-          <li class="nav-item"><a href="#">Homes <span class="dot"></span></a></li>
-          <li class="nav-item"><a href="#">Marketplace</a></li>
-          <li class="nav-item"><a href="#">Collections</a></li>
-          <li class="nav-item"><a href="#">Profile</a></li>
-          <li class="nav-item"><a href="#">Creators</a></li>
-          <li class="nav-item"><a href="#">Pages <span class="dot"></span></a></li>
-        </ul>
+      <!-- Navigation Menu -->
+      <ul class="nav-menu nav-menux">
+        <li class="nav-item">
+          <a href="#">Home <span class="dot"></span></a>
+        </li>
 
-        <div class="nav-right">
+        <li class="nav-item">
+          <a href="#">Marketplace</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="./allcollections.html">Collections</a>
+        </li>
+
+        <!-- Category Dropdown -->
+        <li class="nav-item dropdown">
+          <a href="#" class="dropdown-toggle">Category</a>
+          <ul class="dropdown-menu">
+            <li><a href="category.html?type=art">Art</a></li>
+            <li><a href="category.html?type=photography">Photography</a></li>
+            <li><a href="category.html?type=music">Music</a></li>
+            <li><a href="category.html?type=animation">Animation</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Search Box -->
+      <div class="nav-right">
+        <div class="vx-search-container">
           <div class="search-box">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8"></circle>
               <path d="M21 21l-4.35-4.35"></path>
             </svg>
-            <input type="text" placeholder="Search">
+            <input type="text" placeholder="Search collections, NFTs, creators..." id="searchInput">
+            <span class="vx-search-shortcut">⌘K</span>
           </div>
-          <a href="#" class="btn btn-primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-              <path d="M2 10h20"></path>
-            </svg>
-            Connect wallet
-          </a>
+          <div class="vx-search-dropdown" id="searchDropdown"></div>
         </div>
+      </div>
 
-        <button class="mobile-menu-btn">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </nav>
-    </div>
-  </header>
+      <!-- Mobile Hamburger -->
+      <button class="mobile-menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </div>
+</header>
 
+<!-- CSS -->
+<style>
+/* Navbar */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Flex for desktop */
+.nav-menu {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  flex: 1; /* takes remaining space */
+  justify-content: center; /* center nav items */
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Hamburger button */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  border: none;
+  cursor: pointer;
+  z-index: 1100; /* on top */
+}
+
+.mobile-menu-btn span {
+  display: block;
+  height: 3px;
+  width: 25px;
+  background: #0f0e0e;
+  border-radius: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav {
+    flex-wrap: wrap; /* allow elements to stack */
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: #fff;
+    display: none;
+    padding: 10px 0;
+    z-index: 1000;
+  }
+
+  .nav-menu.show-mobile {
+    display: flex;
+  }
+
+  .nav-right {
+    order: 3;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    order: 2; /* stays to the right of logo */
+    margin-left: auto;
+  }
+}
+
+  .nav-menu li {
+    text-align: center;
+    padding: 8px 0;
+  }
+
+  .nav-item.dropdown .dropdown-menu {
+    position: static;
+    width: 100%;
+    display: none;
+    padding-left: 10px;
+    flex-direction: column;
+  }
+
+  .nav-item.dropdown.active .dropdown-menu {
+    display: flex;
+  }
+
+
+/* Search box */
+.vx-search-container { position: relative; }
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 6px 10px;
+  border-radius: 12px;
+  gap: 6px;
+}
+
+.search-box input {
+  background: transparent;
+  border: none;
+  color: #222;
+  outline: none;
+  width: 100px;
+}
+
+.vx-search-shortcut { font-size: 12px; color: #888; }
+
+.vx-search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  margin-top: 6px;
+  display: none;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+  z-index: 1000;
+}
+
+.vx-search-dropdown.show { display: block; }
+
+.vx-search-section-label {
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #888;
+  font-weight: 600;
+}
+
+.vx-search-result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  color: #222;
+  text-decoration: none;
+}
+
+.vx-search-result:hover { background: rgba(255,255,255,0.06); color: #fff; }
+
+.vx-artist-avatar {
+  background: #222;
+  color: #fff;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+</style>
+
+<!-- JS -->
+<script>
+let searchTimeout;
+
+// Search functionality
+const searchInput = document.getElementById('searchInput');
+const searchDropdown = document.getElementById('searchDropdown');
+
+async function performSearch(query) {
+  if (query.length < 2) {
+    searchDropdown.classList.remove('show');
+    searchDropdown.innerHTML = '';
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://changes-sample.onrender.com/api/marketplace/search?q=${encodeURIComponent(query)}`);
+    if (!res.ok) throw new Error('Search failed');
+
+    const results = await res.json();
+    if (!results.length) {
+      searchDropdown.innerHTML = '<div class="p-3 text-muted text-center">No results found</div>';
+    } else {
+      const uniqueArtists = [...new Set(results.map(nft => nft.creator).filter(Boolean))];
+      const queryLower = query.toLowerCase();
+      const matchingArtists = uniqueArtists.filter(artist => artist.toLowerCase().includes(queryLower)).slice(0, 3);
+
+      let html = '';
+
+      if (matchingArtists.length) {
+        html += '<div class="vx-search-section-label">Artists</div>';
+        html += matchingArtists.map(artist => `
+          <a href="artist.html?name=${encodeURIComponent(artist)}" class="vx-search-result">
+            <div class="vx-artist-avatar">${artist.charAt(0).toUpperCase()}</div>
+            <div class="vx-search-result-info">
+              <h6>${artist}</h6>
+              <small>Artist Profile</small>
+            </div>
+          </a>
+        `).join('');
+      }
+
+      html += '<div class="vx-search-section-label">Artworks</div>';
+      html += results.slice(0,6).map(nft => `
+        <a href="artwork.html?id=${nft._id}" class="vx-search-result">
+          <img src="${nft.imageUrl}" alt="${nft.name}" style="width:36px;height:36px;border-radius:6px;">
+          <div class="vx-search-result-info">
+            <h6>${nft.name}</h6>
+            <small>by ${nft.creator || 'Unknown'} - ${nft.category}</small>
+          </div>
+        </a>
+      `).join('');
+
+      searchDropdown.innerHTML = html;
+    }
+
+    searchDropdown.classList.add('show');
+
+  } catch (err) {
+    console.error('Search error:', err);
+    searchDropdown.innerHTML = '<div class="p-3 text-muted text-center">Error fetching results</div>';
+    searchDropdown.classList.add('show');
+  }
+}
+
+searchInput.addEventListener('input', e => {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => performSearch(e.target.value), 300);
+});
+
+searchInput.addEventListener('focus', () => {
+  if (searchInput.value.length >= 2) searchDropdown.classList.add('show');
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.vx-search-container')) searchDropdown.classList.remove('show');
+});
+
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    searchInput.focus();
+  }
+});
+
+// Category dropdown toggle
+document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+  toggle.addEventListener('click', e => {
+    e.preventDefault();
+    const parent = toggle.parentElement;
+    parent.classList.toggle('active');
+  });
+});
+
+// Mobile hamburger toggle
+const mobileBtn = document.querySelector('.mobile-menu-btn');
+const navMenu = document.querySelector('.nav-menu');
+
+mobileBtn.addEventListener('click', () => {
+  navMenu.classList.toggle('show-mobile');
+});
+</script>
   <!-- Hero Section -->
   <section class="hero">
     <div class="container">
@@ -1419,6 +1703,9 @@ async function loadTopArtists() {
         console.error('Error loading top artists:', err);
     }
 }
+
+
+
 
 /* =========================
    MAP NFTs TO COLLECTIONS
