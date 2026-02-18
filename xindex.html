@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blocktoart - NFT Marketplace</title>
+  <link rel="icon" href="https://ext.same-assets.com/1749930335/3747155220.ico">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #f3f5f8;
+      color: #183b56;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3dd5e1 0%, #2bc4cf 100%);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(61, 213, 225, 0.4);
+    }
+
+    .btn-outline {
+      background: white;
+      color: #183b56;
+      border: 2px solid #e0e5ec;
+    }
+
+    .btn-outline:hover {
+      border-color: #3dd5e1;
+      color: #3dd5e1;
+    }
+
+    .btn-dark {
+      background: #183b56;
+      color: white;
+    }
+
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 13px;
+    }
+
+    /* Header */
+    .header {
+      background: white;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #183b56;
+    }
+
+    /* .logo img {
+      width: 32px;
+      height: 32px;
+    } */
+
+    .nav-menu {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-item a {
+      font-size: 15px;
+      font-weight: 500;
+      color: #5a7184;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-item a:hover {
+      color: #183b56;
+    }
+
+    .nav-item .dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #ff6b6b;
+      border-radius: 50%;
+      margin-left: 4px;
+      vertical-align: top;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f3f5f8;
+      padding: 10px 16px;
+      border-radius: 25px;
+    }
+
+    .search-box svg {
+      color: #5a7184;
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: inherit;
+      font-size: 14px;
+      width: 120px;
+    }
+
+    /* .mobile-menu-btn {
+      display: block;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .mobile-menu-btn span {
+      width: 25px;
+      height: 2px;
+      background: #183b56;
+    } */
+
+    /* Hero Section */
+    .hero {
+      padding: 60px 0 80px;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #183b56;
+    }
+
+    .hero-text p {
+      color: #5a7184;
+      font-size: 16px;
+      margin-bottom: 30px;
+      max-width: 400px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .hero-img-item {
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 1;
+    }
+
+    .hero-img-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .hero-img-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .hero-img-item.large {
+      grid-row: span 2;
+      aspect-ratio: auto;
+    }
+
+    /* Section Styles */
+    .section {
+      padding: 60px 0;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .section-header h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #183b56;
+    }
+
+    .nav-arrows {
+      display: flex;
+      gap: 10px;
+    }
+
+    .arrow-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #e0e5ec;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .arrow-btn:hover {
+      border-color: #3dd5e1;
+      color: #3dd5e1;
+    }
+
+    /* Top Artists */
+    .artists-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .artist-card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: box-shadow 0.3s;
+      position: relative;
+    }
+
+    .artist-card:hover {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .artist-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .artist-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .artist-name {
+      font-weight: 600;
+      font-size: 15px;
+      color: #183b56;
+    }
+
+    .artist-value {
+      color: #3dd5e1;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .verified-badge {
+      position: absolute;
+      bottom: 20px;
+      left: 60px;
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Explore Section */
+    .explore-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    .nft-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .nft-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+
+    .nft-creators {
+      display: flex;
+      gap: 10px;
+      padding: 15px 15px 10px;
+      flex-wrap: wrap;
+    }
+
+    .creator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #5a7184;
+    }
+
+    .creator img {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .nft-image {
+      position: relative;
+      margin: 0 15px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .nft-image img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+
+    .like-count {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nft-info {
+      padding: 15px;
+    }
+
+    .nft-info h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #183b56;
+    }
+
+    .nft-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .stock {
+      font-size: 13px;
+      color: #5a7184;
+    }
+
+    .price {
+      font-size: 13px;
+      color: #5a7184;
+    }
+
+    .price strong {
+      color: #3dd5e1;
+    }
+
+    .nft-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 15px;
+      border-top: 1px solid #e0e5ec;
+    }
+
+    .view-history {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #5a7184;
+    }
+
+    .view-history:hover {
+      color: #3dd5e1;
+    }
+
+    .view-all-center {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    /* Collections Section */
+    .collections-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .collection-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .collection-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+
+    .collection-images {
+      padding: 15px 15px 0;
+    }
+
+    .small-images {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .small-images img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .main-image img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .collection-info {
+      padding: 15px;
+    }
+
+    .collection-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .collection-title-row h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #183b56;
+    }
+
+    .collection-likes {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: #5a7184;
+    }
+
+    .collection-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #5a7184;
+    }
+
+    .creator-mini {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .creator-mini img {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .creator-mini span {
+      color: #183b56;
+      font-weight: 500;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #183b56 0%, #1e4d6b 50%, #2a6b7c 100%);
+      padding: 80px 0;
+      margin-top: 40px;
+    }
+
+    .cta-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .cta-text h2 {
+      font-size: 40px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .cta-text p {
+      color: rgba(255,255,255,0.8);
+      font-size: 16px;
+      margin-bottom: 30px;
+      max-width: 400px;
+    }
+
+    .cta-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .cta-shape img {
+      max-width: 350px;
+    }
+
+    .floating-avatars {
+      position: absolute;
+      inset: 0;
+    }
+
+    .float-avatar {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid white;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+
+    .float-avatar.a1 { top: 0; left: 50%; }
+    .float-avatar.a2 { top: 20%; right: 10%; }
+    .float-avatar.a3 { top: 10%; left: 20%; }
+    .float-avatar.a4 { bottom: 30%; left: 10%; }
+    .float-avatar.a5 { bottom: 20%; right: 5%; }
+    .float-avatar.a6 { bottom: 0; right: 30%; }
+
+    /* Community Section */
+    .community-section {
+      padding: 60px 0;
+    }
+
+    .community-content {
+      background: #e8f4f8;
+      border-radius: 20px;
+      padding: 50px;
+    }
+
+    .community-content h3 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #183b56;
+      margin-bottom: 30px;
+    }
+
+    .partner-logos {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .partner-logos img {
+      height: 40px;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .partner-logos img:hover {
+      opacity: 1;
+    }
+
+    /* Footer */
+    .footer {
+      background: #f3f5f8;
+      padding: 60px 0 30px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 1.5fr 2fr;
+      gap: 60px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 15px;
+    }
+
+    .footer-brand p {
+      color: #5a7184;
+      font-size: 14px;
+      margin-bottom: 20px;
+      max-width: 300px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e8f4f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3dd5e1;
+      transition: all 0.3s;
+    }
+
+    .social-link:hover {
+      background: #3dd5e1;
+      color: white;
+    }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .footer-column h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #183b56;
+      margin-bottom: 20px;
+    }
+
+    .footer-column ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-column a {
+      color: #5a7184;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: #3dd5e1;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid #e0e5ec;
+    }
+
+    .footer-bottom p {
+      color: #5a7184;
+      font-size: 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero-text {
+        text-align: center;
+      }
+
+      .hero-text p {
+        margin: 0 auto 30px;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .hero-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .explore-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cta-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .cta-text p {
+        margin: 0 auto 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .search-box {
+        display: none;
+      }
+
+      .hero-text h1 {
+        font-size: 32px;
+      }
+
+      .artists-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .explore-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .collections-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .footer-links {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cta-text h2 {
+        font-size: 28px;
+      }
+
+      .community-content {
+        padding: 30px 20px;
+      }
+
+      .partner-logos {
+        gap: 20px;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-img-item.large {
+        grid-row: span 1;
+      }
+
+      .footer-links {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+  <div class="container">
+    <nav class="nav">
+      <!-- Logo -->
+      <a href="./index.html" class="logo">
+       <img src="./logo.png" width="150px" height="50px" />
+      </a>
+
+      <!-- Navigation Menu -->
+      <ul class="nav-menu nav-menux">
+       <li class="nav-item">
+          <a href="./marketplace.html">Marketplace</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="./allcollections.html">Collections</a>
+        </li>
+
+
+        <li class="nav-item">
+          <a href="./allcollections.html">Collections</a>
+        </li>
+
+        <!-- Category Dropdown -->
+        <li class="nav-item dropdown">
+          <a href="#" class="dropdown-toggle">Category</a>
+          <ul class="dropdown-menu">
+            <li><a href="category.html?type=art">Art</a></li>
+            <li><a href="category.html?type=photography">Photography</a></li>
+            <li><a href="category.html?type=music">Music</a></li>
+            <li><a href="category.html?type=animation">Animation</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Search Box -->
+      <div class="nav-right">
+        <div class="vx-search-container">
+          <div class="search-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="M21 21l-4.35-4.35"></path>
+            </svg>
+            <input type="text" placeholder="Search collections, NFTs, creators..." id="searchInput">
+            <span class="vx-search-shortcut">⌘K</span>
+          </div>
+          <div class="vx-search-dropdown" id="searchDropdown"></div>
+        </div>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button class="mobile-menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- CSS -->
+<style>
+/* Navbar */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Flex for desktop */
+.nav-menu {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  flex: 1; /* takes remaining space */
+  justify-content: center; /* center nav items */
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Hamburger button */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  border: none;
+  cursor: pointer;
+  z-index: 1100; /* on top */
+}
+
+.mobile-menu-btn span {
+  display: block;
+  height: 3px;
+  width: 25px;
+  background: #0f0e0e;
+  border-radius: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav {
+    flex-wrap: wrap; /* allow elements to stack */
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: #fff;
+    display: none;
+    padding: 10px 0;
+    z-index: 1000;
+  }
+
+  .nav-menu.show-mobile {
+    display: flex;
+  }
+
+  .nav-right {
+    order: 3;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    order: 2; /* stays to the right of logo */
+    margin-left: auto;
+  }
+}
+
+  .nav-menu li {
+    text-align: center;
+    padding: 8px 0;
+  }
+
+  .nav-item.dropdown .dropdown-menu {
+    position: static;
+    width: 100%;
+    display: none;
+    padding-left: 10px;
+    flex-direction: column;
+  }
+
+  .nav-item.dropdown.active .dropdown-menu {
+    display: flex;
+  }
+
+
+/* Search box */
+.vx-search-container { position: relative; }
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 6px 10px;
+  border-radius: 12px;
+  gap: 6px;
+}
+
+.search-box input {
+  background: transparent;
+  border: none;
+  color: #222;
+  outline: none;
+  width: 100px;
+}
+
+.vx-search-shortcut { font-size: 12px; color: #888; }
+
+.vx-search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  margin-top: 6px;
+  display: none;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+  z-index: 1000;
+}
+
+.vx-search-dropdown.show { display: block; }
+
+.vx-search-section-label {
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #888;
+  font-weight: 600;
+}
+
+.vx-search-result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  color: #222;
+  text-decoration: none;
+}
+
+.vx-search-result:hover { background: rgba(255,255,255,0.06); color: #fff; }
+
+.vx-artist-avatar {
+  background: #222;
+  color: #fff;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+</style>
+
+<!-- JS -->
+<script>
+let searchTimeout;
+
+// Search functionality
+const searchInput = document.getElementById('searchInput');
+const searchDropdown = document.getElementById('searchDropdown');
+
+async function performSearch(query) {
+  if (query.length < 2) {
+    searchDropdown.classList.remove('show');
+    searchDropdown.innerHTML = '';
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://changes-sample.onrender.com/api/marketplace/search?q=${encodeURIComponent(query)}`);
+    if (!res.ok) throw new Error('Search failed');
+
+    const results = await res.json();
+    if (!results.length) {
+      searchDropdown.innerHTML = '<div class="p-3 text-muted text-center">No results found</div>';
+    } else {
+      const uniqueArtists = [...new Set(results.map(nft => nft.creator).filter(Boolean))];
+      const queryLower = query.toLowerCase();
+      const matchingArtists = uniqueArtists.filter(artist => artist.toLowerCase().includes(queryLower)).slice(0, 3);
+
+      let html = '';
+
+      if (matchingArtists.length) {
+        html += '<div class="vx-search-section-label">Artists</div>';
+        html += matchingArtists.map(artist => `
+          <a href="artist.html?name=${encodeURIComponent(artist)}" class="vx-search-result">
+            <div class="vx-artist-avatar">${artist.charAt(0).toUpperCase()}</div>
+            <div class="vx-search-result-info">
+              <h6>${artist}</h6>
+              <small>Artist Profile</small>
+            </div>
+          </a>
+        `).join('');
+      }
+
+      html += '<div class="vx-search-section-label">Artworks</div>';
+      html += results.slice(0,6).map(nft => `
+        <a href="artwork.html?id=${nft._id}" class="vx-search-result">
+          <img src="${nft.imageUrl}" alt="${nft.name}" style="width:36px;height:36px;border-radius:6px;">
+          <div class="vx-search-result-info">
+            <h6>${nft.name}</h6>
+            <small>by ${nft.creator || 'Unknown'} - ${nft.category}</small>
+          </div>
+        </a>
+      `).join('');
+
+      searchDropdown.innerHTML = html;
+    }
+
+    searchDropdown.classList.add('show');
+
+  } catch (err) {
+    console.error('Search error:', err);
+    searchDropdown.innerHTML = '<div class="p-3 text-muted text-center">Error fetching results</div>';
+    searchDropdown.classList.add('show');
+  }
+}
+
+searchInput.addEventListener('input', e => {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => performSearch(e.target.value), 300);
+});
+
+searchInput.addEventListener('focus', () => {
+  if (searchInput.value.length >= 2) searchDropdown.classList.add('show');
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.vx-search-container')) searchDropdown.classList.remove('show');
+});
+
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    searchInput.focus();
+  }
+});
+
+// Category dropdown toggle
+document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+  toggle.addEventListener('click', e => {
+    e.preventDefault();
+    const parent = toggle.parentElement;
+    parent.classList.toggle('active');
+  });
+});
+
+// Mobile hamburger toggle
+const mobileBtn = document.querySelector('.mobile-menu-btn');
+const navMenu = document.querySelector('.nav-menu');
+
+mobileBtn.addEventListener('click', () => {
+  navMenu.classList.toggle('show-mobile');
+});
+</script>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Discover digital art and collect NFTs</h1>
+          <p>Blocktoart is a shared liquidity NFT market smart contract which is used by multiple websites to provide the users the best possible experience.</p>
+          <div class="hero-buttons">
+            <a href="./marketplace.html" class="btn btn-primary">View market</a>
+            <a href="./login.html" class="btn btn-outline">Upload your item</a>
+          </div>
+        </div>
+        <div class="hero-images">
+          <div class="hero-grid">
+            <div class="hero-img-item"><img src="https://ext.same-assets.com/1749930335/1074212186.jpeg" alt="NFT Art"></div>
+            <div class="hero-img-item"><img src="https://ext.same-assets.com/1749930335/2937595035.png" alt="NFT Art"></div>
+            <div class="hero-img-item"><img src="https://ext.same-assets.com/1749930335/1471116525.png" alt="NFT Art"></div>
+            <div class="hero-img-item large"><img src="https://ext.same-assets.com/1749930335/4030926912.png" alt="NFT Art"></div>
+            <div class="hero-img-item"><img src="https://ext.same-assets.com/1749930335/3379986076.png" alt="NFT Art"></div>
+            <div class="hero-img-item"><img src="https://ext.same-assets.com/1749930335/3335251713.png" alt="NFT Art"></div>
+            <div class="hero-img-item"><img src="https://ext.same-assets.com/1749930335/1019043294.png" alt="NFT Art"></div>
+            <div class="hero-img-item"><img src="https://ext.same-assets.com/1749930335/119852043.png" alt="NFT Art"></div>
+            <div class="hero-img-item"><img src="https://ext.same-assets.com/1749930335/2439110253.png" alt="NFT Art"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Top Artists Section -->
+  <section class="section top-artists">
+<div class="container">
+<div class="section-header">
+<h2>Top Artists</h2>
+<div class="nav-arrows">
+<button class="arrow-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<button class="arrow-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg></button>
+</div>
+</div>
+<div class="artists-grid" id="topArtistsGrid">
+<!-- Artist cards will be injected here -->
+</div>
+</div>
+</section>
+
+  <!-- Explore Section -->
+  <section class="section explore">
+    <div class="container">
+      <div class="section-header">
+        <h2>Explore</h2>
+        <a href="#" class="btn btn-dark btn-sm">view all</a>
+      </div>
+      <div class="explore-grid" id="nftGrid">
+        <!-- NFT Card 1 -->
+       
+
+
+      </div>
+      <div class="view-all-center">
+        <a href="#" class="btn btn-outline"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg> View all items</a>
+      </div>
+    </div>
+  </section>
+<style>
+ /* =========================
+   CATEGORY SECTIONS
+========================= */
+.category-section {
+    margin-bottom: 3rem;
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.category-left h2 {
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.category-count {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.see-all {
+    font-size: 0.95rem;
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.see-all:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   NFT GRID
+========================= */
+.nft-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem;
+}
+
+/* =========================
+   NFT CARD (FIXED)
+========================= */
+.nft-card {
+    position: relative;
+
+    background: #ffffff;           /* 🔥 solid card */
+    border: 1px solid #e5e7eb;      /* 🔥 visible border */
+    border-radius: 14px;
+    overflow: hidden;
+
+    cursor: pointer;
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease,
+        border-color .15s ease;
+}
+
+.nft-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0,0,0,.12);
+    border-color: #d1d5db;
+}
+
+.nft-card:active {
+    transform: scale(0.99);
+}
+
+/* =========================
+   CARD CONTENT
+========================= */
+.nft-image img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.nft-creators {
+    padding: 10px 14px 0;
+}
+
+.nft-info {
+    padding: 12px 14px;
+}
+
+/* =========================
+   DARK MODE (OPTIONAL)
+========================= */
+body.dark .nft-card {
+    background: #0b0f19;
+    border-color: #1f2937;
+}
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 640px) {
+    .nft-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row on mobile */
+        gap: 1rem; /* slightly smaller gap for mobile */
+    }
+}
+  </style>
+   <!-- category Section -->
+<section class="" >
+<div class="container" id="categorySections"></div>
+
+</section>
+  <!-- Collections Section -->
+  <section class="section collections" >
+    <div class="container">
+      <div class="section-header">
+        <h2>Collections</h2>
+        <a href="./allcollections.html" class="btn btn-dark btn-sm">View All</a>
+      </div>
+      <div class="collections-grid" id="collectionsContainer">
+        <!-- Collection 1 -->
+        <div class="collection-card">
+          <div class="collection-images">
+            <div class="small-images">
+              <img src="https://ext.same-assets.com/1749930335/1908715171.png" alt="Preview">
+              <img src="https://ext.same-assets.com/1749930335/827266221.png" alt="Preview">
+              <img src="https://ext.same-assets.com/1749930335/3196406812.png" alt="Preview">
+            </div>
+            <div class="main-image">
+              <img src="https://ext.same-assets.com/1749930335/1092119317.png" alt="Creative Art collection">
+            </div>
+          </div>
+          <div class="collection-info">
+            <div class="collection-title-row">
+              <h4>Creative Art collection</h4>
+              <span class="collection-likes"><svg width="14" height="14" viewBox="0 0 24 24" fill="#3dd5e1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> 2.1k</span>
+            </div>
+            <div class="collection-meta" >
+              <span>5 items  Created by</span>
+              <div class="creator-mini">
+                <img src="https://ext.same-assets.com/1749930335/470591288.png" alt="Creator">
+                <span>@william_jamy..</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collection 2 -->
+        <div class="collection-card">
+          <div class="collection-images">
+            <div class="small-images">
+              <img src="https://ext.same-assets.com/1749930335/2499338729.png" alt="Preview">
+              <img src="https://ext.same-assets.com/1749930335/348781971.png" alt="Preview">
+              <img src="https://ext.same-assets.com/1749930335/279567145.png" alt="Preview">
+            </div>
+            <div class="main-image">
+              <img src="https://ext.same-assets.com/1749930335/1728990554.png" alt="Colorful Abstract Painting">
+            </div>
+          </div>
+          <div class="collection-info">
+            <div class="collection-title-row">
+              <h4>Colorful Abstract Painting</h4>
+              <span class="collection-likes"><svg width="14" height="14" viewBox="0 0 24 24" fill="#3dd5e1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> 3.5k</span>
+            </div>
+            <div class="collection-meta">
+              <span>7 items  Created by</span>
+              <div class="creator-mini">
+                <img src="https://ext.same-assets.com/1749930335/1129154559.png" alt="Creator">
+                <span>@alexis_fenn..</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collection 3 -->
+        <div class="collection-card">
+          <div class="collection-images">
+            <div class="small-images">
+              <img src="https://ext.same-assets.com/1749930335/1526791942.png" alt="Preview">
+              <img src="https://ext.same-assets.com/1749930335/294267664.png" alt="Preview">
+              <img src="https://ext.same-assets.com/1749930335/1019043294.png" alt="Preview">
+            </div>
+            <div class="main-image">
+              <img src="https://ext.same-assets.com/1749930335/4085891360.png" alt="Modern Art collection">
+            </div>
+          </div>
+          <div class="collection-info">
+            <div class="collection-title-row">
+              <h4>Modern Art collection</h4>
+              <span class="collection-likes"><svg width="14" height="14" viewBox="0 0 24 24" fill="#3dd5e1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> 7.2k</span>
+            </div>
+            <div class="collection-meta">
+              <span>2 items  Created by</span>
+              <div class="creator-mini">
+                <img src="https://ext.same-assets.com/1749930335/3048354104.png" alt="Creator">
+                <span>@Joshua_Bren..</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HERO SECTION -->
+<section class="hero-auctions">
+  <div class="hero-content">
+    <div class="hero-text">
+      <span class="hero-badge">Live Marketplace</span>
+      <h1>Auctions & Exhibitions</h1>
+      <p>
+        Discover exclusive NFT auctions and curated digital art exhibitions
+        from creators around the world.
+      </p>
+    </div>
+
+    <div class="hero-image">
+      <img 
+        src="https://images.unsplash.com/photo-1642104704074-907c0698cbd9?auto=format&fit=crop&w=900&q=80"
+        alt="Featured NFT Artwork"
+      />
+    </div>
+  </div>
+</section>
+
+
+
+<!-- AUCTIONS SECTION -->
+<section class="section">
+  <div class="container containerx">
+    <div class="section-header">
+      <span class="section-tag auction-tag">AUCTIONS</span>
+      <h2>Live NFT Auctions</h2>
+    </div>
+
+    <div class="row" id="auctionsGrid"></div>
+  </div>
+</section>
+
+<!-- EXHIBITIONS SECTION -->
+<section class="section">
+  <div class="container containerx">
+    <div class="section-header">
+      <span class="section-tag exhibition-tag">EXHIBITIONS</span>
+      <h2>Curated Exhibitions</h2>
+    </div>
+
+    <div class="row mt-4" id="exhibitionsGrid"></div>
+  </div>
+</section>
+<style>
+    #exhibitionsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 per row on desktop */
+    gap: 24px;
+}
+.hero-content,
+.containerx {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-auctions {
+  padding: 80px 32px; /* top/bottom | left/right */
+}
+/* GLOBAL CONTAINER PADDING */
+.containerx {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+/* Optional: stack on mobile */
+@media (max-width: 768px) {
+    #exhibitionsGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+  .hero-auctions {
+    padding: 60px 20px;
+  }
+
+  .containerx {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+</style>
+  
+
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <div class="cta-text">
+            
+          <h2>Start your own collection today</h2>
+          <p>Blocktoart is a shared liquidity NFT market smart contract which is used by multiple websites to provide the users the best possible experience.</p>
+          <a href="#" class="btn btn-primary">Start Collecting</a>
+        </div>
+        <div class="cta-visual">
+          <div class="cta-shape">
+            <img src="https://ext.same-assets.com/1749930335/2469846649.png" alt="Collection Shape">
+          </div>
+          <div class="floating-avatars">
+            <img src="https://ext.same-assets.com/1749930335/1560789857.png" alt="Avatar" class="float-avatar a1">
+            <img src="https://ext.same-assets.com/1749930335/1100283812.png" alt="Avatar" class="float-avatar a2">
+            <img src="https://ext.same-assets.com/1749930335/3998142795.png" alt="Avatar" class="float-avatar a3">
+            <img src="https://ext.same-assets.com/1749930335/213542248.png" alt="Avatar" class="float-avatar a4">
+            <img src="https://ext.same-assets.com/1749930335/4080727939.png" alt="Avatar" class="float-avatar a5">
+            <img src="https://ext.same-assets.com/1749930335/1129154559.png" alt="Avatar" class="float-avatar a6">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Section -->
+  <section class="community-section">
+    <div class="container">
+      <div class="community-content">
+        <h3>Loved by the community</h3>
+        <div class="partner-logos">
+          <img src="https://ext.same-assets.com/1749930335/197916549.svg" alt="Product Hunt">
+          <img src="https://ext.same-assets.com/1749930335/331251816.svg" alt="DappRadar">
+          <img src="https://ext.same-assets.com/1749930335/2548333374.svg" alt="SECFI">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <img src="https://ext.same-assets.com/1749930335/2291913564.svg" alt="Blocktoart">
+            <span>Blocktoart</span>
+          </a>
+          <p>Blocktoart is a shared liquidity NFT market smart contract</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+            <a href="#" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></a>
+            <a href="#" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
+            <a href="#" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#fff"></polygon></svg></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Blocktoart</h4>
+            <ul>
+              <li><a href="./index.html">Home1</a></li>
+              <!-- <li><a href="#">Home2</a></li>
+              <li><a href="#">Home3</a></li> -->
+              <li><a href="./marketplace.html">Marketplace</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Assets</h4>
+            <ul>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Creators</a></li>
+              <li><a href="#">Collections</a></li>
+              <li><a href="#">Activity</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#">Upload Types</a></li>
+              <li><a href="#">Upload</a></li>
+              <li><a href="#">Connect wallet</a></li>
+              <li><a href="#">Item details</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Copyright 2021. Created with love by creabik.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* =========================
+   STATE
+========================= */
+let allNFTs = [];
+let likedNFTs = JSON.parse(localStorage.getItem('likedNFTs') || '[]');
+let allCollections = [];
+let allAuctions = [];
+let allExhibitions = [];
+const collectionNFTImages = {};
+const MAX_GRID_ITEMS = 12;
+const MAX_PER_CATEGORY = 4;
+let currentNFT = null;
+
+/* =========================
+   DOM ELEMENTS
+========================= */
+
+/* =========================
+   INIT
+========================= */
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadMarketplaceData();
+    await loadCollections();
+    mapNFTsToCollections();
+    renderCollections();
+    loadAuctionsAndExhibitions();
+    loadTopArtists();
+});
+
+/* =========================
+   DATA LOADING
+========================= */
+async function loadMarketplaceData() {
+    try {
+        const res = await fetch('https://changes-sample.onrender.com/api/marketplace/nfts');
+        if (!res.ok) throw new Error('Failed to fetch NFTs');
+        allNFTs = await res.json();
+        renderNFTGrid(allNFTs);
+        renderCategorySections(allNFTs);
+    } catch (err) {
+        console.error('Failed to load marketplace data:', err);
+    }
+}
+
+async function loadCollections() {
+    try {
+        const res = await fetch('https://changes-sample.onrender.com/api/marketplace/collections');
+        if (!res.ok) throw new Error('Failed to fetch collections');
+        allCollections = await res.json();
+    } catch (err) {
+        console.error('Failed to load collections:', err);
+    }
+}
+
+async function loadTopArtists() {
+    try {
+        const res = await fetch('https://changes-sample.onrender.com/api/users?page=1&limit=3');
+        if (!res.ok) throw new Error('Failed to fetch users');
+        const data = await res.json();
+        const users = data.users || [];
+        const grid = document.getElementById('topArtistsGrid');
+        grid.innerHTML = users.map(user => `
+            <div class="artist-card" onclick="goToArtist('${user.username}')">
+                <img src="${user.profileImage || 'default-avatar.png'}" alt="Avatar" class="artist-avatar">
+                <div class="artist-info">
+                    <span class="artist-name">@${user.username}</span>
+                    <span class="artist-value">${user.walletBalance?.toFixed(2) || 0} ETH</span>
+                </div>
+                ${user.verified ? `<img src="https://ext.same-assets.com/1749930335/2003561026.svg" alt="Verified" class="verified-badge">` : ''}
+            </div>
+        `).join('');
+    } catch (err) {
+        console.error('Error loading top artists:', err);
+    }
+}
+
+
+
+
+/* =========================
+   MAP NFTs TO COLLECTIONS
+========================= */
+function mapNFTsToCollections() {
+    allCollections.forEach(collection => {
+        const matchingNFTs = allNFTs.filter(nft => {
+            const nftCollectionId = nft.collectionId?._id || nft.collectionId;
+            return nftCollectionId === collection._id;
+        });
+        collectionNFTImages[collection._id] = matchingNFTs.map(nft => nft.imageUrl);
+    });
+}
+
+/* =========================
+   NFT GRID
+========================= */
+function renderNFTGrid(nfts) {
+    const grid = document.getElementById('nftGrid');
+    if (!grid) return;
+
+    if (!nfts || nfts.length === 0) {
+        grid.innerHTML = `
+            <div class="vx-empty-state" style="grid-column: 1 / -1;">
+                <h4>No artworks found</h4>
+                <p>Try adjusting your filters or search</p>
+            </div>
+        `;
+        return;
+    }
+
+    grid.innerHTML = nfts.slice(0, MAX_GRID_ITEMS).map(renderNFTCard).join('');
+}
+
+function renderCategorySections(nfts) {
+    const container = document.getElementById('categorySections');
+    if (!container) return;
+
+    const grouped = nfts.reduce((acc, nft) => {
+        const category = nft.category || 'Uncategorized';
+        if (!acc[category]) acc[category] = [];
+        acc[category].push(nft);
+        return acc;
+    }, {});
+
+    container.innerHTML = Object.entries(grouped).map(([category, items]) => `
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-left">
+                    <h2>${category}</h2>
+                    <span class="category-count">${items.length} artworks</span>
+                </div>
+                <a href="category.html?category=${encodeURIComponent(category)}" class="see-all">See all →</a>
+            </div>
+            <div class="nft-grid">
+                ${items.slice(0, MAX_PER_CATEGORY).map(renderNFTCard).join('')}
+            </div>
+        </section>
+    `).join('');
+}
+async function incrementViews(nftId) {
+            try {
+const token = localStorage.getItem('token'); 
+    if (!token) throw new Error('No token found');
+
+                await fetch(`https://changes-sample.onrender.com/api/marketplace/nfts/${nftId}/view`, { method: 'POST' });
+            } catch (err) {
+                console.error('View increment error:', err);
+            }
+        }
+
+        function openArtworkModal(nftId) {
+    if (!nftId) return;
+
+    // increment views before redirect
+    incrementViews(nftId);
+
+    // redirect with query param
+    window.location.href = `artwork.html?id=${encodeURIComponent(nftId)}`;
+}
+        
+/* =========================
+   NFT CARD RENDERER
+========================= */
+function renderNFTCard(nft) {
+    const creatorsHTML = (nft.creators && nft.creators.length)
+        ? nft.creators.map(c => `
+            <div class="creator">
+                <img src="${c.avatar || 'default-avatar.png'}" alt="${c.username}">
+                <span>@${c.username}</span>
+            </div>
+        `).join('')
+        : `<div class="creator"><span>@${nft.creator || 'unknown'}</span></div>`;
+
+    return `
+    <div class="nft-card"
+         role="link"
+         tabindex="0"
+         onclick="openArtworkModal('${nft._id}')"
+         onkeydown="handleCardKey(event, '${nft._id}')">
+
+        <div class="nft-creators">${creatorsHTML}</div>
+
+        <div class="nft-image">
+            <img src="${nft.imageUrl}" alt="${nft.name}">
+            <span class="like-count"
+                  onclick="event.stopPropagation(); toggleLike('${nft._id}')">
+                ❤️ ${nft.likes || 0}
+            </span>
+        </div>
+
+        <div class="nft-info">
+            <h3>${nft.name}</h3>
+            <div class="nft-meta">
+                <span class="stock">${nft.stock ? `${nft.stock} in stock` : 'Single item'}</span>
+                <span class="price"><strong>${nft.price ? nft.price.toFixed(2) + (nft.currency || ' ETH') : 'Not listed'}</strong></span>
+            </div>
+            <div class="nft-actions">
+                <a href="history.html?id=${nft._id}" onclick="event.stopPropagation()">View History</a>
+                <a href="#" class="btn btn-primary btn-sm" onclick="event.stopPropagation(); openArtworkModal('${nft._id}')">Place Bid</a>
+            </div>
+        </div>
+    </div>`;
+}
+
+/* =========================
+   LIKE FUNCTIONALITY
+========================= */
+async function toggleLike(nftId) {
+    const isLiked = likedNFTs.includes(nftId);
+    likedNFTs = isLiked ? likedNFTs.filter(id => id !== nftId) : [...likedNFTs, nftId];
+    localStorage.setItem('likedNFTs', JSON.stringify(likedNFTs));
+
+    const nft = allNFTs.find(n => n._id === nftId);
+    if (nft) nft.likes = isLiked ? Math.max(0, (nft.likes || 0) - 1) : (nft.likes || 0) + 1;
+
+    renderNFTGrid(allNFTs);
+
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        await fetch(`https://changes-sample.onrender.com/api/marketplace/nfts/${nftId}/like`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json','Authorization': `Bearer ${token}`},
+            body: JSON.stringify({ unlike: isLiked })
+        });
+    } catch (err) {
+        console.error('Like sync error:', err);
+    }
+}
+
+/* =========================
+   COLLECTIONS
+========================= */
+async function fetchUserByEmail(email) {
+    if (!email) return null;
+    try {
+        const res = await fetch(`https://changes-sample.onrender.com/api/user/by-email/${encodeURIComponent(email)}`);
+        if (!res.ok) return null;
+        const data = await res.json();
+        return { username: data.username, profileImage: data.profileImage };
+    } catch (err) {
+        console.error('Error fetching user by email:', err);
+        return null;
+    }
+}
+
+async function renderCollections() {
+    const container = document.getElementById('collectionsContainer');
+    if (!container) return;
+    let html = '';
+    for (const collection of allCollections) {
+        const user = await fetchUserByEmail(collection.owner);
+        const nftImages = collectionNFTImages[collection._id] || [];
+        const smallImagesHTML = nftImages.slice(0, 3).map(url => `<img src="${url}" alt="Preview">`).join('');
+        html += `
+        <div class="collection-card" onclick="goToCollection('${collection._id}')">
+            <div class="collection-images">
+                <div class="small-images">${smallImagesHTML}</div>
+                <div class="main-image">
+                    <img src="${collection.imageUrl}" alt="${collection.name}">
+                </div>
+            </div>
+            <div class="collection-info">
+                <div class="collection-title-row">
+                    <h4>${collection.name}</h4>
+                    <span class="collection-likes">❤️ ${collection.likes || 0}</span>
+                </div>
+                <div class="collection-meta">
+                    <span>${collection.nftCount} items Created by</span>
+                    <div class="creator-mini">
+                        <img src="${user?.profileImage || collection.imageUrl}" alt="Creator">
+                        <span>@${user?.username || 'unknown'}</span>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    }
+    container.innerHTML = html;
+}
+
+/* =========================
+   REDIRECT HELPERS
+========================= */
+function handleCardKey(e, nftId) {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openArtworkModal(nftId);
+    }
+}
+
+function goToArtist(username) { window.location.href = `artist.html?name=${encodeURIComponent(username)}`; }
+function goToCollection(collectionId) { window.location.href = `collection.html?id=${collectionId}`; }
+
+/* =========================
+   AUCTIONS & EXHIBITIONS
+========================= */
+/* =========================
+   MODAL SETUP
+========================= */
+/* =========================
+   MODAL SETUP
+========================= */
+const popupModal = document.getElementById('popupModal');
+const modalContent = document.getElementById('modalContent');
+const modalClose = document.getElementById('modalClose');
+let countdownInterval = null;
+
+// modalClose.addEventListener('click', closeModal);
+// popupModal.addEventListener('click', e => { if (e.target === popupModal) closeModal(); });
+
+// function closeModal() {
+//     popupModal.style.display = 'none';
+//     if (countdownInterval) clearInterval(countdownInterval);
+//     countdownInterval = null;
+// }
+
+// function showPopup(contentHtml) {
+//     modalContent.innerHTML = contentHtml;
+//     popupModal.style.display = 'flex';
+// }
+
+/* =========================
+   AUCTIONS MODAL WITH LIVE COUNTDOWN
+========================= */
+
+function placeBid(auctionId) {
+    alert('Bid button clicked for auction: ' + auctionId);
+}
+
+function openAuctionModal(id) {
+    const auction = allAuctions.find(a => a._id === id);
+    if (!auction) return;
+
+    function updateCountdown() {
+        const t = getTimeLeft(new Date(auction.endTime));
+        const countdownText = `${t.hours}h ${t.minutes}m ${t.seconds}s`;
+        const countdownSpan = modalContent.querySelector('.auction-countdown');
+        if (countdownSpan) countdownSpan.textContent = countdownText;
+        if (t.hours === 0 && t.minutes === 0 && t.seconds === 0) clearInterval(countdownInterval);
+    }
+
+    const t = getTimeLeft(new Date(auction.endTime));
+    const content = `
+        <div class="nft-image">
+            <img src="${auction.imageUrl || 'https://via.placeholder.com/400'}" style="width:100%; border-radius:12px;">
+        </div>
+        <h3>${auction.title || 'Untitled Auction'}</h3>
+        <p>Current Bid: <strong>${auction.currentBid || auction.startingPrice} ETH</strong></p>
+        <p>${auction.description || 'No description available.'}</p>
+        <div style="display:flex; gap:15px; margin-top:15px;">
+            <button class="btn btn-primary btn-sm" onclick="placeBid('${auction._id}')">Place Bid</button>
+            <span class="auction-countdown">${t.hours}h ${t.minutes}m ${t.seconds}s</span>
+        </div>`;
+
+    showPopup(content);
+
+    countdownInterval = setInterval(updateCountdown, 1000);
+}
+
+/* =========================
+   EXHIBITION MODAL
+========================= */
+
+/* =========================
+   AUCTIONS & EXHIBITIONS
+========================= */
+async function loadAuctionsAndExhibitions() {
+    try {
+        const [auctionsRes, exhibitionsRes] = await Promise.all([
+            fetch('https://changes-sample.onrender.com/api/marketplace/auctions'),
+            fetch('https://changes-sample.onrender.com/api/marketplace/exhibitions')
+        ]);
+        if (!auctionsRes.ok || !exhibitionsRes.ok) throw new Error('Failed to fetch data');
+        allAuctions = await auctionsRes.json();
+        allExhibitions = await exhibitionsRes.json();
+        renderAuctions();
+        renderExhibitions();
+    } catch (err) {
+        console.error('Error loading auctions/exhibitions:', err);
+    }
+}
+
+function getTimeLeft(endTime) {
+    const now = new Date();
+    const diff = Math.max(0, endTime - now);
+    return {
+        hours: Math.floor(diff / (1000 * 60 * 60)),
+        minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((diff % (1000 * 60)) / 1000)
+    };
+}
+
+function renderAuctions() {
+    const grid = document.getElementById('auctionsGrid');
+    const activeAuctions = allAuctions.filter(a => {
+        const now = new Date();
+        return new Date(a.startTime) <= now && new Date(a.endTime) > now;
+    });
+
+    if (!activeAuctions.length) {
+        grid.innerHTML = '<div class="col-12 text-center text-muted py-4">No live auctions at the moment</div>';
+        return;
+    }
+
+    grid.innerHTML = activeAuctions.slice(0, 4).map(a => {
+        const t = getTimeLeft(new Date(a.endTime));
+        return `
+        <div class="nft-card" onclick="openAuctionModal('${a._id}')">
+            <div class="nft-image"><img src="${a.imageUrl || 'https://via.placeholder.com/400'}" alt="${a.title}"></div>
+            <div class="nft-info">
+                <h3>${a.title || 'Untitled Auction'}</h3>
+                <p>Current Bid: <strong>${a.currentBid || a.startingPrice} ETH</strong></p>
+                <span>${t.hours}h ${t.minutes}m ${t.seconds}s left</span>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function renderExhibitions() {
+    const grid = document.getElementById('exhibitionsGrid');
+    if (!allExhibitions.length) {
+        grid.innerHTML = '<div class="col-12 text-center text-muted py-4">No exhibitions available</div>';
+        return;
+    }
+
+    grid.innerHTML = allExhibitions.slice(0, 4).map(e => `
+    
+        <div class="nft-card"  >
+            <div class="nft-image"><img src="${e.thumbnailUrl || 'https://via.placeholder.com/400'}" alt="${e.title}"></div>
+            <div class="nft-info">
+                <h3>${e.title || 'Untitled Exhibition'}</h3>
+                <p>${e.description || 'No description'}</p>
+                <span>${new Date(e.startDate).toLocaleDateString()}</span>
+                
+            </div>
+        </div>
+    `).join('');
+}
+
+function openExhibitionView(exhibitionId) {
+  const exhibition = allExhibitions.find(e => e._id === exhibitionId);
+  if (!exhibition) return;
+
+  document.getElementById("exhibitionModalTitle").textContent =
+    exhibition.title;
+
+  document.getElementById("exhibitionModalBody").innerHTML = `
+    <img 
+      src="${exhibition.thumbnailUrl || 'https://via.placeholder.com/800x400'}"
+      class="img-fluid rounded mb-3"
+      alt="${exhibition.title}"
+    />
+
+    <p class="text-muted">${exhibition.description || "No description"}</p>
+
+    <div class="d-flex gap-3 flex-wrap">
+      <span class="badge bg-primary">${exhibition.type || "Virtual"}</span>
+      <span class="badge bg-outline-secondary">
+        ${new Date(exhibition.startDate).toLocaleDateString()}
+      </span>
+    </div>
+  `;
+
+  const modal = new bootstrap.Modal(
+    document.getElementById("exhibitionViewModal")
+  );
+
+  modal.show();
+}
+
+/* =========================
+   MODAL OPEN FUNCTIONS
+========================= */
+
+/* =========================
+   PLACE BID (example)
+========================= */
+
+/* =========================
+   INITIAL LOAD
+========================= */
+</script>
