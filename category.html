@@ -6,6 +6,7 @@
     <title>Explore NFTs - Blocktoart</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="./footer.css">
     <style>
         :root {
             --vx-primary: #155dfc;
@@ -543,7 +544,7 @@
     </style>
 </head>
 <body>
-    <header class="vx-header">
+    <!-- <header class="vx-header">
         <div class="vx-header-inner">
             <a href="/index.html" class="vx-logo">
                 <div class="vx-logo-icon">
@@ -563,8 +564,474 @@
                 <a href="/dashboard.html" class="vx-btn-signup"><i class="bi bi-person-plus"></i> Sign Up</a>
             </div>
         </div>
+    </header> -->
+
+       <style>
+ .mainHeader {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 32px 16px 32px;
+            background: #333333;
+            gap: 24px;
+            position: relative;
+        }
+
+        .brandLogo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            z-index: 1001;
+        }
+
+        .logoImage {
+            height: 40px;
+            width: 40px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        .navigationMenu {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .navDropdown {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
+            background: transparent;
+            border: none;
+        }
+
+        .navDropdown:hover {
+            color: #a0a0a0;
+        }
+
+        .dropdownIcon {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s;
+        }
+
+        .navDropdown:hover .dropdownIcon {
+            transform: rotate(180deg);
+        }
+
+        .searchContainer {
+            flex: 1;
+            max-width: 500px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: transparent;
+            padding: 10px 16px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .searchContainer:focus-within {
+            background: #4a4a4a;
+        }
+
+        .searchIcon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.6;
+        }
+
+        .searchInput {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            font-size: 15px;
+        }
+
+        .searchInput::placeholder {
+            color: #888888;
+        }
+
+        .searchShortcut {
+            padding: 4px 8px;
+            background: #4a4a4a;
+            border-radius: 4px;
+            color: #888888;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .headerActions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .signInButton {
+            padding: 10px 24px;
+            background: #5b5bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .signInButton:hover {
+            background: #4a4aee;
+        }
+
+        .menuButton {
+            display: none;
+            padding: 8px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menuIcon {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Mobile Search Modal */
+        .mobileSearchModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .mobileSearchModal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .searchModalContent {
+            background: #2a2a2a;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+        }
+
+        .searchModalHeader {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .searchModalInput {
+            flex: 1;
+            background: #3a3a3a;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            font-size: 16px;
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+
+        .searchModalInput::placeholder {
+            color: #888888;
+        }
+
+        .cancelButton {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .categoryList {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .categoryItem {
+            padding: 16px 20px;
+            color: #ffffff;
+            font-size: 16px;
+            text-decoration: none;
+            border-bottom: 1px solid #3a3a3a;
+            transition: background 0.2s;
+        }
+
+        .categoryItem:hover {
+            background: #3a3a3a;
+        }
+
+        .categoryItem:last-child {
+            border-bottom: none;
+        }
+
+        /* Mobile Menu Overlay - REMOVED, not needed */
+
+        @media (max-width: 1024px) {
+            .navigationMenu {
+                display: none;
+            }
+
+            .searchContainer {
+                display: none;
+            }
+
+            .menuButton {
+                display: block;
+            }
+
+            .headerActions {
+                gap: 12px;
+            }
+
+            .searchIconButton {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .searchIconButton {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mainHeader {
+                padding: 12px 16px;
+            }
+        }
+    </style>
+
+  <style>
+    .top-creators-wrapper {
+    margin-bottom: 48px;
+}
+
+.top-creators-carousel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.creator-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.creator-item:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+    transform: translateY(-2px);
+}
+
+.creator-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.creator-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid #f3f4f6;
+}
+
+.creator-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.creator-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.creator-vol {
+    font-size: 13px;
+    color: #6b7280;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.follow-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    background: transparent;
+    border: 2px solid #e5e7eb;
+    border-radius: 24px;
+    color: #1a1a1a;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.follow-btn:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+.follow-btn .heart {
+    font-size: 16px;
+}
+
+.top-creators-wrapper {
+    margin-bottom: 48px;
+}
+
+.top-creators-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+/* Mobile: stack 3 items */
+@media (max-width: 768px) {
+    .top-creators-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .top-creators-wrapper .creator-item:nth-child(n+4) {
+        display: none; /* only show first 3 on mobile */
+    }
+}
+  </style>
+</head>
+    <header class="mainHeader">
+        <a href="/" class="brandLogo">
+            <div class="logoImage"></div>
+        </a>
+
+        <nav class="navigationMenu">
+            <button class="navDropdown">
+                Explore
+                <svg class="dropdownIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </button>
+            <button class="navDropdown">
+                Resources
+                <svg class="dropdownIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </button>
+        </nav>
+
+        <div class="searchContainer">
+            <svg class="searchIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="text" class="searchInput" placeholder="Search Exchange">
+            <span class="searchShortcut">Ctrl K</span>
+        </div>
+
+        <div class="headerActions">
+            <button class="searchIconButton" onclick="toggleSearch()">
+                <svg class="searchIcon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </button>
+            <button class="signInButton">Sign in</button>
+            <button class="menuButton" onclick="toggleSearch()">
+                <svg class="menuIcon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
     </header>
-    
+
+    <!-- Mobile Search Modal -->
+    <div class="mobileSearchModal" id="searchModal" onclick="closeSearchIfOutside(event)">
+        <div class="searchModalContent" onclick="event.stopPropagation()">
+            <div class="searchModalHeader">
+                <svg class="searchIcon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" class="searchModalInput" placeholder="Search Exchange" autofocus>
+                <button class="cancelButton" onclick="toggleSearch()">Cancel</button>
+            </div>
+            <div class="categoryList">
+                <a href="#" class="categoryItem">Music</a>
+                <a href="#" class="categoryItem">Painting</a>
+                <a href="#" class="categoryItem">Photography</a>
+                <a href="#" class="categoryItem">Physical</a>
+                <a href="#" class="categoryItem">Pixel Art</a>
+                <a href="#" class="categoryItem">Poetry</a>
+                <a href="#" class="categoryItem">Profile Picture</a>
+                <a href="#" class="categoryItem">Sculpture</a>
+                <a href="#" class="categoryItem">Street Art</a>
+                <a href="#" class="categoryItem">Textile Art</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSearch() {
+            const modal = document.getElementById('searchModal');
+            modal.classList.toggle('active');
+        }
+
+        function closeSearchIfOutside(event) {
+            if (event.target.id === 'searchModal') {
+                toggleSearch();
+            }
+        }
+    </script>
     <section class="vx-hero">
         <div class="vx-hero-content">
             <h1>Discover NFTs</h1>
@@ -577,6 +1044,7 @@
     </section>
     
     <main class="vx-main">
+        
         <aside class="vx-sidebar">
             <div class="vx-sidebar-title">
                 <i class="bi bi-funnel"></i> Categories
@@ -623,7 +1091,8 @@
                     </div>
                 </div>
             </div>
-            
+            <h4>Top Artists</h4>
+            <div id="artistsGrid"></div>
             <div class="vx-nft-grid" id="nftGrid">
                 <div class="vx-empty-state">
                     <i class="bi bi-hourglass-split"></i>
@@ -633,210 +1102,378 @@
         </section>
     </main>
     
-    <footer class="vx-footer">
-        <div class="container text-center">
-            <p class="text-white-50 mb-0">2024 Blocktoart. All rights reserved.</p>
+    <footer>
+    <div class="container" style="max-width: 100%; padding: 0;">
+      <div class="footer-header">
+        <div class="footer-logo">
+          <img src="https://ext.same-assets.com/1288399759/1188727251.svg" alt="Exchange.Art">
+          <span class="footer-logo-text">exchange<span>art</span></span>
         </div>
-    </footer>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        let allNFTs = [];
-        let currentCategory = 'all';
-        let likedNFTs = JSON.parse(localStorage.getItem('likedNFTs') || '[]');
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const categoryParam = params.get('category');
-            if (categoryParam) {
-                currentCategory = categoryParam;
-                document.querySelectorAll('.vx-category-item').forEach(item => {
-                    item.classList.toggle('active', item.dataset.category === categoryParam);
-                });
-            }
-            loadNFTs();
-            setupEventListeners();
-        });
-        
-        function setupEventListeners() {
-            document.querySelectorAll('.vx-category-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    document.querySelectorAll('.vx-category-item').forEach(i => i.classList.remove('active'));
-                    item.classList.add('active');
-                    currentCategory = item.dataset.category;
-                    updateURL();
-                    filterAndRender();
-                });
-            });
-            
-            document.getElementById('sortSelect').addEventListener('change', filterAndRender);
-            document.getElementById('minPrice').addEventListener('input', filterAndRender);
-            document.getElementById('maxPrice').addEventListener('input', filterAndRender);
-            
-            document.getElementById('heroSearchInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') performSearch();
-            });
-        }
-        
-        function updateURL() {
-            const url = new URL(window.location);
-            if (currentCategory === 'all') {
-                url.searchParams.delete('category');
-            } else {
-                url.searchParams.set('category', currentCategory);
-            }
-            window.history.pushState({}, '', url);
-        }
-        
-        async function loadNFTs() {
-            try {
-const token = localStorage.getItem('token'); 
-    if (!token) throw new Error('No token found');
+        <div class="theme-toggle">
+          <div class="toggle-switch"></div>
+          Dark
+        </div>
+      </div>
+      <p class="footer-tagline">Collect & sell digital fine art</p>
 
-                const res = await fetch('https://changes-sample.onrender.com/api/marketplace/nfts');
-                if (res.ok) {
-                    allNFTs = await res.json();
-                    filterAndRender();
-                }
-            } catch (err) {
-                console.error('Failed to load NFTs:', err);
-            }
-        }
-        
-        function filterAndRender() {
-            let filtered = [...allNFTs];
-            
-            if (currentCategory !== 'all') {
-                filtered = filtered.filter(n => n.category === currentCategory);
-            }
-            
-            const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
-            const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
-            filtered = filtered.filter(n => {
-                const price = n.price || 0;
-                return price >= minPrice && price <= maxPrice;
-            });
-            
-            const sortValue = document.getElementById('sortSelect').value;
-            switch (sortValue) {
-                case 'oldest':
-                    filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-                    break;
-                case 'price-low':
-                    filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
-                    break;
-                case 'price-high':
-                    filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
-                    break;
-                case 'likes':
-                    filtered.sort((a, b) => (b.likes || 0) - (a.likes || 0));
-                    break;
-                default:
-                    filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            }
-            
-            document.getElementById('resultCount').textContent = filtered.length;
-            const categoryItem = document.querySelector(`.vx-category-item[data-category="${currentCategory}"]`);
-            document.getElementById('categoryName').textContent = categoryItem ? categoryItem.textContent : 'All Categories';
-            
-            renderNFTGrid(filtered);
-        }
-        
-        function renderNFTGrid(nfts) {
-            const grid = document.getElementById('nftGrid');
-            
-            if (nfts.length === 0) {
-                grid.innerHTML = `
-                    <div class="vx-empty-state">
-                        <i class="bi bi-search"></i>
-                        <h4>No NFTs found</h4>
-                        <p>Try adjusting your filters or search terms</p>
-                        <button class="vx-clear-btn" onclick="clearFilters()">Clear All Filters</button>
-                    </div>
-                `;
-                return;
-            }
-            
-            grid.innerHTML = nfts.map(nft => {
-                const isLiked = likedNFTs.includes(nft._id);
-                const statusBadge = nft.status === 'auction' ? 'Auction' : nft.status === 'listed' ? 'For Sale' : '';
-                
-                return `
-                    <a href="artwork.html?id=${nft._id}" class="vx-nft-card" data-testid="card-nft-${nft._id}">
-                        <div class="vx-nft-image-container">
-                            <img src="${nft.imageUrl}" alt="${nft.name}" class="vx-nft-image">
-                            ${statusBadge ? `<span class="vx-nft-badge">${statusBadge}</span>` : ''}
-                            <button class="vx-nft-like ${isLiked ? 'liked' : ''}" onclick="event.preventDefault(); event.stopPropagation(); toggleLike('${nft._id}')" data-testid="button-like-${nft._id}">
-                                <i class="bi bi-heart${isLiked ? '-fill' : ''}"></i>
-                                <div class="vx-likes-count">${nft.likes || 0}</div>
-                            </button>
-                        </div>
-                        <div class="vx-nft-content">
-                            <h6 class="vx-nft-title">${nft.name}</h6>
-                            <p class="vx-nft-creator">by ${nft.creator || 'Unknown'}</p>
-                            <div class="vx-nft-footer">
-                                <div class="vx-nft-price">
-                                    ${nft.price ? nft.price.toFixed(2) + ' ' + (nft.currency || 'ETH') : 'Not listed'}
-                                    <small>Current Price</small>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Marketplace</h4>
+          <ul>
+            <li><a href="#">Artworks</a></li>
+            <li><a href="#">Editions</a></li>
+            <li><a href="#">Series</a></li>
+            <li><a href="#">Profiles</a></li>
+            <li><a href="#">Leaderboards</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">ArtDrop</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Helpdesk</a></li>
+            <li><a href="#">Suggest a feature</a></li>
+            <li><a href="#">Branding</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="#">Sign up</a></li>
+            <li><a href="#">Sign in</a></li>
+            <li><a href="#">Legacy Sign In</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Community</h4>
+          <div class="social-links">
+            <a href="#"><img src="https://ext.same-assets.com/1288399759/2388733996.svg" alt="X"></a>
+            <a href="#"><img src="https://ext.same-assets.com/1288399759/1750959219.svg" alt="YouTube"></a>
+            <a href="#"><img src="https://ext.same-assets.com/1288399759/2443148422.svg" alt="Instagram"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>Copyright 2026 EXCHANGE.ART, All rights reserved</span>
+        <div class="footer-legal">
+          <a href="#">Terms of service</a>
+          <a href="#">Privacy policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // Footer category redirect
+  document.addEventListener('DOMContentLoaded', () => {
+    // Select the specific footer links for Artworks and Auctions
+    const footerLinks = document.querySelectorAll('.footer-column ul li a');
+
+    footerLinks.forEach(link => {
+      const linkText = link.textContent.trim().toLowerCase();
+      if (linkText === 'artworks' || linkText === 'auctions') {
+        link.addEventListener('click', (e) => {
+          e.preventDefault(); // Prevent default anchor behavior
+          const categoryName = link.textContent.trim();
+          const url = `category.html?category=${encodeURIComponent(categoryName)}`;
+          window.location.href = url; // Redirect
+        });
+      }
+    });
+  });
+</script>
+
+    
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    let allNFTs = [];
+    let currentCategory = 'all';
+    let likedNFTs = JSON.parse(localStorage.getItem('likedNFTs') || '[]');
+
+    /* =========================
+       TOP CREATORS (CAROUSEL)
+    ========================== */
+ async function loadTopArtists() {
+    try {
+        const res = await fetch('https://changes-sample.onrender.com/api/users?page=1&limit=9');
+        if (!res.ok) throw new Error('Failed to fetch users');
+
+        const data = await res.json();
+        const users = data.users || [];
+        const grid = document.getElementById('artistsGrid');
+        if (!grid) return;
+
+        // Build a simple grid instead of a carousel
+        grid.innerHTML = `
+            <div class="top-creators-wrapper">
+                <div class="top-creators-grid">
+                    ${users.map(user => `
+                        <div class="creator-item" onclick="goToArtist('${user.username}','${user.email}')">
+                            <div class="creator-left">
+                                <img class="creator-avatar" src="${user.profileImage || 'default-avatar.png'}" alt="${user.username}" />
+                                <div class="creator-meta">
+                                    <div class="creator-name">${user.fullName || user.username || 'Unknown'}</div>
+                                    <div class="creator-vol">
+                                        Vol. $${Number(user.walletBalance || 0).toLocaleString(undefined, {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2
+                                        })}
+                                    </div>
                                 </div>
                             </div>
+                            <button class="follow-btn" onclick="event.stopPropagation(); handleFollow('${user._id}')">
+                                <span class="heart">♡</span> Follow
+                            </button>
                         </div>
-                    </a>
-                `;
-            }).join('');
-        }
-        
-        async function toggleLike(nftId) {
-            const isLiked = likedNFTs.includes(nftId);
-            if (isLiked) {
-                likedNFTs = likedNFTs.filter(id => id !== nftId);
-            } else {
-                likedNFTs.push(nftId);
-            }
-            localStorage.setItem('likedNFTs', JSON.stringify(likedNFTs));
-            
-            const nft = allNFTs.find(n => n._id === nftId);
-            if (nft) {
-                nft.likes = isLiked ? Math.max(0, (nft.likes || 0) - 1) : (nft.likes || 0) + 1;
-            }
-            filterAndRender();
-            
-            try {
-const token = localStorage.getItem('token'); 
-    if (!token) throw new Error('No token found');
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    } catch (err) {
+        console.error('Error loading top artists:', err);
+    }
+}
 
-                await fetch(`https://changes-sample.onrender.com/api/marketplace/nfts/${nftId}/like`, {
-                    method: 'POST',
-                     headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // ✅ Send JWT
-     },
-                    body: JSON.stringify({ unlike: isLiked })
-                });
-            } catch (err) {
-                console.error('Like sync error:', err);
-            }
-        }
-        
-        function clearFilters() {
-            currentCategory = 'all';
-            document.querySelectorAll('.vx-category-item').forEach(i => {
-                i.classList.toggle('active', i.dataset.category === 'all');
+    /* =========================
+       PAGE INIT
+    ========================== */
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1️⃣ Load Top Creators FIRST
+        loadTopArtists();
+
+        // 2️⃣ Handle category from URL
+        const params = new URLSearchParams(window.location.search);
+        const categoryParam = params.get('category');
+        if (categoryParam) {
+            currentCategory = categoryParam;
+            document.querySelectorAll('.vx-category-item').forEach(item => {
+                item.classList.toggle('active', item.dataset.category === categoryParam);
             });
-            document.getElementById('minPrice').value = '';
-            document.getElementById('maxPrice').value = '';
-            document.getElementById('sortSelect').value = 'newest';
-            updateURL();
-            filterAndRender();
         }
+
+        // 3️⃣ Load NFTs
+        loadNFTs();
+
+        // 4️⃣ Setup event listeners
+        setupEventListeners();
+    });
+
+
+     async function handleFollow(params) {
         
-        function performSearch() {
-            const query = document.getElementById('heroSearchInput').value.trim();
-            if (query) {
-                window.location.href = `/marketplace?search=${encodeURIComponent(query)}`;
-            }
+     
+  const userId = localStorage.getItem("userId"); // logged in user
+  const targetUserId = params;   // profile owner id
+
+  const res = await fetch("https://changes-sample.onrender.com/api/users/follow", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ userId, targetUserId })
+  });
+
+  const data = await res.json();
+
+  if (data.following) {
+    followBtn.innerText = "♥ Following";
+  } else {
+    followBtn.innerText = "♡ Follow";
+  }
+};
+    /* =========================
+       EVENT LISTENERS
+    ========================== */
+    function setupEventListeners() {
+        document.querySelectorAll('.vx-category-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.vx-category-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                currentCategory = item.dataset.category;
+                updateURL();
+                filterAndRender();
+            });
+        });
+
+        document.getElementById('sortSelect')?.addEventListener('change', filterAndRender);
+        document.getElementById('minPrice')?.addEventListener('input', filterAndRender);
+        document.getElementById('maxPrice')?.addEventListener('input', filterAndRender);
+
+        document.getElementById('heroSearchInput')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+    }
+
+    function updateURL() {
+        const url = new URL(window.location);
+        if (currentCategory === 'all') {
+            url.searchParams.delete('category');
+        } else {
+            url.searchParams.set('category', currentCategory);
         }
-    </script>
+        window.history.pushState({}, '', url);
+    }
+
+    /* =========================
+       NFT LOADING
+    ========================== */
+    async function loadNFTs() {
+        try {
+            const token = localStorage.getItem('token'); 
+            // if (!token) throw new Error('No token found');
+
+            const res = await fetch('https://changes-sample.onrender.com/api/marketplace/nfts');
+            if (res.ok) {
+                allNFTs = await res.json();
+                filterAndRender();
+            }
+        } catch (err) {
+            console.error('Failed to load NFTs:', err);
+        }
+    }
+
+    function filterAndRender() {
+        let filtered = [...allNFTs];
+
+        if (currentCategory !== 'all') {
+            filtered = filtered.filter(n => n.category === currentCategory);
+        }
+
+        const minPrice = parseFloat(document.getElementById('minPrice')?.value) || 0;
+        const maxPrice = parseFloat(document.getElementById('maxPrice')?.value) || Infinity;
+        filtered = filtered.filter(n => {
+            const price = n.price || 0;
+            return price >= minPrice && price <= maxPrice;
+        });
+
+        const sortValue = document.getElementById('sortSelect')?.value;
+        switch (sortValue) {
+            case 'oldest':
+                filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+                break;
+            case 'price-low':
+                filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
+                break;
+            case 'price-high':
+                filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
+                break;
+            case 'likes':
+                filtered.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+                break;
+            default:
+                filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        }
+
+        const resultCount = document.getElementById('resultCount');
+        if (resultCount) resultCount.textContent = filtered.length;
+
+        const categoryItem = document.querySelector(`.vx-category-item[data-category="${currentCategory}"]`);
+        const categoryName = document.getElementById('categoryName');
+        if (categoryName) categoryName.textContent = categoryItem ? categoryItem.textContent : 'All Categories';
+
+        renderNFTGrid(filtered);
+    }
+
+    function renderNFTGrid(nfts) {
+        const grid = document.getElementById('nftGrid');
+
+        if (!grid) return;
+
+        if (nfts.length === 0) {
+            grid.innerHTML = `
+                <div class="vx-empty-state">
+                    <i class="bi bi-search"></i>
+                    <h4>No NFTs found</h4>
+                    <p>Try adjusting your filters or search terms</p>
+                    <button class="vx-clear-btn" onclick="clearFilters()">Clear All Filters</button>
+                </div>
+            `;
+            return;
+        }
+
+        grid.innerHTML = nfts.map(nft => {
+            const isLiked = likedNFTs.includes(nft._id);
+            const statusBadge = nft.status === 'auction' ? 'Auction' : nft.status === 'listed' ? 'For Sale' : '';
+
+            return `
+                <a href="artwork.html?id=${nft._id}" class="vx-nft-card" data-testid="card-nft-${nft._id}">
+                    <div class="vx-nft-image-container">
+                        <img src="${nft.imageUrl}" alt="${nft.name}" class="vx-nft-image">
+                        ${statusBadge ? `<span class="vx-nft-badge">${statusBadge}</span>` : ''}
+                        <button class="vx-nft-like ${isLiked ? 'liked' : ''}" onclick="event.preventDefault(); event.stopPropagation(); toggleLike('${nft._id}')" data-testid="button-like-${nft._id}">
+                            <i class="bi bi-heart${isLiked ? '-fill' : ''}"></i>
+                            <div class="vx-likes-count">${nft.likes || 0}</div>
+                        </button>
+                    </div>
+                    <div class="vx-nft-content">
+                        <h6 class="vx-nft-title">${nft.name}</h6>
+                        <p class="vx-nft-creator">by ${nft.creator || 'Unknown'}</p>
+                        <div class="vx-nft-footer">
+                            <div class="vx-nft-price">
+                                ${nft.price ? nft.price.toFixed(2) + ' ' + (nft.currency || 'ETH') : 'Not listed'}
+                                <small>Current Price</small>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            `;
+        }).join('');
+    }
+
+    async function toggleLike(nftId) {
+        const isLiked = likedNFTs.includes(nftId);
+        if (isLiked) {
+            likedNFTs = likedNFTs.filter(id => id !== nftId);
+        } else {
+            likedNFTs.push(nftId);
+        }
+        localStorage.setItem('likedNFTs', JSON.stringify(likedNFTs));
+
+        const nft = allNFTs.find(n => n._id === nftId);
+        if (nft) {
+            nft.likes = isLiked ? Math.max(0, (nft.likes || 0) - 1) : (nft.likes || 0) + 1;
+        }
+        filterAndRender();
+
+        try {
+            const token = localStorage.getItem('token'); 
+            if (!token) throw new Error('No token found');
+
+            await fetch(`https://changes-sample.onrender.com/api/marketplace/nfts/${nftId}/like`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ unlike: isLiked })
+            });
+        } catch (err) {
+            console.error('Like sync error:', err);
+        }
+    }
+
+    function clearFilters() {
+        currentCategory = 'all';
+        document.querySelectorAll('.vx-category-item').forEach(i => {
+            i.classList.toggle('active', i.dataset.category === 'all');
+        });
+        document.getElementById('minPrice').value = '';
+        document.getElementById('maxPrice').value = '';
+        document.getElementById('sortSelect').value = 'newest';
+        updateURL();
+        filterAndRender();
+    }
+
+    function performSearch() {
+        const query = document.getElementById('heroSearchInput')?.value.trim();
+        if (query) {
+            window.location.href = `/marketplace?search=${encodeURIComponent(query)}`;
+        }
+    }
+</script>
+
 <!-- Smartsupp Live Chat script -->
 <!-- Smartsupp Live Chat script -->
 <script type="text/javascript">

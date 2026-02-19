@@ -535,6 +535,124 @@ body {
 }
 
 /* ================= Panels ================= */
+/* ================= MOBILE PROFILE (EXACT OPENSEA STYLE) ================= */
+@media (max-width: 768px) {
+
+  /* Main wrapper becomes card-like */
+  .profileDesktop {
+    margin-top: -60px;
+    padding: 0 16px 40px;
+  }
+
+  .profileTopRow {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+    border-radius: 24px;
+    padding: 24px 18px 28px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+  }
+
+  /* Hide desktop side sections */
+  .profileLeftActions {
+    order: 2;
+    margin-top: 10px;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .profileRightStats {
+    order: 4;
+    margin-top: 18px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  /* Avatar */
+  .avatarLarge {
+    width: 90px;
+    height: 90px;
+    margin: -45px auto 12px;
+    border: 5px solid #fff;
+  }
+
+  /* Name */
+  .profileName {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  /* Bio */
+  .profileBio {
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.6;
+    max-width: 320px;
+    margin: 0 auto 8px;
+  }
+
+  /* Follow + Wallets row style */
+  .profileLeftActions .actionBtn {
+    font-size: 15px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  /* Stats like screenshot */
+  .statBlock {
+    align-items: center;
+  }
+
+  .statValue {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .statLabel {
+    font-size: 13px;
+    color: #9ca3af;
+  }
+
+  /* Buttons row */
+  .mainButtons {
+    order: 5;
+    flex-direction: row;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 22px;
+    width: 100%;
+  }
+
+  /* Shop button (purple gradient like screenshot) */
+  .primaryBtn {
+    flex: 1;
+    max-width: 160px;
+    padding: 14px 0;
+    border-radius: 16px;
+    font-size: 16px;
+    box-shadow: 0 10px 24px rgba(92,84,249,0.35);
+  }
+
+  /* Exhibition button (light pill) */
+  .secondaryBtn {
+    flex: 1;
+    max-width: 160px;
+    padding: 14px 0;
+    border-radius: 16px;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+    font-weight: 600;
+  }
+
+  /* Tabs spacing under card */
+  .marketTabsWrapper {
+    margin-top: 24px;
+  }
+}
 
 .tabPanel {
   display: none;
@@ -633,6 +751,10 @@ let allNFTs = [];
 let allCollections = [];
 let collectionNFTImages = {};
 let allAuctions = [];
+let followers = '';
+let following = '';
+let volumeSold = '';
+
 
 /* ================= DOM LOAD ================= */
 document.addEventListener('DOMContentLoaded', async () => {
@@ -662,6 +784,29 @@ function showError(message) {
         </div>
     `;
 }
+
+const followBtn = document.getElementById("followBtn");
+
+followBtn.addEventListener("click", async () => {
+  const userId = localStorage.getItem("userId"); // logged in user
+  const targetUserId = "PROFILE_USER_ID_HERE";   // profile owner id
+
+  const res = await fetch("https://changes-sample.onrender.com/api/users/follow", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ userId, targetUserId })
+  });
+
+  const data = await res.json();
+
+  if (data.following) {
+    followBtn.innerText = "♥ Following";
+  } else {
+    followBtn.innerText = "♡ Follow";
+  }
+});
 
 /* ================= LOAD ARTIST NFTS ================= */
 async function loadArtistProfile() {
@@ -695,9 +840,9 @@ function renderProfile() {
             </div>
         </div>
         <div class="profileRightStats">
-            <div class="statBlock"><span class="statLabel">Followers</span><span class="statValue">8</span></div>
-            <div class="statBlock"><span class="statLabel">Following</span><span class="statValue">5</span></div>
-            <div class="statBlock"><span class="statLabel">Volume sold</span><span class="statValue">$195.30</span></div>
+            <div class="statBlock"><span class="statLabel">Followers</span><span class="statValue">${followers}</span></div>
+            <div class="statBlock"><span class="statLabel">Following</span><span class="statValue">${following}</span></div>
+            <div class="statBlock"><span class="statLabel">Volume sold</span><span class="statValue">${volumeSold}</span></div>
         </div>
     </div>
 
@@ -839,21 +984,35 @@ function renderCollections() {
 
 /* ================= ALL NFTs ================= */
 function renderNFTs() {
-    const container = document.getElementById('nftsContainer');
+    const container = document.getElementById("nftsContainer");
+
+    // artistNFTs is already filtered during loadArtistProfile()
+    if (!artistNFTs || !artistNFTs.length) {
+        container.innerHTML = `<div class="emptyState">No artworks found</div>`;
+        return;
+    }
+
     container.innerHTML = artistNFTs.map(nft => renderArtworkCard(nft)).join('');
 }
 
 function renderArtworkCard(nft) {
+    const image = nft.imageUrl || 'https://via.placeholder.com/400';
+    const title = nft.name || 'Untitled Artwork';
+    const price = nft.price 
+        ? `${Number(nft.price).toFixed(2)} ${nft.currency || 'SOL'}` 
+        : 'Not listed';
+
     return `
         <div class="artworkCard" onclick="window.location.href='artwork.html?id=${nft._id}'">
-            <div class="artworkImage" style="background-image:url('${nft.imageUrl}')"></div>
+            <div class="artworkImage" style="background-image:url('${image}')"></div>
             <div class="artworkDetails">
-                <div class="artworkTitle">${nft.name}</div>
-                <div class="artworkPrice">${nft.price ? nft.price.toFixed(2)+' '+(nft.currency||'SOL'):'Not listed'}</div>
+                <div class="artworkTitle">${title}</div>
+                <div class="artworkPrice">${price}</div>
             </div>
         </div>
     `;
 }
+
 
 /* ================= AUCTIONS ================= */
 async function loadAuctions() {

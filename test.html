@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Photography</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  body {
+    background: #f5f6f8;
+    color: #111;
+  }
+
+  /* HERO */
+  .hero {
+    width: 100%;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-title {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 42px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.5px;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 24px 20px 40px;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+  }
+
+  .section-header h2 {
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .view-more {
+    font-size: 18px;
+    color: #4f5dff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* CREATOR LIST */
+  .creator-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .creator-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .creator-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .creator-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .creator-name {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+
+  .creator-vol {
+    font-size: 16px;
+    color: #6b7280;
+  }
+
+  /* FOLLOW BUTTON */
+  .follow-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+    background: #f1f2f4;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .follow-btn:hover {
+    background: #e7e9ee;
+  }
+
+  .heart {
+    font-size: 20px;
+  }
+
+  /* MOBILE OPTIMIZATION */
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 36px;
+    }
+
+    .creator-name {
+      font-size: 18px;
+    }
+
+    .follow-btn {
+      padding: 10px 16px;
+      font-size: 16px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" alt="Photography Banner">
+  <div class="hero-title">Photography</div>
+</section>
+
+<!-- TOP CREATORS -->
+<section class="section">
+  <div class="section-header">
+    <h2>Top Creators</h2>
+    <a href="#" class="view-more">View more →</a>
+  </div>
+
+  <div class="creator-list">
+
+    <!-- Creator 1 -->
+    <div class="creator-card">
+      <div class="creator-left">
+        <img class="avatar" src="https://i.pravatar.cc/100?img=5" />
+        <div class="creator-info">
+          <div class="creator-name">Cath Simard</div>
+          <div class="creator-vol">Vol. $164,871.71</div>
+        </div>
+      </div>
+      <button class="follow-btn">
+        <span class="heart">♡</span> Follow
+      </button>
+    </div>
+
+    <!-- Creator 2 -->
+    <div class="creator-card">
+      <div class="creator-left">
+        <img class="avatar" src="https://i.pravatar.cc/100?img=12" />
+        <div class="creator-info">
+          <div class="creator-name">Ilan Derech</div>
+          <div class="creator-vol">Vol. $64,721.09</div>
+        </div>
+      </div>
+      <button class="follow-btn">
+        <span class="heart">♡</span> Follow
+      </button>
+    </div>
+
+    <!-- Creator 3 -->
+    <div class="creator-card">
+      <div class="creator-left">
+        <img class="avatar" src="https://i.pravatar.cc/100?img=20" />
+        <div class="creator-info">
+          <div class="creator-name">7 Swords</div>
+          <div class="creator-vol">Vol. $33,176.64</div>
+        </div>
+      </div>
+      <button class="follow-btn">
+        <span class="heart">♡</span> Follow
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Optional: Toggle follow UI instantly
+  document.querySelectorAll(".follow-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (btn.innerText.includes("Follow")) {
+        btn.innerHTML = '<span class="heart">♥</span> Following';
+      } else {
+        btn.innerHTML = '<span class="heart">♡</span> Follow';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

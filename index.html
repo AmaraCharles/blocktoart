@@ -67,7 +67,7 @@
 
     /* Header */
     header {
-      /* padding: 6px 20px; */
+      padding: 10px 20px !important;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1294,6 +1294,20 @@
                 toggleSearch();
             }
         }
+
+         // Wait for the DOM to load
+    document.addEventListener('DOMContentLoaded', () => {
+        const categoryLinks = document.querySelectorAll('.categoryItem');
+
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent the default anchor behavior
+                const categoryName = link.textContent.trim(); // Get the text inside the link
+                const url = `category.html?category=${encodeURIComponent(categoryName)}`;
+                window.location.href = url; // Redirect to category.html with parameter
+            });
+        });
+    });
     </script>
 
   <!-- Hero Section -->
@@ -3774,7 +3788,7 @@ async function renderGemsCard() {
         if (!res.ok) throw new Error('Failed to fetch NFTs');
         const allNFTs = await res.json();
 
-        const nftsToDisplay = allNFTs.slice(40, 60);
+        const nftsToDisplay = allNFTs.slice(40, 49);
 
         const grid = document.getElementById('gems');
 
@@ -3900,7 +3914,7 @@ async function renderFeaturedCard() {
         if (!res.ok) throw new Error('Failed to fetch NFTs');
         const allNFTs = await res.json();
 
-        const nftsToDisplay = allNFTs.slice(20, 40);
+        const nftsToDisplay = allNFTs.slice(20, 29);
         const grid = document.getElementById('featured');
 
         grid.innerHTML = nftsToDisplay.map(nft => {
@@ -3912,7 +3926,7 @@ async function renderFeaturedCard() {
                     </div>
                 `).join('')
                 : `<div class="xCard__creator">
-                        <img src="default-avatar.png" alt="${nft.creator || 'unknown'}" class="xCard__avatar">
+                       
                         <span class="xCard__handle">@${nft.creator || 'unknown'}</span>
                    </div>`;
 

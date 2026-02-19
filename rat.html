@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top Creators</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f8f8f8;
+    padding: 20px;
+}
+
+.top-creators-wrapper {
+    position: relative;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.top-creators-carousel {
+    display: flex;
+    gap: 12px;
+}
+
+.creator-item {
+    flex: 0 0 auto;
+    width: 200px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.creator-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.creator-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.creator-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.creator-name {
+    font-weight: bold;
+}
+
+.creator-vol {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.follow-btn {
+    margin-top: 10px;
+    padding: 6px 10px;
+    border: none;
+    background: #ff4d4d;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.follow-btn .heart {
+    margin-right: 4px;
+}
+
+.carousel-dots {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    margin: 0 4px;
+    background: #ccc;
+    cursor: pointer;
+}
+
+.carousel-dot.active {
+    background: #ff4d4d;
+}
+</style>
+</head>
+<body>
+
+
+
+
+
+    <style>
+:root {
+    --vx-primary: #155dfc;
+    --vx-primary-hover: #4871ed;
+    --vx-blue: #2bc4cf;
+    --vx-dark: #1a1a2e;
+    --vx-light: #f8fafc;
+    --vx-card-bg: #ffffff;
+    --vx-border: #e2e8f0;
+    --vx-text: #1e293b;
+    --vx-text-muted: #64748b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #ffffff;
+    color: var(--vx-text);
+}
+
+/* ===== Header ===== */
+.mainHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 32px 16px 32px;
+    background: #333333;
+    gap: 24px;
+    position: relative;
+}
+.brandLogo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    z-index: 1001;
+}
+.logoImage {
+    height: 40px;
+    width: 40px;
+    background: #ffffff;
+    border-radius: 8px;
+}
+.navigationMenu {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+.navDropdown {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    background: transparent;
+    border: none;
+}
+.navDropdown:hover { color: #a0a0a0; }
+.dropdownIcon { width: 16px; height: 16px; transition: transform 0.2s; }
+.navDropdown:hover .dropdownIcon { transform: rotate(180deg); }
+.searchContainer {
+    flex: 1;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    padding: 10px 16px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+.searchContainer:focus-within { background: #4a4a4a; }
+.searchIcon { width: 20px; height: 20px; opacity: 0.6; }
+.searchInput { flex: 1; background: transparent; border: none; outline: none; color: #ffffff; font-size: 15px; }
+.searchInput::placeholder { color: #888888; }
+.searchShortcut { padding: 4px 8px; background: #4a4a4a; border-radius: 4px; color: #888888; font-size: 13px; font-weight: 500; }
+.headerActions { display: flex; align-items: center; gap: 16px; }
+.signInButton {
+    padding: 10px 24px;
+    background: #5b5bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.signInButton:hover { background: #4a4aee; }
+.menuButton { display: none; padding: 8px; background: transparent; border: none; cursor: pointer; z-index: 1001; }
+.menuIcon { width: 24px; height: 24px; }
+
+/* Mobile Search Modal */
+.mobileSearchModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    padding: 20px;
+}
+.mobileSearchModal.active { display: flex; flex-direction: column; }
+.searchModalContent {
+    background: #2a2a2a;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+    margin: 20px auto;
+}
+.searchModalHeader { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.searchModalInput { flex: 1; background: #3a3a3a; border: none; outline: none; color: #ffffff; font-size: 16px; padding: 12px 16px; border-radius: 8px; }
+.searchModalInput::placeholder { color: #888888; }
+.cancelButton { background: transparent; border: none; color: #ffffff; font-size: 15px; cursor: pointer; padding: 8px; }
+.categoryList { display: flex; flex-direction: column; gap: 0; }
+.categoryItem {
+    padding: 16px 20px;
+    color: #ffffff;
+    font-size: 16px;
+    text-decoration: none;
+    border-bottom: 1px solid #3a3a3a;
+    transition: background 0.2s;
+}
+.categoryItem:hover { background: #3a3a3a; }
+.categoryItem:last-child { border-bottom: none; }
+
+/* ===== Hero Section ===== */
+.vx-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    color: white;
+    text-align: center;
+    padding: 4rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+.vx-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('https://images.unsplash.com/photo-1634973357973-f2ed2657db3c?w=1600&auto=format&fit=crop') center/cover;
+    opacity: 0.3;
+}
+.vx-hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.vx-hero h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; }
+.vx-hero p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; line-height: 1.6; }
+.vx-hero-search { display: flex; max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+.vx-hero-search input { flex: 1; padding: 1rem 1.5rem; border: none; font-size: 1rem; color: var(--vx-text); }
+.vx-hero-search button { padding: 1rem 2rem; background: var(--vx-blue); border: none; color: white; font-weight: 600; cursor: pointer; }
+.vx-hero-search button:hover { background: #2563eb; }
+
+/* ===== Main Content ===== */
+.vx-main { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem; display: grid; grid-template-columns: 280px 1fr; gap: 2rem; }
+.vx-sidebar {
+    background: white;
+    border: 1px solid var(--vx-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+.vx-sidebar-title { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1rem; margin-bottom: 1rem; color: var(--vx-text); }
+.vx-category-list { list-style: none; padding: 0; margin: 0 0 2rem; }
+.vx-category-item { padding: 0.75rem 1rem; border-radius: 8px; cursor: pointer; transition: all 0.2s; color: var(--vx-text); font-weight: 500; }
+.vx-category-item:hover { background: var(--vx-light); }
+.vx-category-item.active { background: #dbeafe; color: var(--vx-blue); }
+
+/* Results & NFT Grid */
+.vx-results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+.vx-results-count { font-size: 1rem; color: var(--vx-text-muted); }
+.vx-results-count span { color: var(--vx-blue); font-weight: 600; }
+.vx-sort-select { padding: 0.5rem 1rem; border: 1px solid var(--vx-border); border-radius: 8px; font-size: 0.9rem; background: white; }
+.vx-nft-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+.vx-nft-card { background: white; border: 1px solid var(--vx-border); border-radius: 16px; overflow: hidden; transition: all 0.2s; cursor: pointer; text-decoration: none; color: inherit; display: block; }
+.vx-nft-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+.vx-nft-image-container { position: relative; padding-top: 100%; overflow: hidden; }
+.vx-nft-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.vx-nft-card:hover .vx-nft-image { transform: scale(1.05); }
+.vx-nft-content { padding: 1rem; }
+.vx-nft-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vx-nft-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 0.75rem; border-top: 1px solid var(--vx-border); }
+.vx-nft-price { font-weight: 700; font-size: 0.9rem; }
+.vx-buy-btn { background: var(--vx-blue); color: white; border: none; padding: 0.4rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer; }
+.vx-buy-btn:hover { background: #2563eb; }
+
+/* Footer */
+.vx-footer { background: var(--vx-dark); color: white; padding: 3rem 0; margin-top: 4rem; }
+.vx-footer a { color: rgba(255,255,255,0.7); text-decoration: none; margin-right: 1.5rem; }
+
+@media (max-width: 992px) {
+    .vx-main { grid-template-columns: 1fr; }
+    .vx-sidebar { order: 2; }
+}
+@media (max-width: 768px) {
+    .mainHeader { padding: 12px 16px; }
+    .navigationMenu { display: none; }
+    .searchContainer { display: none; }
+    .menuButton { display: block; }
+}
+</style>
+</head>
+<body>
+<header class="mainHeader">
+    <a href="/" class="brandLogo"><div class="logoImage"></div></a>
+    <nav class="navigationMenu">
+        <button class="navDropdown">
+            Explore
+            <svg class="dropdownIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <button class="navDropdown">
+            Resources
+            <svg class="dropdownIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+    </nav>
+    <div class="searchContainer">
+        <svg class="searchIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+        </svg>
+        <input type="text" class="searchInput" placeholder="Search Exchange">
+        <span class="searchShortcut">Ctrl K</span>
+    </div>
+    <div class="headerActions">
+        <button class="searchIconButton" onclick="toggleSearch()">
+            <svg class="searchIcon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+        </button>
+        <button class="signInButton">Sign in</button>
+        <button class="menuButton" onclick="toggleSearch()">
+            <svg class="menuIcon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+</header>
+
+<!-- Mobile Search Modal -->
+<div class="mobileSearchModal" id="searchModal" onclick="closeSearchIfOutside(event)">
+    <div class="searchModalContent" onclick="event.stopPropagation()">
+        <div class="searchModalHeader">
+            <svg class="searchIcon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="text" class="searchModalInput" placeholder="Search Exchange" autofocus>
+            <button class="cancelButton" onclick="toggleSearch()">Cancel</button>
+        </div>
+        <div class="categoryList">
+            <a href="#" class="categoryItem">Music</a>
+            <a href="#" class="categoryItem">Painting</a>
+            <a href="#" class="categoryItem">Photography</a>
+            <a href="#" class="categoryItem">Physical</a>
+            <a href="#" class="categoryItem">Pixel Art</a>
+            <a href="#" class="categoryItem">Poetry</a>
+            <a href="#" class="categoryItem">Profile Picture</a>
+            <a href="#" class="categoryItem">Sculpture</a>
+            <a href="#" class="categoryItem">Street Art</a>
+            <a href="#" class="categoryItem">Textile Art</a>
+        </div>
+    </div>
+</div>
+
+<section class="vx-hero">
+    <div class="vx-hero-content">
+        <h1>Discover NFTs</h1>
+        <p>Explore unique digital assets across all categories. Find your next collectible, artwork, or investment in our curated marketplace.</p>
+        <div class="vx-hero-search">
+            <input type="text" id="heroSearchInput" placeholder="Search NFTs, collections, or creators...">
+            <button onclick="performSearch()">Search</button>
+        </div>
+    </div>
+</section>
+
+<main class="vx-main">
+    <aside class="vx-sidebar">
+        <div class="vx-sidebar-title"><i class="bi bi-funnel"></i> Categories</div>
+        <ul class="vx-category-list" id="categoryList">
+            <li class="vx-category-item active" data-category="all">All Categories</li>
+            <li class="vx-category-item" data-category="Art">Art</li>
+            <li class="vx-category-item" data-category="Photography">Photography</li>
+            <li class="vx-category-item" data-category="Music">Music</li>
+            <li class="vx-category-item" data-category="Video">Animated</li>
+        </ul>
+        <div class="vx-price-range">
+            <h6>Price Range</h6>
+            <div class="vx-price-inputs" style="display:flex;flex-direction: column;">
+                <input type="number" id="minPrice" placeholder="Min WETH">
+                <input type="number" id="maxPrice" placeholder="Max WETH" >
+            </div>
+        </div>
+    </aside>
+    <section class="vx-results">
+        <div class="vx-results-header">
+            <div class="vx-results-count">
+                Showing <span id="resultCount">0</span> results in <strong id="categoryName">All Categories</strong>
+            </div>
+            <div class="vx-results-actions">
+                <select class="vx-sort-select" id="sortSelect">
+                    <option value="newest">Most Recent</option>
+                    <option value="oldest">Oldest</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="likes">Most Liked</option>
+                </select>
+            </div>
+        </div>
+
+<h2>Top Creators</h2>
+<div id="artistsGrid"></div>
+
+<script>
+async function loadTopArtists() {
+    try {
+        const res = await fetch('https://changes-sample.onrender.com/api/users?page=1&limit=9');
+        if (!res.ok) throw new Error('Failed to fetch users');
+
+        const data = await res.json();
+        const users = data.users || [];
+        const grid = document.getElementById('artistsGrid');
+
+        if (!grid) return;
+
+        grid.innerHTML = `
+            <div class="top-creators-wrapper">
+                <div class="top-creators-carousel">
+                    ${users.map(user => `
+                        <div class="creator-item" onclick="goToArtist('${user.username}','${user.email}')">
+                            <div class="creator-left">
+                                <img class="creator-avatar" src="${user.profileImage || 'default-avatar.png'}" alt="${user.username}">
+                                <div class="creator-meta">
+                                    <div class="creator-name">${user.fullName || user.username || 'Unknown'}</div>
+                                    <div class="creator-vol">Vol. $${Number(user.walletBalance || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</div>
+                                </div>
+                            </div>
+                            <button class="follow-btn" onclick="event.stopPropagation(); handleFollow('${user._id}')">
+                                <span class="heart">♡</span> Follow
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+
+        initTopCreatorsCarousel();
+        autoSlideCarousel();
+    } catch(err) {
+        console.error('Error loading top artists:', err);
+    }
+}
+
+function initTopCreatorsCarousel() {
+    const carousel = document.querySelector('.top-creators-carousel');
+    if (!carousel) return;
+
+    const items = carousel.querySelectorAll('.creator-item');
+    if (items.length === 0) return;
+
+    const wrapper = carousel.parentElement;
+    let dotsContainer = wrapper.querySelector('.carousel-dots');
+    
+    if (!dotsContainer) {
+        dotsContainer = document.createElement('div');
+        dotsContainer.className = 'carousel-dots';
+        wrapper.appendChild(dotsContainer);
+    }
+
+    dotsContainer.innerHTML = '';
+    items.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot';
+        if (index === 0) dot.classList.add('active');
+        dot.dataset.index = index;
+        dot.addEventListener('click', () => {
+            const itemWidth = items[0].offsetWidth + 12;
+            carousel.scrollTo({ left: itemWidth * index, behavior: 'smooth' });
+        });
+        dotsContainer.appendChild(dot);
+    });
+
+    carousel.addEventListener('scroll', () => {
+        const itemWidth = items[0].offsetWidth + 12;
+        const activeIndex = Math.round(carousel.scrollLeft / itemWidth);
+        dotsContainer.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+            dot.classList.toggle('active', index === activeIndex);
+        });
+    });
+}
+
+function autoSlideCarousel() {
+    const carousel = document.querySelector('.top-creators-carousel');
+    if (!carousel) return;
+
+    const items = carousel.querySelectorAll('.creator-item');
+    if (items.length <= 1) return;
+
+    let index = 0;
+    setInterval(() => {
+        index = (index + 1) % items.length;
+        const itemWidth = items[0].offsetWidth + 12;
+        carousel.scrollTo({ left: itemWidth * index, behavior: 'smooth' });
+
+        // update dots
+        const dots = document.querySelectorAll('.carousel-dot');
+        if (dots.length) dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    }, 3000);
+}
+
+// Placeholder functions
+function goToArtist(username, email) {
+    alert(`Go to artist: ${username}`);
+}
+function handleFollow(userId) {
+    alert(`Follow user: ${userId}`);
+}
+
+document.addEventListener('DOMContentLoaded', loadTopArtists);
+</script>
+
+</body>
+</html>
