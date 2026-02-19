@@ -162,7 +162,28 @@
       margin-bottom: 24px;
        background-image: url("./spotlight-smoke.png");
     }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      
+.hero {
+      text-align: center;
+      padding: 30px 20px 60px;
+     
+       background-image: url("./rectangles-dark.png");
+    }
 
+    .hero h1 {
+      font-family: 'Lovechild', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(50px, 8vw, 70px);
+      line-height: 1.1;
+      margin-bottom: 24px;
+       background-image: url("./spotlight-smoke.png");
+    }
+
+    }
     .btn-explore {
       display: inline-block;
       background: var(--accent-blue);
@@ -1319,7 +1340,7 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <h1>Collect, Create & Sell<br>a Piece of History</h1>
+    <h1>Collect, Create <br>& Sell a Piece of<br> History</h1>
     <a href="./marketplace.html" class="btn-explore">Explore artwork</a>
   </section>
 
