@@ -542,6 +542,8 @@
             margin-right: 1.5rem;
         }
     </style>
+<link rel="stylesheet" href="./footer.css">
+
 </head>
 <body>
     <!-- <header class="vx-header">
@@ -946,6 +948,8 @@
     }
 }
   </style>
+<link rel="stylesheet" href="./footer.css">
+
 </head>
     <header class="mainHeader">
         <a href="/" class="brandLogo">
@@ -1002,7 +1006,10 @@
                     <circle cx="11" cy="11" r="8"></circle>
                     <path d="m21 21-4.35-4.35"></path>
                 </svg>
-                <input type="text" class="searchModalInput" placeholder="Search Exchange" autofocus>
+                <input type="text" class="searchModalInput" placeholder="Search Exchange" id="searchInput" autofocus>
+                <button class="cancelButton" onclick="toggleSearch()">Cancel</button>
+
+ <input type="text" class="searchModalInput" placeholder="Search Exchange" id="searchInput" autofocus>
                 <button class="cancelButton" onclick="toggleSearch()">Cancel</button>
             </div>
             <div class="categoryList">

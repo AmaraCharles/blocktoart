@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="./footer.css">
+
 </head>
 <body>
 
@@ -736,8 +738,8 @@ body {
   </div>
 </header>
 
-<section class="cover">
-  <img src="../backblue.gif" alt="cover">
+<section class="cover" id="coverage" >
+ 
 </section>
 
 <!-- IMPORTANT: Script renders inside here -->
@@ -754,7 +756,7 @@ let allAuctions = [];
 let followers = '';
 let following = '';
 let volumeSold = '';
-
+let artistMage=''
 
 /* ================= DOM LOAD ================= */
 document.addEventListener('DOMContentLoaded', async () => {
@@ -808,6 +810,46 @@ followBtn.addEventListener("click", async () => {
   }
 });
 
+async function loadArtistProfileAvatar() {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token found");
+
+    const params = new URLSearchParams(window.location.search);
+    const username = params.get("name");
+
+    if (!username) throw new Error("No username in URL");
+
+    const res = await fetch(
+      `https://changes-sample.onrender.com/api/user/avatar/${encodeURIComponent(username)}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!res.ok) throw new Error("Failed to load avatar");
+
+    const data = await res.json();
+    const coverageEl = document.getElementById("coverage");
+
+    if (!coverageEl) return;
+
+    coverageEl.innerHTML = `
+      <img 
+        src="${data.profileImage || 'default-avatar.png'}" 
+        alt="${username}" 
+        class="artist-cover-img"
+      >
+    `;
+  } catch (err) {
+    console.error("Avatar load error:", err);
+  }
+}
+
 /* ================= LOAD ARTIST NFTS ================= */
 async function loadArtistProfile() {
     const res = await fetch('https://changes-sample.onrender.com/api/marketplace/nfts');
@@ -823,11 +865,12 @@ async function loadArtistProfile() {
 
 /* ================= RENDER PROFILE ================= */
 function renderProfile() {
+   
     document.getElementById("pageContent").innerHTML = `
 <section class="profileDesktop">
     <div class="profileTopRow">
         <div class="profileLeftActions">
-            <button class="actionBtn">♡ Follow</button>
+            <button class="actionBtn" id='followBtn'>♡ Follow</button>
             <button class="actionBtn" id="exhibitionBtn">Exhibition</button>
             <button class="iconBtn">↗</button>
         </div>
@@ -1082,6 +1125,10 @@ function getTimeLeft(endTime) {
         seconds: Math.floor((diff / 1000) % 60)
     };
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadArtistProfileAvatar();
+});
 </script>
 
 
