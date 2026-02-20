@@ -1622,8 +1622,8 @@
         display: flex;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
-        gap: 16px;
-        padding: var(--nft-gap-xl);
+        gap: 14px;
+        padding: 16px;
         scrollbar-width: none;
         -ms-overflow-style: none;
         margin: 0;
@@ -1634,21 +1634,36 @@
     }
     
     .nftCardItem {
-        min-width: var(--nft-card-min-mobile);
+        min-width: 78%;        /* ⬅️ was 85% (too wide) */
+        max-width: 78%;
         scroll-snap-align: center;
         margin-top: 0 !important;
         flex-shrink: 0;
+        border-radius: 14px;
+    }
+    
+    .nftCardBody {
+        padding: 16px; /* slightly tighter spacing for mobile */
+    }
+    
+    .nftCardHeading {
+        font-size: 18px; /* better mobile typography */
+    }
+    
+    .nftPriceAmount {
+        font-size: 16px;
     }
     
     .nftCardVisual {
-        height: var(--nft-img-height-mobile);
+        height: 240px; /* smaller image = less bulky card */
+        border-radius: 10px;
     }
     
     .nftCarouselDots {
         display: flex;
+        margin-top: 16px;
     }
-}
-  </style>
+}  </style>
 
   <div id="explore2">
     <!-- NFT cards go here -->
