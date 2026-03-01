@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./navbar.js"></script>
+
+    <link rel="stylesheet" href="./navbar.css">
+</head>
+<body>
+
+    <header class="mainHeader">
+
+    <!-- LOGO -->
+    <a href="index.html" class="brandLogo">
+        <img src="logo.png" alt="Logo" class="logoImage">
+    </a>
+
+    <!-- DESKTOP NAVIGATION -->
+    <nav class="navigationMenu">
+        <button class="navDropdown">
+            Explore
+            <svg class="dropdownIcon" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"/>
+            </svg>
+        </button>
+
+        <button class="navDropdown">
+            Artists
+            <svg class="dropdownIcon" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"/>
+            </svg>
+        </button>
+    </nav>
+
+    <!-- DESKTOP SEARCH -->
+    <div class="searchContainer">
+        <input
+            type="text"
+            id="searchInput"
+            class="searchInput"
+            placeholder="Search artworks, artists..."
+        >
+        <span class="searchShortcut">Ctrl + K</span>
+
+        <div id="searchDropdown" class="vx-search-dropdown"></div>
+    </div>
+
+    <!-- MOBILE SEARCH BUTTON -->
+    <button class="searchIconButton" onclick="toggleSearch()">
+        🔍
+    </button>
+
+</header>
+
+<!-- =========================
+     MOBILE SEARCH MODAL
+========================= -->
+
+<div id="searchModal" class="mobileSearchModal" onclick="closeSearchIfOutside(event)">
+
+    <div class="searchModalContent">
+
+        <!-- SEARCH INPUT -->
+        <div style="display:flex; gap:10px; align-items:center;">
+            <input
+                type="text"
+                id="searchInput2"
+                class="searchModalInput"
+                placeholder="Search artworks, artists..."
+            >
+            <button onclick="toggleSearch()">✕</button>
+        </div>
+
+        <!-- SEARCH DROPDOWN -->
+        <div id="searchDropdown2" class="vx-search-dropdown"></div>
+
+        <!-- CATEGORIES -->
+        <div style="margin-top: 20px;">
+            <a href="#" class="categoryItem">Digital Art</a>
+            <a href="#" class="categoryItem">Photography</a>
+            <a href="#" class="categoryItem">3D Art</a>
+            <a href="#" class="categoryItem">AI Generated</a>
+            <a href="#" class="categoryItem">Abstract</a>
+        </div>
+
+    </div>
+
+</div>
+    
+</body>
+</html>

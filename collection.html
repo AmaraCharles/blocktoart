@@ -1681,7 +1681,7 @@
                 </svg>
             </button>
             <button class="navDropdown" onclick="window.location.href='allcollections.html'">
-                Resources
+                Collections
                 <svg class="dropdownIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M6 9l6 6 6-6"/>
                 </svg>
@@ -1726,8 +1726,7 @@
                 <input type="text" class="searchModalInput" placeholder="Search Exchange" id="searchInput" autofocus>
                 <button class="cancelButton" onclick="toggleSearch()">Cancel</button>
 
- <input type="text" class="searchModalInput" placeholder="Search Exchange" id="searchInput" autofocus>
-                <button class="cancelButton" onclick="toggleSearch()">Cancel</button>
+ 
             </div>
             <div class="categoryList">
                 <a href="#" class="categoryItem">Music</a>
@@ -1745,16 +1744,7 @@
     </div>
 
     <script>
-        function toggleSearch() {
-            const modal = document.getElementById('searchModal');
-            modal.classList.toggle('active');
-        }
-
-        function closeSearchIfOutside(event) {
-            if (event.target.id === 'searchModal') {
-                toggleSearch();
-            }
-        }
+        
 
          // Wait for the DOM to load
     document.addEventListener('DOMContentLoaded', () => {
