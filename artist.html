@@ -10,15 +10,247 @@
 
 <link rel="stylesheet" href="./footer.css">
 
-</head>
-<body>
+    <style>
+        .mainHeader {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0px 32px 16px 32px;
+            background: transparent;
+            gap: 24px;
+            position: relative;
+        }
 
-<header class="navbar">
-  <div class="nav-left">
-    <div class="logo">▣</div>
-    <a href="#">Explore</a>
-    <a href="#">Resources</a>
-  </div>
+        .brandLogo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            z-index: 1001;
+        }
+
+        .logoImage {
+            height: 40px;
+            width: 40px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        .navigationMenu {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .navDropdown {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
+            background: transparent;
+            border: none;
+        }
+
+        .navDropdown:hover { color: #a0a0a0; }
+
+        .dropdownIcon {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s;
+        }
+
+        .navDropdown:hover .dropdownIcon { transform: rotate(180deg); }
+
+        .searchContainer {
+            flex: 1;
+            max-width: 500px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: transparent;
+            padding: 10px 16px;
+            border-radius: 8px;
+            transition: background 0.2s;
+            position: relative;
+        }
+
+        .searchContainer:focus-within { background: #4a4a4a; }
+
+        .searchIcon { width: 20px; height: 20px; opacity: 0.6; }
+
+        .searchInput {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            font-size: 15px;
+        }
+
+        .searchInput::placeholder { color: #888888; }
+
+        .searchShortcut {
+            padding: 4px 8px;
+            background: #4a4a4a;
+            border-radius: 4px;
+            color: #888888;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .headerActions { display: flex; align-items: center; gap: 16px; }
+
+        .signInButton {
+            padding: 10px 24px;
+            background: #5b5bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .signInButton:hover { background: #4a4aee; }
+
+        .menuButton {
+            display: none;
+            padding: 8px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menuIcon { width: 24px; height: 24px; }
+
+        .mobileSearchModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: transparent;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .mobileSearchModal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .searchModalContent {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+        }
+
+        .searchModalHeader {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .searchModalInput {
+            flex: 1;
+            background: #f6f6f6;
+            border: none;
+            outline: none;
+            color: #000;
+            font-size: 16px;
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+
+        .searchModalInput::placeholder { color: #1e1d1d; }
+
+        .cancelButton {
+            background: transparent;
+            border: none;
+            color: #000;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .categoryList { display: flex; flex-direction: column; gap: 0; }
+
+        .categoryItem {
+            display: block;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            color: #111;
+            font-size: 16px;
+            text-decoration: none;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .categoryItem:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            background: #f8f8f8;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+
+        .searchIconButton {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1024px) {
+            .navigationMenu { display: none; }
+            .searchContainer { display: none; }
+            .menuButton { display: block; }
+            .headerActions { gap: 12px; }
+            .searchIconButton { display: flex; }
+        }
+
+        @media (max-width: 768px) {
+            .mainHeader { padding: 12px 16px; }
+        }
+    </style>
+
 <style>
 
   /* ================= GRID ================= */
@@ -728,15 +960,252 @@ body {
 
 
 </style>
-  <div class="nav-search">
-    <input type="text" placeholder="Search">
-    <span class="shortcut">Ctrl K</span>
-  </div>
 
-  <div class="nav-right">
-    <button class="signin-btn">Sign in</button>
-  </div>
-</header>
+
+<style>
+        /* ── SEARCH DROPDOWN STYLES (corrected) ── */
+        .vx-search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            margin-top: 6px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1002;
+        }
+        .vx-search-dropdown.show { display: block; }
+
+        .vx-search-section-label {
+            padding: 8px 16px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+            letter-spacing: 0.05em;
+        }
+
+        .vx-search-result {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            color: #111111;
+        }
+
+        .vx-search-result:hover { background: #f5f5f5; color: #111111; }
+
+        /* FIX 1: constrain image to fixed size */
+        .vx-search-result img {
+            width: 48px !important;
+            height: 48px !important;
+            min-width: 48px !important;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        /* FIX 3: ensure text info is visible and laid out correctly */
+        .vx-search-result-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .vx-search-result-info h6 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 14px;
+            color: #111111;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .vx-search-result-info small {
+            color: #6b7280;
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .vx-search-result.artist-result {
+            background: linear-gradient(135deg, rgba(59,130,246,0.05), transparent);
+        }
+        .vx-search-result.artist-result:hover {
+            background: linear-gradient(135deg, rgba(59,130,246,0.1), #f9fafb);
+        }
+
+        .vx-artist-avatar {
+            width: 48px !important;
+            height: 48px !important;
+            min-width: 48px !important;
+            border-radius: 50%;
+            background: #5b5bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        /* FIX 2: mobile categories hide when searching */
+        .categoryList.hide { display: none !important; }
+        .mobileSearchResults { display: none; padding: 8px; }
+        .mobileSearchResults.show { display: block; }
+</style>
+    <style>
+        /* ── NAVBAR LIGHT THEME OVERRIDE ── */
+        .mainHeader {
+            background: #ffffff !important;
+            border-bottom: 1px solid #e5e7eb !important;
+            padding: 0 32px !important;
+            height: 64px !important;
+        }
+
+        .navDropdown {
+            color: #1a1a1a !important;
+        }
+        .navDropdown:hover {
+            color: #5b5bff !important;
+        }
+        .navDropdown:hover .dropdownIcon {
+            transform: rotate(180deg);
+        }
+
+        .searchContainer {
+            background: #f3f4f6 !important;
+            border-radius: 8px !important;
+            border: 1px solid #e5e7eb !important;
+        }
+        .searchContainer:focus-within {
+            background: #f3f4f6 !important;
+            border-color: #5b5bff !important;
+            box-shadow: 0 0 0 3px rgba(91,91,255,0.08) !important;
+        }
+
+        .searchIcon {
+            opacity: 0.45 !important;
+            /* override white stroke to dark */
+        }
+
+        /* desktop search svg uses stroke="currentColor" — color it dark */
+        .searchContainer .searchIcon {
+            color: #374151 !important;
+        }
+
+        .searchInput {
+            color: #1a1a1a !important;
+        }
+        .searchInput::placeholder {
+            color: #9ca3af !important;
+        }
+
+        .searchShortcut {
+            background: #e5e7eb !important;
+            color: #6b7280 !important;
+        }
+
+        .signInButton {
+            background: #5b5bff !important;
+            color: #ffffff !important;
+        }
+        .signInButton:hover {
+            background: #4a4aee !important;
+        }
+
+        /* hamburger & mobile search icon — dark on light bg */
+        .menuButton svg,
+        .searchIconButton svg {
+            stroke: #1a1a1a !important;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="mainHeader">
+        <a href="/" class="brandLogo">
+            <div class="logoImage"></div>
+        </a>
+
+        <nav class="navigationMenu">
+            <button class="navDropdown" onclick="window.location.href='marketplace.html'">
+                Explore
+                <svg class="dropdownIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </button>
+            <button class="navDropdown" onclick="window.location.href='allcollections.html'">
+                Collections
+                <svg class="dropdownIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </button>
+        </nav>
+
+        <div class="searchContainer vx-search-container">
+            <svg class="searchIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input id="searchInput" type="text" id="searchInput" class="searchInput vx-search-input" placeholder="Search Exchange">
+            <span class="searchShortcut">Ctrl K</span>
+            <div class="vx-search-dropdown" id="searchDropdown"></div>
+        </div>
+
+        <div class="headerActions">
+            <button class="searchIconButton" onclick="toggleSearch()">
+                <svg class="searchIcon" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </button>
+            <button class="signInButton" onclick="window.location.href='login.html'">Sign in</button>
+            <button class="menuButton" onclick="toggleSearch()">
+                <svg class="menuIcon" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobileSearchModal" id="searchModal" onclick="closeSearchIfOutside(event)">
+        <div class="searchModalContent" onclick="event.stopPropagation()">
+            <div class="searchModalHeader">
+                <svg class="searchIcon" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" class="searchModalInput" placeholder="Search Exchange" id="searchInput2" autofocus>
+                <button class="cancelButton" onclick="toggleSearch()">Cancel</button>
+            </div>
+            <div class="categoryList" id="mobileCategories">
+                <a href="#" class="categoryItem">Music</a>
+                <a href="#" class="categoryItem">Painting</a>
+                <a href="#" class="categoryItem">Photography</a>
+                <a href="#" class="categoryItem">Physical</a>
+                <a href="#" class="categoryItem">Pixel Art</a>
+            </div>
+            <div class="mobileSearchResults" id="mobileResults"></div>
+        </div>
+    </div>
+
 
 <section class="cover" id="coverage" >
  
@@ -1230,6 +1699,181 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+
+    
+
+
+    <script>
+        /* ── HEADER SEARCH JS (index.html pattern) ── */
+        let __hdrSearchTimeout = null;
+
+        function setupSearch(inputId, dropdownId) {
+            const input = document.getElementById(inputId);
+            const dropdown = document.getElementById(dropdownId);
+            if (!input || !dropdown) return;
+
+            input.addEventListener('input', function(e) {
+                clearTimeout(__hdrSearchTimeout);
+                __hdrSearchTimeout = setTimeout(function() {
+                    runHeaderSearch(e.target.value, dropdown);
+                }, 300);
+            });
+
+            input.addEventListener('focus', function() {
+                if (input.value.length >= 2) dropdown.classList.add('show');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove('show');
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                    e.preventDefault();
+                    input.focus();
+                }
+            });
+        }
+
+        async function runHeaderSearch(query, dropdown) {
+            if (!query || query.length < 2) {
+                dropdown.classList.remove('show');
+                return;
+            }
+            try {
+                const res = await fetch(
+                    'https://changes-sample.onrender.com/api/marketplace/search?q=' + encodeURIComponent(query)
+                );
+                if (!res.ok) throw new Error('Search failed');
+                const results = await res.json();
+
+                if (!results || !results.length) {
+                    dropdown.innerHTML = '<div style="padding:14px 16px;color:#6b7280;text-align:center;font-size:14px;">No results found</div>';
+                    dropdown.classList.add('show');
+                    return;
+                }
+
+                // Separate artists from artworks
+                const uniqueArtists = [];
+                const seen = new Set();
+                results.forEach(function(nft) {
+                    const c = nft.creator;
+                    if (c && !seen.has(c) && c.toLowerCase().includes(query.toLowerCase())) {
+                        seen.add(c);
+                        uniqueArtists.push(c);
+                    }
+                });
+
+                let html = '';
+
+                if (uniqueArtists.length) {
+                    html += '<div class="vx-search-section-label">Artists</div>';
+                    uniqueArtists.slice(0, 3).forEach(function(artist) {
+                        html += '<a href="artist.html?name=' + encodeURIComponent(artist) + '" class="vx-search-result artist-result">'
+                            + '<div class="vx-artist-avatar">' + artist.charAt(0).toUpperCase() + '</div>'
+                            + '<div class="vx-search-result-info">'
+                            + '<h6>' + artist + '</h6>'
+                            + '<small>View Artist Profile</small>'
+                            + '</div></a>';
+                    });
+                }
+
+                html += '<div class="vx-search-section-label">Artworks</div>';
+                results.slice(0, 6).forEach(function(nft) {
+                    html += '<a href="artwork.html?id=' + nft._id + '" class="vx-search-result">'
+                        + '<img src="' + (nft.imageUrl || '') + '" alt="' + (nft.name || '') + '">'
+                        + '<div class="vx-search-result-info">'
+                        + '<h6>' + (nft.name || 'Untitled') + '</h6>'
+                        + '<small>by ' + (nft.creator || 'Unknown') + ' &middot; ' + (nft.category || '') + '</small>'
+                        + '</div></a>';
+                });
+
+                dropdown.innerHTML = html;
+                dropdown.classList.add('show');
+
+            } catch (err) {
+                console.error('Search error:', err);
+            }
+        }
+
+        /* ── MOBILE SEARCH ── */
+        function initMobileSearch() {
+            const mobileInput = document.getElementById('searchInput2');
+            const mobileResults = document.getElementById('mobileResults');
+            const mobileCategories = document.getElementById('mobileCategories');
+
+            if (!mobileInput || !mobileResults || !mobileCategories) return;
+
+            mobileInput.addEventListener('input', async function(e) {
+                const query = e.target.value.trim();
+
+                if (query.length < 2) {
+                    /* FIX 2: show categories again when query is cleared */
+                    mobileResults.classList.remove('show');
+                    mobileResults.innerHTML = '';
+                    mobileCategories.classList.remove('hide');
+                    return;
+                }
+
+                /* FIX 2: hide categories when typing */
+                mobileCategories.classList.add('hide');
+                mobileResults.classList.add('show');
+                mobileResults.innerHTML = '<div style="padding:14px 16px;color:#6b7280;font-size:14px;">Searching...</div>';
+
+                try {
+                    const res = await fetch(
+                        'https://changes-sample.onrender.com/api/marketplace/search?q=' + encodeURIComponent(query)
+                    );
+                    if (!res.ok) throw new Error('failed');
+                    const results = await res.json();
+
+                    if (!results || !results.length) {
+                        mobileResults.innerHTML = '<div style="padding:14px 16px;color:#6b7280;text-align:center;font-size:14px;">No results found</div>';
+                        return;
+                    }
+
+                    mobileResults.innerHTML = results.slice(0, 10).map(function(nft) {
+                        return '<a href="artwork.html?id=' + nft._id + '" class="vx-search-result">'
+                            + '<img src="' + (nft.imageUrl || '') + '" alt="' + (nft.name || '') + '">'
+                            + '<div class="vx-search-result-info">'
+                            + '<h6>' + (nft.name || 'Untitled') + '</h6>'
+                            + '<small>by ' + (nft.creator || 'Unknown') + ' &middot; ' + (nft.category || '') + '</small>'
+                            + '</div></a>';
+                    }).join('');
+
+                } catch (err) {
+                    console.error('Mobile search error:', err);
+                    mobileResults.innerHTML = '<div style="padding:14px 16px;color:#e53e3e;font-size:14px;">Search error. Try again.</div>';
+                }
+            });
+        }
+
+        function toggleSearch() {
+            const modal = document.getElementById('searchModal');
+            if (modal) modal.classList.toggle('active');
+        }
+
+        function closeSearchIfOutside(event) {
+            if (event.target.id === 'searchModal') toggleSearch();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setupSearch('searchInput', 'searchDropdown');
+            initMobileSearch();
+
+            /* mobile category links */
+            var catLinks = document.querySelectorAll('#mobileCategories .categoryItem');
+            catLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var cat = link.textContent.trim();
+                    window.location.href = 'category.html?category=' + encodeURIComponent(cat);
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
