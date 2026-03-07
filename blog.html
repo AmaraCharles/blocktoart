@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Collector — A Blog by Blocktoart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f7f4ef;
+    --accent: #c8a96e;
+    --accent-dark: #a8893e;
+    --muted: #6b6760;
+    --border: #e0dbd2;
+    --white: #ffffff;
+    --blue: #3b52e1;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    border-bottom: 1px solid #1e1e2a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 64px;
+  }
+
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-brand span {
+    color: #ffffff88;
+    font-style: normal;
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    margin-left: 12px;
+    letter-spacing: 0.1em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: #ffffff99;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    padding: 100px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #c8a96e18 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 80px);
+    color: var(--white);
+    line-height: 1.08;
+    max-width: 800px;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .hero-desc {
+    color: #ffffff77;
+    max-width: 540px;
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-stat-label {
+    font-size: 11px;
+    color: #ffffff55;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── FEATURED STRIP ── */
+  .featured-strip {
+    background: var(--accent);
+    padding: 12px 40px;
+    display: flex;
+    gap: 48px;
+    overflow-x: auto;
+  }
+
+  .featured-strip span {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--ink);
+    opacity: 0.75;
+  }
+
+  .featured-strip strong {
+    opacity: 1;
+    font-weight: 700;
+  }
+
+  /* ── MAIN GRID ── */
+  .main-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 80px;
+  }
+
+  /* ── ARTICLE CARDS ── */
+  .articles-list { display: flex; flex-direction: column; gap: 64px; }
+
+  .article-card { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+
+  .article-card:nth-child(even) { grid-template-columns: 1fr 1fr; }
+  .article-card:nth-child(even) .article-img { order: 2; }
+  .article-card:nth-child(even) .article-text { order: 1; }
+
+  .article-img {
+    aspect-ratio: 4/3;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .article-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    filter: grayscale(20%);
+  }
+
+  .article-card:hover .article-img img { transform: scale(1.04); }
+
+  .article-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #0a0a0f44 0%, transparent 50%);
+  }
+
+  .article-category {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .article-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+
+  .article-title a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s;
+  }
+
+  .article-title a:hover { color: var(--blue); }
+
+  .article-excerpt {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .article-byline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .byline-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .byline-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+    margin-top: 20px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .read-more:hover { color: var(--blue); border-color: var(--blue); }
+
+  .read-more svg { transition: transform 0.2s; }
+  .read-more:hover svg { transform: translateX(4px); }
+
+  /* ── SIDEBAR ── */
+  .sidebar { display: flex; flex-direction: column; gap: 48px; }
+
+  .sidebar-section h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-card {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    cursor: pointer;
+  }
+
+  .sidebar-card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--border);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 36px;
+  }
+
+  .sidebar-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .sidebar-card-meta {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .newsletter-box {
+    background: var(--ink);
+    padding: 32px;
+    border-radius: 2px;
+  }
+
+  .newsletter-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--white);
+    margin-bottom: 12px;
+    border: none;
+    text-transform: none;
+    letter-spacing: 0;
+    font-family: 'Playfair Display', serif;
+    padding: 0;
+  }
+
+  .newsletter-box p {
+    font-size: 13px;
+    color: #ffffff77;
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+
+  .newsletter-input {
+    width: 100%;
+    background: #ffffff11;
+    border: 1px solid #ffffff22;
+    color: var(--white);
+    padding: 12px 16px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    border-radius: 2px;
+    margin-bottom: 12px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .newsletter-input::placeholder { color: #ffffff44; }
+  .newsletter-input:focus { border-color: var(--accent); }
+
+  .newsletter-btn {
+    width: 100%;
+    background: var(--accent);
+    border: none;
+    color: var(--ink);
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    transition: background 0.2s;
+  }
+
+  .newsletter-btn:hover { background: var(--accent-dark); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 60px 40px 32px;
+  }
+
+  .footer-top {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid #ffffff11;
+    margin-bottom: 32px;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 26px;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .footer-desc {
+    color: #ffffff55;
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 280px;
+  }
+
+  .footer-col h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #ffffff44;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .footer-col ul { list-style: none; }
+
+  .footer-col li { margin-bottom: 12px; }
+
+  .footer-col a {
+    color: #ffffff66;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--accent); }
+
+  .footer-bottom {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #ffffff33;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── PAGE SECTIONS (hidden by default) ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── ARTICLE PAGE ── */
+  .article-page-hero {
+    background: var(--ink);
+    padding: 80px 40px;
+  }
+
+  .article-page-hero .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #ffffff44;
+    margin-bottom: 24px;
+    letter-spacing: 0.1em;
+  }
+
+  .article-page-hero .breadcrumb a { color: var(--accent); text-decoration: none; }
+
+  .article-page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 58px);
+    color: var(--white);
+    line-height: 1.1;
+    max-width: 820px;
+    margin-bottom: 24px;
+  }
+
+  .article-meta-bar {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 0 0;
+    border-top: 1px solid #ffffff11;
+    margin-top: 32px;
+  }
+
+  .article-meta-bar .byline-avatar { background: var(--accent); color: var(--ink); }
+
+  .article-meta-bar .author-name { font-weight: 500; color: var(--white); font-size: 14px; }
+
+  .article-meta-bar .pub-date { color: #ffffff44; font-size: 13px; font-family: 'DM Mono', monospace; }
+
+  .article-meta-bar .read-time {
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .article-body {
+    max-width: 760px;
+    margin: 72px auto;
+    padding: 0 40px;
+  }
+
+  .article-body .lead {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    line-height: 1.65;
+    color: var(--muted);
+    margin-bottom: 48px;
+    font-style: italic;
+  }
+
+  .article-body p {
+    font-size: 17px;
+    line-height: 1.9;
+    color: #2a2a35;
+    margin-bottom: 28px;
+  }
+
+  .article-body h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    margin: 56px 0 20px;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .article-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin: 40px 0 16px;
+    color: var(--ink);
+  }
+
+  .article-body blockquote {
+    border-left: 3px solid var(--accent);
+    margin: 48px 0;
+    padding: 0 0 0 32px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .article-body .pull-fact {
+    background: var(--ink);
+    color: var(--white);
+    padding: 40px;
+    margin: 48px 0;
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .article-body .pull-fact::before {
+    content: '—';
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    color: var(--accent);
+    position: absolute;
+    top: 24px;
+    left: 40px;
+    line-height: 1;
+  }
+
+  .article-body .pull-fact p {
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-top: 48px;
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+
+  .article-body .pull-fact .fact-source {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-top: 16px;
+    margin-bottom: 0;
+    font-style: normal;
+  }
+
+  .article-img-full {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    margin: 48px 0;
+    filter: grayscale(15%);
+  }
+
+  .tag-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 48px; }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── MARKET PULSE PAGE ── */
+  .market-hero {
+    background: linear-gradient(135deg, var(--ink) 60%, #1a1525 100%);
+    padding: 80px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .market-hero::after {
+    content: 'MARKET';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 200px;
+    color: #ffffff04;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  .stat-box {
+    background: var(--white);
+    padding: 40px 32px;
+  }
+
+  .stat-box-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .stat-box-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-box-change {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .stat-box-change.up { color: #22a06b; }
+  .stat-box-change.down { color: #e5484d; }
+
+  .market-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+
+  .market-section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .trending-item {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .trending-rank {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--border);
+    width: 28px;
+    flex-shrink: 0;
+  }
+
+  .trending-thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 2px;
+    background: var(--ink);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .trending-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+  .trending-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .trending-artist {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .trending-price {
+    margin-left: auto;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .trending-price-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .trending-price-chg { font-size: 12px; color: #22a06b; }
+
+  /* ── COLLECTOR GUIDE ── */
+  .guide-hero { padding: 100px 40px 80px; background: var(--ink); }
+
+  .guide-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    margin-bottom: 0;
+  }
+
+  .guide-card {
+    background: var(--white);
+    padding: 48px 40px;
+    transition: background 0.3s;
+  }
+
+  .guide-card:hover { background: #fdf9f4; }
+
+  .guide-card-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 32px;
+  }
+
+  .guide-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .guide-card p { font-size: 15px; color: var(--muted); line-height: 1.8; }
+
+  .guide-body {
+    max-width: 820px;
+    margin: 80px auto;
+    padding: 0 40px;
+  }
+
+  /* ── ARTIST SPOTLIGHT ── */
+  .spotlight-hero { background: var(--paper); padding: 80px 40px; border-bottom: 1px solid var(--border); }
+
+  .spotlight-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .spotlight-img {
+    aspect-ratio: 3/4;
+    background: var(--ink);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .spotlight-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%); }
+
+  .spotlight-img-caption {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #ffffff77;
+    letter-spacing: 0.08em;
+  }
+
+  .spotlight-text .article-category { margin-bottom: 24px; }
+
+  .spotlight-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .spotlight-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 40px 0;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .spotlight-stat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .spotlight-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .main-grid { grid-template-columns: 1fr; gap: 60px; }
+    .article-card { grid-template-columns: 1fr; }
+    .article-card:nth-child(even) .article-img, .article-card:nth-child(even) .article-text { order: unset; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .market-content { grid-template-columns: 1fr; gap: 60px; }
+    .guide-grid { grid-template-columns: 1fr; }
+    .spotlight-inner { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    /* Reviews */
+    #page-reviews [style*="grid-template-columns:1fr 1fr"] { display: block !important; }
+    #page-reviews [style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
+    #page-reviews [style*="grid-template-columns:1fr 2fr"] { display: block !important; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero, .article-page-hero, .market-hero, .guide-hero, .spotlight-hero { padding: 60px 20px; }
+    .main-grid, .market-content, .guide-body, .article-body { padding: 48px 20px; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    footer { padding: 48px 20px 24px; }
+    .footer-top { grid-template-columns: 1fr; gap: 40px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .page.active .hero h1,
+  .page.active .article-page-hero h1,
+  .page.active .market-hero h1,
+  .page.active .guide-hero h1,
+  .page.active .spotlight-text h1 {
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .page.active .hero-desc,
+  .page.active .hero-meta {
+    animation: fadeUp 0.7s 0.15s ease both;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand" onclick="showPage('home')">The Collector <span>by Blocktoart</span></a>
+  <ul class="nav-links">
+    <li><a href="#" class="active" id="nav-home" onclick="showPage('home')">Home</a></li>
+    <li><a href="#" id="nav-article" onclick="showPage('article')">In Depth</a></li>
+    <li><a href="#" id="nav-market" onclick="showPage('market')">Market Pulse</a></li>
+    <li><a href="#" id="nav-guide" onclick="showPage('guide')">Collector's Guide</a></li>
+    <li><a href="#" id="nav-spotlight" onclick="showPage('spotlight')">Artist Spotlight</a></li>
+    <li><a href="#" id="nav-reviews" onclick="showPage('reviews')">Reviews</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     PAGE 1: HOME
+══════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <p class="hero-label">Issue No. 12 · March 2026</p>
+    <h1>Where <em>Digital Art</em><br>Becomes Legacy</h1>
+    <p class="hero-desc">Dispatches from the frontier of digital collecting — criticism, market analysis, artist profiles, and the conversations that matter most right now.</p>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <span class="hero-stat-num">48k</span>
+        <span class="hero-stat-label">Collectors</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">$2.4M</span>
+        <span class="hero-stat-label">Monthly Volume</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">12k+</span>
+        <span class="hero-stat-label">Artworks Listed</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="featured-strip">
+    <span><strong>Trending Now:</strong></span>
+    <span>Generative Art Auctions up 34% this week</span>
+    <span>·</span>
+    <span>New collector? Read our <strong>Getting Started Guide →</strong></span>
+    <span>·</span>
+    <span>Featured Artist: <strong>Miriam Voss</strong> — Studio Visit Inside</span>
+    <span>·</span>
+    <span>New Review: <strong>Sediment by Miriam Voss — Score: 94/100 →</strong></span>
+  </div>
+
+  <div class="main-grid">
+    <div class="articles-list">
+
+      <!-- Article 1 -->
+      <article class="article-card">
+        <div class="article-img">
+          <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800&q=80" alt="Generative art">
+          <div class="article-img-overlay"></div>
+        </div>
+        <div class="article-text">
+          <p class="article-category">Analysis · Generative Art</p>
+          <h2 class="article-title">
+            <a href="#" onclick="showPage('article')">The Algorithm as Author: How Generative Art Is Redefining Authorship in the Digital Age</a>
+          </h2>
+          <p class="article-excerpt">When a collector purchases a generative artwork, they are not buying an image — they are buying a set of instructions, a probability space, an agreement with chance. This fundamental shift is transforming what it means to own art.</p>
+          <div class="article-byline">
+            <div class="byline-avatar">EC</div>
+            <span>Elena Cross</span>
+            <div class="byline-dot"></div>
+            <span>March 4, 2026</span>
+            <div class="byline-dot"></div>
+            <span>9 min read</span>
+          </div>
+          <a href="#" class="read-more" onclick="showPage('article')">
+            Continue Reading
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <div class="divider"></div>
+
+      <!-- Article 2 -->
+      <article class="article-card">
+        <div class="article-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Market analysis">
+          <div class="article-img-overlay"></div>
+        </div>
+        <div class="article-text">
+          <p class="article-category">Market · Quarterly Report</p>
+          <h2 class="article-title">
+            <a href="#" onclick="showPage('market')">Q1 2026 Digital Art Market Index: Volume Climbs as Blue-Chip Confidence Returns</a>
+          </h2>
+          <p class="article-excerpt">After a turbulent 2025, sophisticated collectors are returning to the market with renewed conviction — but with sharper criteria. The pieces commanding premium prices share a common thread: narrative depth and provable scarcity.</p>
+          <div class="article-byline">
+            <div class="byline-avatar">JM</div>
+            <span>James Marchetti</span>
+            <div class="byline-dot"></div>
+            <span>March 1, 2026</span>
+            <div class="byline-dot"></div>
+            <span>12 min read</span>
+          </div>
+          <a href="#" class="read-more" onclick="showPage('market')">
+            Continue Reading
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <div class="divider"></div>
+
+      <!-- Article 3 -->
+      <article class="article-card">
+        <div class="article-img">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80" alt="Artist spotlight">
+          <div class="article-img-overlay"></div>
+        </div>
+        <div class="article-text">
+          <p class="article-category">Artist Spotlight · Interview</p>
+          <h2 class="article-title">
+            <a href="#" onclick="showPage('spotlight')">"I Paint With Data": Inside Miriam Voss's Studio and the Series That Changed Everything</a>
+          </h2>
+          <p class="article-excerpt">Voss's latest collection, Sediment, spent six months on the secondary market before breaking a platform record. We sat with her for three hours in her Berlin studio to understand where the work comes from — and where it's going.</p>
+          <div class="article-byline">
+            <div class="byline-avatar">RP</div>
+            <span>Rae Palmer</span>
+            <div class="byline-dot"></div>
+            <span>Feb 24, 2026</span>
+            <div class="byline-dot"></div>
+            <span>15 min read</span>
+          </div>
+          <a href="#" class="read-more" onclick="showPage('spotlight')">
+            Continue Reading
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <div class="divider"></div>
+
+      <!-- Article 4 — Reviews -->
+      <article class="article-card">
+        <div class="article-img">
+          <img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=800&q=80" alt="Reviews">
+          <div class="article-img-overlay"></div>
+        </div>
+        <div class="article-text">
+          <p class="article-category">Review · Photography Series</p>
+          <h2 class="article-title">
+            <a href="#" onclick="showPage('reviews')">Infrared Memory by pale_signal: A Series That Earns Its Quiet</a>
+          </h2>
+          <p class="article-excerpt">Score: 88/100. pale_signal's long-exposure infrared photography series manages something genuinely difficult — it is slow, restrained, and completely committed to its own logic. Each of the 20 pieces reads as documentary evidence of a place that no longer exists, or perhaps never did.</p>
+          <div class="article-byline">
+            <div class="byline-avatar">RP</div>
+            <span>Rae Palmer</span>
+            <div class="byline-dot"></div>
+            <span>Feb 18, 2026</span>
+            <div class="byline-dot"></div>
+            <span>6 min read</span>
+          </div>
+          <a href="#" class="read-more" onclick="showPage('reviews')">
+            Read Review
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-section">
+        <h3>Most Read This Week</h3>
+        <div class="sidebar-card">
+          <div class="sidebar-card-num">01</div>
+          <div>
+            <div class="sidebar-card-title">How to Evaluate an NFT Before You Buy</div>
+            <div class="sidebar-card-meta">Guide · 7 min</div>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-card-num">02</div>
+          <div>
+            <div class="sidebar-card-title">The Five Artists to Watch in Spring 2026</div>
+            <div class="sidebar-card-meta">Spotlight · 10 min</div>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-card-num">03</div>
+          <div>
+            <div class="sidebar-card-title">Reserve Price Auctions Explained</div>
+            <div class="sidebar-card-meta">Education · 5 min</div>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-card-num">04</div>
+          <div>
+            <div class="sidebar-card-title">Understanding On-Chain Provenance</div>
+            <div class="sidebar-card-meta">Deep Dive · 11 min</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="newsletter-box">
+        <h3>The Weekly Dispatch</h3>
+        <p>Market data, artist profiles, and critical writing. Curated every Friday for serious collectors.</p>
+        <input type="email" class="newsletter-input" placeholder="Your email address">
+        <button class="newsletter-btn">Subscribe — It's Free</button>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Explore Topics</h3>
+        <div class="tag-list">
+          <span class="tag" style="cursor:pointer;" onclick="showPage('market')">Market Data</span>
+          <span class="tag" style="cursor:pointer;" onclick="showPage('article')">Generative Art</span>
+          <span class="tag" style="cursor:pointer;" onclick="showPage('guide')">For Collectors</span>
+          <span class="tag" style="cursor:pointer;" onclick="showPage('spotlight')">Interviews</span>
+          <span class="tag" style="cursor:pointer;" onclick="showPage('reviews')">Reviews</span>
+          <span class="tag">Auctions</span>
+          <span class="tag">Provenance</span>
+          <span class="tag">1/1 Art</span>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 2: ARTICLE — IN DEPTH
+══════════════════════════════════════════ -->
+<div class="page" id="page-article">
+
+  <section class="article-page-hero">
+    <div style="max-width:1280px;margin:0 auto;">
+      <p class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a> / <a href="#">Analysis</a> / Generative Art</p>
+      <h1>The Algorithm as Author: How Generative Art Is Redefining Authorship in the Digital Age</h1>
+      <div class="article-meta-bar">
+        <div class="byline-avatar">EC</div>
+        <div>
+          <div class="author-name">Elena Cross</div>
+          <div class="pub-date">March 4, 2026</div>
+        </div>
+        <span class="read-time">9 MIN READ</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="article-body">
+
+    <p class="lead">Every generative artwork is a collaboration between human intent and mathematical chance. The question of who deserves credit — the artist or the algorithm — is not merely philosophical. It has direct implications for how we value, collect, and preserve digital art.</p>
+
+    <p>In the spring of 2023, a collector on Blocktoart paid 14 ETH for a piece called <em>Recursive Bloom #447</em>. The image itself — a cascading fractal of warm golds and deep blues — had never been seen before. It was generated the moment the NFT was minted, produced by a script written by the artist over eighteen months. The collector was not buying a painting. They were buying an instance of a system.</p>
+
+    <p>This distinction matters enormously. It changes what "original" means. It changes what "rare" means. And it fundamentally challenges the romantic notion of the solitary artist and the singular work.</p>
+
+    <h2>A Brief History of the Generative Impulse</h2>
+
+    <p>The desire to create art through systems and rules is not new. Sol LeWitt's wall drawings, first executed in 1968, consisted of written instructions that could be carried out by anyone — the artwork was the instruction, not the execution. Harold Cohen spent decades developing AARON, a program that produced original drawings. Vera Molnár used early computers to explore visual permutations in the 1960s.</p>
+
+    <p>What blockchain technology changed was not the creative methodology — it was the economics and the permanence. For the first time, a generative artwork could exist in a verifiably scarce form. The algorithm became a mint, and each output became a unique, ownable object.</p>
+
+    <blockquote>"The collector purchases not a moment, but a possibility space. They hold a key to a door that has only ever been opened once."</blockquote>
+
+    <p>Tyler Hobbs, whose Fidenza series became one of the most celebrated generative art collections of the early 2020s, described his role as "designing a universe and then watching what it produces." This framing is instructive. The artist as cosmologist, not creator.</p>
+
+    <h2>The Authorship Problem</h2>
+
+    <p>When we talk about authorship in traditional art, we assume a relatively direct line between intention and execution. Even in collaborative works, there is usually a discernible creative hierarchy. With generative art, that hierarchy becomes genuinely ambiguous.</p>
+
+    <div class="pull-fact">
+      <p>"Of the top 50 highest-grossing digital artworks sold on Blocktoart in 2025, 31 were generative works — a figure that would have seemed impossible five years earlier."</p>
+      <p class="fact-source">Blocktoart Market Report, Q4 2025</p>
+    </div>
+
+    <p>Consider a simple question: when a collector owns Recursive Bloom #447, what are they actually owning? They own a unique output. They own proof of that output's existence, secured on-chain. They own the cultural cachet of the artist's reputation. But do they own a relationship to the algorithm? To the 10,000 possible outputs that were never minted?</p>
+
+    <p>These questions are not merely semantic. They have legal implications for resale rights, reproduction rights, and the definition of "the work" in estate and inheritance contexts. The art world's existing frameworks — built for oil on canvas, for bronze casts, for photographic editions — were not designed for systems that can, in principle, generate infinite unique outputs.</p>
+
+    <h2>What Collectors Are Actually Buying</h2>
+
+    <p>The most sophisticated collectors of generative art seem to understand this intuitively. They are not buying an image — they are buying a position in a narrative. The rarity of a particular output is meaningful only within the context of the full collection. Knowing that your piece has a rare color palette, or an unusual structural property, or emerged from a particularly consequential mint transaction — these are forms of meaning-making that are entirely native to this art form.</p>
+
+    <p>This is, arguably, a more intellectually honest relationship with rarity than the one we maintain around traditional art. The scarcity of a Picasso is partly artificial — enforced by the artist's death, by institutional control of reproductions, by the cultural consensus that the original matters more than the print. The scarcity of a generative artwork is mathematical, provable, and transparent.</p>
+
+    <h2>The Platform's Role</h2>
+
+    <p>Marketplaces like Blocktoart play a critical role in how this ecosystem develops. By providing robust metadata standards, on-chain provenance tracking, and curatorial infrastructure, platforms can help establish the cultural legitimacy that generative art needs to be taken seriously by institutional collectors and museums.</p>
+
+    <p>The platform's auction format — particularly the reserve price mechanism — also shapes how these works are valued. A reserve price signals the artist's own assessment of minimum value, which functions as a kind of curatorial statement in itself.</p>
+
+    <h2>Looking Forward</h2>
+
+    <p>As AI-assisted generative tools become more accessible, the craft involved in writing generative systems will become more — not less — important as a marker of quality. The collector who understands the difference between a thoughtfully engineered generative system and a prompt-fed output will be the collector who builds a collection that holds its value.</p>
+
+    <p>The algorithm, ultimately, is a tool. The author is still the human being who decided what kind of world the algorithm would make. That intention — legible in the aesthetic coherence of the outputs, in the conceptual rigor of the parameters, in the care taken over what kinds of beauty the system is capable of producing — is what we are really collecting.</p>
+
+    <p>The brush did not paint the Sistine Chapel. And the algorithm does not author the work. But both are capable, in the right hands, of producing something extraordinary.</p>
+
+    <div class="tag-list">
+      <span class="tag">Generative Art</span>
+      <span class="tag">Authorship</span>
+      <span class="tag">Collecting</span>
+      <span class="tag">NFT Theory</span>
+      <span class="tag">Market Analysis</span>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 3: MARKET PULSE
+══════════════════════════════════════════ -->
+<div class="page" id="page-market">
+
+  <section class="market-hero">
+    <div style="max-width:1280px;margin:0 auto;position:relative;z-index:1;">
+      <p class="hero-label">Q1 2026 · Market Intelligence</p>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,64px);color:white;line-height:1.1;max-width:700px;margin-bottom:20px;">Digital Art<br><em style="color:var(--accent);">Market Pulse</em></h1>
+      <p style="color:#ffffff66;max-width:500px;font-size:16px;line-height:1.8;">Live market intelligence, trending artworks, and price analysis from the Blocktoart ecosystem. Updated weekly.</p>
+    </div>
+  </section>
+
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="stat-box-label">Total Volume (30d)</div>
+      <div class="stat-box-value">$2.4M</div>
+      <div class="stat-box-change up">↑ 18.3% vs prior period</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-box-label">Avg. Sale Price</div>
+      <div class="stat-box-value">$1,840</div>
+      <div class="stat-box-change up">↑ 6.1% vs prior period</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-box-label">Active Listings</div>
+      <div class="stat-box-value">12,440</div>
+      <div class="stat-box-change down">↓ 2.3% vs prior period</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-box-label">Unique Buyers (30d)</div>
+      <div class="stat-box-value">3,210</div>
+      <div class="stat-box-change up">↑ 24.7% vs prior period</div>
+    </div>
+  </div>
+
+  <div class="market-content">
+
+    <div>
+      <p class="market-section-label">Top Sales — Last 30 Days</p>
+
+      <div class="trending-item">
+        <div class="trending-rank">01</div>
+        <div class="trending-thumb"><img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=200&q=80" alt=""></div>
+        <div>
+          <div class="trending-name">Recursive Bloom #447</div>
+          <div class="trending-artist">by m_voss</div>
+        </div>
+        <div class="trending-price">
+          <div class="trending-price-val">14.2 ETH</div>
+          <div class="trending-price-chg">↑ New Record</div>
+        </div>
+      </div>
+
+      <div class="trending-item">
+        <div class="trending-rank">02</div>
+        <div class="trending-thumb"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=200&q=80" alt=""></div>
+        <div>
+          <div class="trending-name">Sediment III</div>
+          <div class="trending-artist">by voss_studio</div>
+        </div>
+        <div class="trending-price">
+          <div class="trending-price-val">9.8 ETH</div>
+          <div class="trending-price-chg">↑ 340% vs list</div>
+        </div>
+      </div>
+
+      <div class="trending-item">
+        <div class="trending-rank">03</div>
+        <div class="trending-thumb"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=80" alt=""></div>
+        <div>
+          <div class="trending-name">Infrared Memory #12</div>
+          <div class="trending-artist">by pale_signal</div>
+        </div>
+        <div class="trending-price">
+          <div class="trending-price-val">7.1 ETH</div>
+          <div class="trending-price-chg">↑ 88% vs list</div>
+        </div>
+      </div>
+
+      <div class="trending-item">
+        <div class="trending-rank">04</div>
+        <div class="trending-thumb"><img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=200&q=80" alt=""></div>
+        <div>
+          <div class="trending-name">Chromatic Drift 001</div>
+          <div class="trending-artist">by drift_lab</div>
+        </div>
+        <div class="trending-price">
+          <div class="trending-price-val">5.5 ETH</div>
+          <div class="trending-price-chg">↑ 55% vs list</div>
+        </div>
+      </div>
+
+      <div class="trending-item">
+        <div class="trending-rank">05</div>
+        <div class="trending-thumb"><img src="https://images.unsplash.com/photo-1533158388-350df81d7842?w=200&q=80" alt=""></div>
+        <div>
+          <div class="trending-name">Echo Chamber Series #7</div>
+          <div class="trending-artist">by nox_form</div>
+        </div>
+        <div class="trending-price">
+          <div class="trending-price-val">4.9 ETH</div>
+          <div class="trending-price-chg">↑ 40% vs list</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div>
+      <p class="market-section-label">Market Analysis</p>
+
+      <p style="font-family:'Playfair Display',serif;font-size:26px;line-height:1.3;margin-bottom:24px;color:var(--ink);">Blue-Chip Confidence Returns to the Digital Art Market</p>
+
+      <p style="font-size:15px;color:var(--muted);line-height:1.9;margin-bottom:20px;">After a period of recalibration through mid-2025, the first quarter of 2026 has shown clear signals of renewed institutional and high-net-worth collector confidence. Volume is up substantially, but more telling is the composition of that volume: average sale prices have risen faster than transaction count, suggesting fewer, higher-conviction purchases.</p>
+
+      <p style="font-size:15px;color:var(--muted);line-height:1.9;margin-bottom:20px;">The strongest category performance came from verified 1/1 works with documented exhibition history — a signal that provenance and institutional validation are becoming primary purchase criteria for sophisticated buyers. Generative series with on-chain rarity verification also outperformed, reinforcing the importance of transparent metadata.</p>
+
+      <p style="font-size:15px;color:var(--muted);line-height:1.9;margin-bottom:32px;">Auction performance was particularly strong: 76% of all auctions on Blocktoart in February 2026 exceeded their reserve price, compared to 61% in the same period of 2025. English-format auctions drove the highest average multiples above list price.</p>
+
+      <div style="background:var(--ink);padding:32px;border-radius:2px;">
+        <p style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">Collector Insight</p>
+        <p style="font-family:'Playfair Display',serif;font-size:20px;color:white;line-height:1.5;margin-bottom:16px;">"Collectors who bought verified 1/1 works during the 2025 correction and held through Q1 2026 saw median appreciation of 2.8×."</p>
+        <p style="font-size:13px;color:#ffffff55;font-family:'DM Mono',monospace;">Blocktoart Internal Analytics, March 2026</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 4: COLLECTOR'S GUIDE
+══════════════════════════════════════════ -->
+<div class="page" id="page-guide">
+
+  <section class="guide-hero">
+    <div style="max-width:1280px;margin:0 auto;">
+      <p class="hero-label">Essential Reading · For Collectors</p>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(38px,5vw,68px);color:white;line-height:1.1;max-width:720px;margin-bottom:24px;">The Serious Collector's <em style="color:var(--accent);">Field Guide</em></h1>
+      <p style="color:#ffffff66;max-width:540px;font-size:17px;line-height:1.8;">Everything you need to build a meaningful, lasting digital art collection — from your first purchase to advanced auction strategy.</p>
+    </div>
+  </section>
+
+  <div class="guide-grid">
+    <div class="guide-card">
+      <div class="guide-card-num">01 / FOUNDATIONS</div>
+      <h3>Understanding What You're Actually Buying</h3>
+      <p>An NFT is a token on a blockchain that records ownership of a referenced asset. The artwork itself is typically stored separately. Understanding this distinction — and its implications for permanence — is the foundation of intelligent collecting.</p>
+    </div>
+    <div class="guide-card">
+      <div class="guide-card-num">02 / EVALUATION</div>
+      <h3>How to Assess Quality Before You Bid</h3>
+      <p>Look at the artist's exhibition history, secondary market activity, and the consistency of their practice over time. A single viral piece is not the same as a coherent body of work. Longevity and depth are what you're paying for at premium prices.</p>
+    </div>
+    <div class="guide-card">
+      <div class="guide-card-num">03 / PROVENANCE</div>
+      <h3>Why On-Chain History Matters</h3>
+      <p>Every transaction involving an NFT is permanently recorded on the blockchain. This creates an immutable provenance record — something that traditional art world has struggled to maintain. A work with a clear, traceable history commands a premium for good reason.</p>
+    </div>
+    <div class="guide-card">
+      <div class="guide-card-num">04 / AUCTIONS</div>
+      <h3>Mastering the Three Auction Formats</h3>
+      <p>Blocktoart supports English, Dutch, and Sealed Bid formats. English auctions — ascending price, open bids — reward patience and conviction. Dutch auctions — descending price — reward decisiveness. Sealed bid rewards research and accurate self-assessment of value.</p>
+    </div>
+    <div class="guide-card">
+      <div class="guide-card-num">05 / PORTFOLIO</div>
+      <h3>Building a Collection That Tells a Story</h3>
+      <p>The most admired collections are not random accumulations of expensive works — they reflect a point of view. Whether you collect by theme, medium, movement, or artist relationship, coherence creates cultural value that transcends individual pieces.</p>
+    </div>
+    <div class="guide-card">
+      <div class="guide-card-num">06 / COMMUNITY</div>
+      <h3>The Social Architecture of Digital Collecting</h3>
+      <p>Collecting digital art is inherently social in ways that traditional collecting often is not. Following artists, participating in drops, engaging with curatorial decisions on platforms — these activities are not peripheral. They are part of the art form itself.</p>
+    </div>
+  </div>
+
+  <div class="guide-body">
+
+    <h2 style="font-family:'Playfair Display',serif;font-size:36px;line-height:1.2;margin-bottom:32px;margin-top:0;">The Essential Questions Every Collector Must Ask</h2>
+
+    <p style="font-size:17px;color:#2a2a35;line-height:1.9;margin-bottom:28px;">Before placing any bid or making any purchase, experienced collectors run through a mental checklist. Not to eliminate risk — collecting inherently involves risk — but to ensure that the risk they're taking is informed and intentional.</p>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:24px;margin:40px 0 16px;">Does the work hold up without the hype?</h3>
+    <p style="font-size:17px;color:#2a2a35;line-height:1.9;margin-bottom:28px;">Remove the artist's name, the floor price, the Twitter following. Look at the work in isolation. Does it do something visually or conceptually that matters to you? If the answer requires knowledge of context you wouldn't expect a stranger to have in twenty years, reconsider.</p>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:24px;margin:40px 0 16px;">Where is the work stored, and who controls that storage?</h3>
+    <p style="font-size:17px;color:#2a2a35;line-height:1.9;margin-bottom:28px;">Fully on-chain storage — where the artwork data itself is written to the blockchain — provides the strongest long-term preservation guarantee. IPFS-stored works depend on pinning services remaining active. Centralized server storage introduces significant counterparty risk. Ask the question. Read the contract.</p>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:24px;margin:40px 0 16px;">What rights does ownership actually confer?</h3>
+    <p style="font-size:17px;color:#2a2a35;line-height:1.9;margin-bottom:28px;">Owning an NFT typically grants you the right to resell and to display for personal, non-commercial use. It does not automatically grant reproduction rights, commercial use rights, or derivative work rights. Read the artist's or platform's terms carefully. If those terms are ambiguous or absent, that is itself relevant information about the artist's professionalism.</p>
+
+    <blockquote style="border-left:3px solid var(--accent);margin:48px 0;padding:0 0 0 32px;font-family:'Playfair Display',serif;font-style:italic;font-size:22px;color:var(--muted);line-height:1.6;">"A collection is a form of autobiography. Every piece you choose to own reveals something about how you see the world."</blockquote>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:24px;margin:40px 0 16px;">Is this artist building a sustained practice?</h3>
+    <p style="font-size:17px;color:#2a2a35;line-height:1.9;margin-bottom:28px;">The most reliable predictor of long-term value is not a viral moment — it's the evidence of sustained creative development. Look for artists who are evolving, who have a clear sense of what they're investigating, and who engage thoughtfully with their community and their critics.</p>
+
+    <div style="background:var(--paper);border:1px solid var(--border);padding:40px;margin:48px 0;border-radius:2px;">
+      <p style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">Platform Note</p>
+      <p style="font-size:16px;color:#2a2a35;line-height:1.8;">Blocktoart's verification system provides a baseline signal of artist legitimacy, but it is a minimum standard — not a recommendation. Verified status indicates that the artist has completed identity verification and has an established practice. It does not constitute curatorial endorsement of specific works or price levels.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 5: ARTIST SPOTLIGHT
+══════════════════════════════════════════ -->
+<div class="page" id="page-spotlight">
+
+  <section class="spotlight-hero">
+    <div class="spotlight-inner" style="max-width:1280px;margin:0 auto;">
+      <div class="spotlight-img">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80" alt="Miriam Voss artwork">
+        <div class="spotlight-img-caption">Sediment III, 2025. Sold for 9.8 ETH on Blocktoart.</div>
+      </div>
+      <div class="spotlight-text">
+        <p class="article-category">Artist Spotlight · March 2026</p>
+        <h1>"I Paint With Data": A Conversation With Miriam Voss</h1>
+        <p style="font-size:17px;color:var(--muted);line-height:1.8;margin-bottom:0;">Her generative series Sediment broke a platform sales record in January. We visited her Berlin studio to talk about geological time, emotional algorithms, and why she still keeps a physical sketchbook.</p>
+
+        <div class="spotlight-stats">
+          <div>
+            <span class="spotlight-stat-val">€1.2M</span>
+            <span class="spotlight-stat-label">Total Sales Volume</span>
+          </div>
+          <div>
+            <span class="spotlight-stat-val">4 yrs</span>
+            <span class="spotlight-stat-label">On Blocktoart</span>
+          </div>
+          <div>
+            <span class="spotlight-stat-val">312</span>
+            <span class="spotlight-stat-label">Works Minted</span>
+          </div>
+        </div>
+
+        <div class="article-byline">
+          <div class="byline-avatar">RP</div>
+          <span>Interview by Rae Palmer</span>
+          <div class="byline-dot"></div>
+          <span>February 24, 2026</span>
+          <div class="byline-dot"></div>
+          <span>15 min read</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="article-body">
+
+    <p class="lead">Miriam Voss's Berlin studio smells like coffee and electronics. Against one wall, three large monitors display a cascade of numbers — her generative system mid-process, producing outputs she may never mint. Against another, a shelf of geology textbooks and a worn sketchbook. "The algorithm and the hand," she says. "I need both."</p>
+
+    <p>Voss, 34, has been making generative art for nearly a decade, but the last eighteen months have been transformative. Her series Sediment — 100 works exploring the visual language of geological strata — sold out within hours of release, and the secondary market has been relentless ever since. The top sale, Sediment III, reached 9.8 ETH in January, a platform record for her work.</p>
+
+    <p>We spoke for three hours about algorithms, emotional labor, the strange experience of watching your art develop a life of its own, and why she recently turned down a seven-figure commercial offer.</p>
+
+    <h2>On the Origin of Sediment</h2>
+
+    <p><strong>The Collector:</strong> Sediment has this very specific visual vocabulary — layered, sedimentary, geological. Where did that come from?</p>
+
+    <p><strong>Miriam Voss:</strong> I had a period of about six months where I was going through something personal — I don't want to be too specific — and I found myself obsessed with the idea of compression. How time compresses things. How pressure creates structure. Geology felt right because it's about deep time. Not human time. Not the time of a news cycle or a market cycle. Real time.</p>
+
+    <p>I started reading about stratigraphy — how geologists read rock formations. There's a kind of reading that happens, a kind of narrative interpretation, but based entirely on physical evidence. I thought: can I build a generative system that works the same way? That produces visual evidence of processes that the viewer has to interpret?</p>
+
+    <p><strong>TC:</strong> Did you have a sense early on that the series would resonate the way it did?</p>
+
+    <p><strong>MV:</strong> No. Honestly, I thought it might be too slow. Too quiet. I'd seen what was performing well on the market at the time, and it was often more immediately spectacular. Sediment is patient. You have to sit with it. I wasn't sure people had the patience.</p>
+
+    <blockquote>"I built a system that knows how to grieve — not metaphorically. The parameters that govern color temperature are calibrated to emotional states I documented over six months. The algorithm doesn't know that. But it shows."</blockquote>
+
+    <p>They did. The release day was genuinely surreal. I was watching the mint from my phone in the studio, and within forty minutes everything was gone. And then the secondary market started moving almost immediately. I had to close my laptop and go for a walk. It was too much information.</p>
+
+    <h2>On the Algorithm's Emotional Interior</h2>
+
+    <p><strong>TC:</strong> There's something in Sediment that feels emotionally weighted — not just visually interesting. People describe the works as melancholy, or contemplative. Is that intentional?</p>
+
+    <p><strong>MV:</strong> Yes and no. I didn't sit down and say "I will make a sad algorithm." But I built it during a difficult period, and the choices I made — about color temperature, about the rate of change in the layers, about what the system treats as a perturbation versus a gradual transition — those choices are emotionally inflected. I can't separate them from the state I was in.</p>
+
+    <p>I've thought about this a lot. The algorithm doesn't have feelings. But it was designed by someone who does, and who was feeling quite specifically. So in some sense, yes — the algorithm has an emotional interior. It's mine, encoded into the parameters.</p>
+
+    <div class="pull-fact">
+      <p>"The most interesting question isn't whether the machine can feel. It's whether a machine can accurately transmit a feeling its designer had while building it. I think Sediment answers that: yes, it can."</p>
+      <p class="fact-source">Miriam Voss, Studio Interview, February 2026</p>
+    </div>
+
+    <h2>On Collecting and Collectors</h2>
+
+    <p><strong>TC:</strong> You interact with your collectors quite actively. Is that a deliberate choice?</p>
+
+    <p><strong>MV:</strong> It's not strategic — it's genuine. I'm curious about what people see in the work. Not because I need validation. But because the work gets completed by the viewer, in a way. And I want to understand what completions are happening.</p>
+
+    <p>Some of the most interesting conversations I've had about Sediment have been with collectors who came to it with no knowledge of my intentions — no artist statement, no interviews — and arrived at interpretations that were structurally similar to what I was thinking about but arrived there from completely different places. That fascinates me. It suggests the work is doing something that I can't fully control or explain.</p>
+
+    <p><strong>TC:</strong> You turned down a major commercial offer recently. Can you talk about that?</p>
+
+    <p><strong>MV:</strong> I'd rather not name the company. But yes. The offer involved using the Sediment aesthetic — the visual language of the series — in a commercial context. A very high-profile one. The money was significant.</p>
+
+    <p>I said no because the work isn't mine to commercialize that way. Some of those works are in people's collections. They trusted that what they were buying had a certain kind of cultural integrity. If I license the aesthetic for advertising, I've changed what they own — retroactively. That's not something I'm willing to do.</p>
+
+    <h2>On What Comes Next</h2>
+
+    <p><strong>TC:</strong> Sediment is clearly the work you're known for now. Is that a constraint?</p>
+
+    <p><strong>MV:</strong> It would be if I let it. I'm already working on something very different — much faster, much more chaotic. I want to make something that feels like the opposite of Sediment. High-frequency, almost anxious. I've been thinking about weather systems instead of geological ones. Turbulence instead of compression.</p>
+
+    <p>I don't know if it will sell as well. I hope people will trust me enough to come with me somewhere new. That's the relationship I want with the people who collect my work — not a transaction, but a sustained conversation. We're in this together, wherever it goes.</p>
+
+    <div class="tag-list">
+      <span class="tag">Interview</span>
+      <span class="tag">Generative Art</span>
+      <span class="tag">Artist Profile</span>
+      <span class="tag">Berlin</span>
+      <span class="tag">Sediment</span>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 6: REVIEWS
+══════════════════════════════════════════ -->
+<div class="page" id="page-reviews">
+
+  <section style="background:var(--ink);padding:80px 40px;">
+    <div style="max-width:1280px;margin:0 auto;">
+      <p class="hero-label">Critical Reviews · March 2026</p>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(38px,5vw,72px);color:white;line-height:1.08;max-width:780px;margin-bottom:24px;">Honest Reviews.<br><em style="color:var(--accent);">No Inflation.</em></h1>
+      <p style="color:#ffffff66;max-width:520px;font-size:17px;line-height:1.8;">Our critics evaluate artworks, collections, and drops on Blocktoart with rigorous, context-aware criticism. We score on craft, concept, and long-term collector value.</p>
+    </div>
+  </section>
+
+  <!-- Score legend strip -->
+  <div style="background:var(--accent);padding:14px 40px;display:flex;gap:48px;overflow-x:auto;">
+    <span style="font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap;color:var(--ink);">SCORE GUIDE:</span>
+    <span style="font-size:12px;font-weight:500;white-space:nowrap;color:var(--ink);">90–100 · Exceptional</span>
+    <span style="font-size:12px;white-space:nowrap;color:var(--ink);">75–89 · Strong</span>
+    <span style="font-size:12px;white-space:nowrap;color:var(--ink);">60–74 · Solid</span>
+    <span style="font-size:12px;white-space:nowrap;color:var(--ink);">45–59 · Mixed</span>
+    <span style="font-size:12px;white-space:nowrap;color:var(--ink);">Below 45 · Disappointing</span>
+  </div>
+
+  <!-- FEATURED REVIEW -->
+  <div style="max-width:1280px;margin:0 auto;padding:72px 40px 0;">
+    <p style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border);">Featured Review</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-bottom:72px;">
+      <div style="position:relative;">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&q=80" alt="Sediment Series" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px;filter:grayscale(15%);">
+        <div style="position:absolute;bottom:24px;left:24px;background:var(--ink);padding:16px 20px;border-radius:2px;">
+          <div style="font-family:'Playfair Display',serif;font-size:52px;color:var(--accent);line-height:1;">94</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:#ffffff88;letter-spacing:0.1em;text-transform:uppercase;margin-top:4px;">Collector Score</div>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">Collection Review · Generative</p>
+        <h2 style="font-family:'Playfair Display',serif;font-size:36px;line-height:1.15;margin-bottom:20px;color:var(--ink);">Miriam Voss — <em>Sediment</em> (2025)</h2>
+        <p style="font-size:16px;color:var(--muted);line-height:1.9;margin-bottom:20px;">100 editions · Minted Dec 2025 · Floor: 3.1 ETH · Reviewed by Elena Cross</p>
+
+        <p style="font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:var(--muted);line-height:1.6;margin-bottom:28px;">Sediment is the rare generative collection that operates simultaneously as beautiful object, rigorous concept, and emotionally coherent experience.</p>
+
+        <p style="font-size:16px;color:#2a2a35;line-height:1.9;margin-bottom:20px;">Voss's system encodes a visual language drawn from stratigraphy — the study of rock strata — and produces works that feel geological in their patience and their permanence. Each piece in the series reads as a cross-section of something ancient, even though every output was generated in real time at the moment of minting.</p>
+
+        <p style="font-size:16px;color:#2a2a35;line-height:1.9;margin-bottom:28px;">What separates Sediment from the considerable noise in generative art is conceptual coherence. The aesthetic choices — color temperature that shifts from warm to cold across the vertical axis, strata width distributions that suggest geological time scales, subtle color bleeding at layer edges — are not arbitrary. They serve the central metaphor with real discipline. You never feel the algorithm making arbitrary decisions.</p>
+
+        <!-- Score breakdown -->
+        <div style="border:1px solid var(--border);border-radius:2px;overflow:hidden;margin-bottom:28px;">
+          <div style="padding:16px 20px;background:var(--paper);display:grid;grid-template-columns:1fr auto;align-items:center;border-bottom:1px solid var(--border);">
+            <span style="font-size:14px;color:var(--ink);font-weight:500;">Visual Craft</span>
+            <span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--accent);font-weight:500;">97</span>
+          </div>
+          <div style="padding:16px 20px;background:var(--white);display:grid;grid-template-columns:1fr auto;align-items:center;border-bottom:1px solid var(--border);">
+            <span style="font-size:14px;color:var(--ink);font-weight:500;">Conceptual Depth</span>
+            <span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--accent);font-weight:500;">95</span>
+          </div>
+          <div style="padding:16px 20px;background:var(--paper);display:grid;grid-template-columns:1fr auto;align-items:center;border-bottom:1px solid var(--border);">
+            <span style="font-size:14px;color:var(--ink);font-weight:500;">Technical Execution</span>
+            <span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--accent);font-weight:500;">91</span>
+          </div>
+          <div style="padding:16px 20px;background:var(--white);display:grid;grid-template-columns:1fr auto;align-items:center;">
+            <span style="font-size:14px;color:var(--ink);font-weight:500;">Collector Value</span>
+            <span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--accent);font-weight:500;">93</span>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:16px;">
+          <div style="flex:1;background:#f0faf4;border:1px solid #b6e8cc;padding:16px;border-radius:2px;">
+            <p style="font-family:'DM Mono',monospace;font-size:10px;color:#22a06b;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">Strengths</p>
+            <p style="font-size:13px;color:#2a2a35;line-height:1.7;">Rare conceptual coherence. System-level thinking. Strong secondary market trajectory. Emotionally resonant without sentimentality.</p>
+          </div>
+          <div style="flex:1;background:#fff8f0;border:1px solid #f5c99a;padding:16px;border-radius:2px;">
+            <p style="font-family:'DM Mono',monospace;font-size:10px;color:#c97d0a;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">Considerations</p>
+            <p style="font-size:13px;color:#2a2a35;line-height:1.7;">Works best at large display sizes. Subdued palette may not suit all collectors. High floor entry point for new buyers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVIEW GRID -->
+  <div style="max-width:1280px;margin:0 auto;padding:0 40px 80px;">
+    <p style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:32px;padding-bottom:12px;border-bottom:1px solid var(--border);">Recent Reviews</p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);">
+
+      <!-- Review Card 1 -->
+      <div style="background:var(--white);padding:40px 32px;">
+        <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&q=80" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;margin-bottom:24px;filter:grayscale(20%);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+          <p style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;">1/1 · Abstract</p>
+          <div style="text-align:right;">
+            <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--ink);line-height:1;">82</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);">STRONG</div>
+          </div>
+        </div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:8px;color:var(--ink);line-height:1.2;">Chromatic Drift 001<br><em style="font-size:16px;color:var(--muted);">by drift_lab</em></h3>
+        <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:20px;">A confident, technically accomplished debut that announces drift_lab as an artist worth serious attention. The color relationships are genuinely surprising — primary hues treated with a secondary palette sensibility. Lacks the conceptual scaffolding to achieve greatness, but as pure painting-thinking, it holds.</p>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);padding-top:16px;border-top:1px solid var(--border);">Reviewed by James Marchetti · Feb 2026</div>
+      </div>
+
+      <!-- Review Card 2 -->
+      <div style="background:var(--white);padding:40px 32px;">
+        <img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=600&q=80" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;margin-bottom:24px;filter:grayscale(20%);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+          <p style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;">Series · Photography</p>
+          <div style="text-align:right;">
+            <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--ink);line-height:1;">88</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);">STRONG</div>
+          </div>
+        </div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:8px;color:var(--ink);line-height:1.2;">Infrared Memory<br><em style="font-size:16px;color:var(--muted);">by pale_signal</em></h3>
+        <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:20px;">pale_signal's Infrared Memory series uses long-exposure photography processed through custom infrared filters to produce images that feel simultaneously documentary and dream-like. The 20-piece edition is tightly curated — every inclusion justifies itself. A serious addition to digital photography collecting.</p>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);padding-top:16px;border-top:1px solid var(--border);">Reviewed by Rae Palmer · Feb 2026</div>
+      </div>
+
+      <!-- Review Card 3 -->
+      <div style="background:var(--white);padding:40px 32px;">
+        <img src="https://images.unsplash.com/photo-1533158388-350df81d7842?w=600&q=80" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;margin-bottom:24px;filter:grayscale(20%);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+          <p style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;">Edition · Sound Art</p>
+          <div style="text-align:right;">
+            <div style="font-family:'Playfair Display',serif;font-size:36px;color:#a05a5a;line-height:1;">61</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);">SOLID</div>
+          </div>
+        </div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:8px;color:var(--ink);line-height:1.2;">Echo Chamber Series<br><em style="font-size:16px;color:var(--muted);">by nox_form</em></h3>
+        <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:20px;">Echo Chamber is an interesting experiment that doesn't fully succeed. The combination of visual abstraction and embedded audio is conceptually compelling, but the two elements feel developed independently rather than in dialogue with each other. The audio component, in particular, could carry a far richer piece on its own. Worth watching for nox_form's next project.</p>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);padding-top:16px;border-top:1px solid var(--border);">Reviewed by Elena Cross · Mar 2026</div>
+      </div>
+
+    </div>
+
+    <!-- CRITIC'S NOTE -->
+    <div style="margin-top:64px;display:grid;grid-template-columns:1fr 2fr;gap:64px;padding:48px;background:var(--ink);border-radius:2px;">
+      <div>
+        <p style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:20px;">On Our Method</p>
+        <h3 style="font-family:'Playfair Display',serif;font-size:26px;color:white;line-height:1.25;">How We Review Art on Blocktoart</h3>
+      </div>
+      <div>
+        <p style="font-size:16px;color:#ffffff88;line-height:1.9;margin-bottom:20px;">Every review in The Collector is written by a critic with domain expertise in the relevant medium. We do not accept payment from artists or galleries for editorial coverage. Scores reflect four criteria evaluated independently: visual craft, conceptual depth, technical execution, and collector value — averaged into a final score.</p>
+        <p style="font-size:16px;color:#ffffff88;line-height:1.9;">We believe honest criticism is an act of respect — toward the artists who deserve accurate feedback, toward the collectors who deserve accurate guidance, and toward the medium itself, which is only strengthened by the same critical infrastructure that elevated painting, photography, and film before it.</p>
+        <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:20px;letter-spacing:0.1em;">— The Collector Editorial Board</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     FOOTER (shared)
+══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">The Collector</div>
+      <p class="footer-desc">The official editorial publication of Blocktoart — the leading digital art marketplace. Market intelligence, artist profiles, and critical writing for serious collectors.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Editorial</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('home')">Latest Issues</a></li>
+        <li><a href="#" onclick="showPage('article')">Analysis</a></li>
+        <li><a href="#" onclick="showPage('market')">Market Pulse</a></li>
+        <li><a href="#" onclick="showPage('spotlight')">Artist Profiles</a></li>
+        <li><a href="#" onclick="showPage('reviews')">Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('guide')">Collector's Guide</a></li>
+        <li><a href="#">Auction Calendar</a></li>
+        <li><a href="#">Price Database</a></li>
+        <li><a href="#">Artist Directory</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Blocktoart</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Collections</a></li>
+        <li><a href="#">Sign In</a></li>
+        <li><a href="#">Create Account</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Blocktoart. All rights reserved.</span>
+    <span>The Collector · Issue 12 · March 2026</span>
+  </div>
+</footer>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.getElementById('nav-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
