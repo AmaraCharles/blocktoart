@@ -3,1877 +3,797 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Artist</title>
-
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="./footer.css">
-
-    <style>
-        .mainHeader {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0px 32px 16px 32px;
-            background: transparent;
-            gap: 24px;
-            position: relative;
-        }
-
-        .brandLogo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            z-index: 1001;
-        }
-
-        .logoImage {
-            height: 40px;
-            width: 40px;
-            background: #ffffff;
-            border-radius: 8px;
-        }
-
-        .navigationMenu {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .navDropdown {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-            transition: color 0.2s;
-            background: transparent;
-            border: none;
-        }
-
-        .navDropdown:hover { color: #a0a0a0; }
-
-        .dropdownIcon {
-            width: 16px;
-            height: 16px;
-            transition: transform 0.2s;
-        }
-
-        .navDropdown:hover .dropdownIcon { transform: rotate(180deg); }
-
-        .searchContainer {
-            flex: 1;
-            max-width: 500px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: transparent;
-            padding: 10px 16px;
-            border-radius: 8px;
-            transition: background 0.2s;
-            position: relative;
-        }
-
-        .searchContainer:focus-within { background: #4a4a4a; }
-
-        .searchIcon { width: 20px; height: 20px; opacity: 0.6; }
-
-        .searchInput {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #ffffff;
-            font-size: 15px;
-        }
-
-        .searchInput::placeholder { color: #888888; }
-
-        .searchShortcut {
-            padding: 4px 8px;
-            background: #4a4a4a;
-            border-radius: 4px;
-            color: #888888;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .headerActions { display: flex; align-items: center; gap: 16px; }
-
-        .signInButton {
-            padding: 10px 24px;
-            background: #5b5bff;
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .signInButton:hover { background: #4a4aee; }
-
-        .menuButton {
-            display: none;
-            padding: 8px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .menuIcon { width: 24px; height: 24px; }
-
-        .mobileSearchModal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: transparent;
-            z-index: 1000;
-            padding: 20px;
-        }
-
-        .mobileSearchModal.active {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .searchModalContent {
-            background: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            max-width: 500px;
-            width: 100%;
-            margin: 20px auto;
-        }
-
-        .searchModalHeader {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-            position: relative;
-        }
-
-        .searchModalInput {
-            flex: 1;
-            background: #f6f6f6;
-            border: none;
-            outline: none;
-            color: #000;
-            font-size: 16px;
-            padding: 12px 16px;
-            border-radius: 8px;
-        }
-
-        .searchModalInput::placeholder { color: #1e1d1d; }
-
-        .cancelButton {
-            background: transparent;
-            border: none;
-            color: #000;
-            font-size: 15px;
-            cursor: pointer;
-            padding: 8px;
-        }
-
-        .categoryList { display: flex; flex-direction: column; gap: 0; }
-
-        .categoryItem {
-            display: block;
-            padding: 16px 20px;
-            margin-bottom: 12px;
-            color: #111;
-            font-size: 16px;
-            text-decoration: none;
-            background: #ffffff;
-            border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-        }
-
-        .categoryItem:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-            background: #f8f8f8;
-        }
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-        
-        
-
-        .searchIconButton {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-        }
-
-        @media (max-width: 1024px) {
-            .navigationMenu { display: none; }
-            .searchContainer { display: none; }
-            .menuButton { display: block; }
-            .headerActions { gap: 12px; }
-            .searchIconButton { display: flex; }
-        }
-
-        @media (max-width: 768px) {
-            .mainHeader { padding: 12px 16px; }
-        }
-    </style>
-
+<title>Artist — Blocktoart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-
-  /* ================= GRID ================= */
-
-.contentGrid {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 40px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 30px;
-}
-
-/* ================= CARD ================= */
-
-.artworkCard {
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: 0.25s ease;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
-}
-
-.artworkCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
-}
-
-.artworkImage {
-  width: 100%;
-  height: 240px;
-  background-size: cover;
-  background-position: center;
-}
-
-.artworkDetails {
-  padding: 16px;
-}
-
-.artworkTitle {
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.artworkPrice {
-  color: #5a54f9;
-  font-weight: 500;
-}
-
-/* ================= ERROR STATE ================= */
-
-.centerMessage {
-  text-align: center;
-  padding: 80px 20px;
-}
-
-.backBtn {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 12px 24px;
-  background: linear-gradient(135deg,#6c63ff,#5a54f9);
-  color: white;
-  border-radius: 10px;
-  text-decoration: none;
-}
-
-
-  * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-  background: #f6f7f9;
-  color: #1d1f23;
-}
-
-/* ================= NAVBAR ================= */
-
-.navbar {
-  height: 72px;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 60px;
-  border-bottom: 1px solid #eee;
-}
-
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
-.logo {
-  width: 42px;
-  height: 42px;
-  background: #111;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
-
-.nav-left a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-}
-
-.nav-search {
-  position: relative;
-}
-
-.nav-search input {
-  width: 420px;
-  height: 44px;
-  border-radius: 22px;
-  border: 1px solid #e2e4e8;
-  padding: 0 100px 0 20px;
-  background: #f8f9fb;
-}
-
-.shortcut {
-  position: absolute;
-  right: 15px;
-  top: 11px;
-  font-size: 12px;
-  color: #777;
-}
-
-.signin-btn {
-  padding: 10px 22px;
-  border-radius: 12px;
-  border: none;
-  font-weight: 600;
-  background: linear-gradient(135deg, #6c63ff, #5a54f9);
-  color: white;
-  cursor: pointer;
-}
-
-/* ================= COVER ================= */
-
-.cover {
-  width: 100%;
-  height: 260px;
-  overflow: hidden;
-}
-
-.cover img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* ================= PROFILE ================= */
-
-/* ================= DESKTOP PROFILE ================= */
-
-.profileDesktop {
-  max-width: 1400px;
-  margin: -80px auto 0;
-  padding: 0 80px 60px;
-  position: relative;
-}
-
-.profileTopRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-/* LEFT SIDE */
-.profileLeftActions {
-  display: flex;
-  gap: 18px;
-  margin-top: 120px;
-}
-
-.actionBtn {
-  background: transparent;
-  border: none;
-  font-size: 16px;
-  color: #5f6368;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.iconBtn {
-  background: transparent;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-/* CENTER */
-.profileCenter {
-  text-align: center;
-  max-width: 600px;
-}
-
-.avatarLarge {
-  width: 130px;
-  height: 130px;
-  background: #111;
-  border-radius: 50%;
-  border: 6px solid white;
-  margin: -65px auto 20px;
-}
-
-.profileName {
-  font-size: 48px;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-.profileBio {
-  font-size: 18px;
-  color: #6b7280;
-  line-height: 1.6;
-  max-width: 520px;
-  margin: 0 auto;
-}
-
-.moreLink {
-  margin-top: 10px;
-  background: none;
-  border: none;
-  color: #5a54f9;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.mainButtons {
-  margin-top: 35px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.primaryBtn {
-  padding: 16px 42px;
-  border-radius: 16px;
-  border: none;
-  background: linear-gradient(135deg,#6c63ff,#5a54f9);
-  color: white;
-  font-weight: 600;
-  font-size: 16px;
-  box-shadow: 0 12px 28px rgba(92,84,249,0.35);
-  cursor: pointer;
-}
-
-.secondaryBtn {
-  padding: 16px 42px;
-  border-radius: 16px;
-  border: 1px solid #e5e7eb;
-  background: #f3f4f6;
-  font-weight: 500;
-  font-size: 16px;
-  color: #6b7280;
-}
-
-/* RIGHT SIDE */
-.profileRightStats {
-  display: flex;
-  gap: 60px;
-  margin-top: 120px;
-}
-
-.statBlock {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.statLabel {
-  font-size: 14px;
-  color: #6b7280;
-}
-
-.statValue {
-  font-size: 20px;
-  font-weight: 600;
-  margin-top: 6px;
-}
-
-
-/* ================= STATS ================= */
-
-.stats {
-  position: absolute;
-  right: 60px;
-  top: 40px;
-  display: flex;
-  gap: 60px;
-}
-
-.stats div {
-  display: flex;
-  flex-direction: column;
-}
-
-.number {
-  font-size: 22px;
-  font-weight: 600;
-}
-
-.label {
-  font-size: 14px;
-  color: #777;
-}
-
-/* ================= TABS ================= */
-
-.tabs {
-  margin-top: 60px;
-  display: flex;
-  justify-content: center;
-  gap: 35px;
-  font-size: 15px;
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 15px;
-}
-
-.tabs a {
-  text-decoration: none;
-  color: #555;
-  padding-bottom: 8px;
-  cursor: pointer;
-}
-
-.tabs .active {
-  border-bottom: 3px solid #111;
-  color: #111;
-  font-weight: 600;
-}
-
-/* ================= MOBILE ================= */
-
-@media (max-width: 768px) {
-
-  .navbar {
-    padding: 0 20px;
-  }
-
-  .nav-search {
-    display: none;
-  }
-
-  .profile {
-    flex-direction: column;
-    padding: 0 20px 40px;
-  }
-
-  .stats {
-    position: static;
-    margin-top: 30px;
-    justify-content: center;
-    gap: 40px;
-  }
-
-  .username {
-    font-size: 28px;
-  }
-
-  .avatar {
-    width: 100px;
-    height: 100px;
-    top: -50px;
-  }
-
-  .buttons {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .tabs {
-    overflow-x: auto;
-    justify-content: flex-start;
-    padding-left: 20px;
-  }
-
-}
-/* ================= TABLET ================= */
-
-@media (max-width: 1100px) {
-
-  .profileTopRow {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .profileLeftActions {
-    margin-top: 30px;
-    order: 2;
-  }
-
-  .profileRightStats {
-    margin-top: 40px;
-    order: 3;
-    justify-content: center;
-  }
-
-  .profileCenter {
-    order: 1;
-  }
-
-}
-
-
-/* ================= MOBILE ================= */
-
-@media (max-width: 768px) {
-
-  .profileDesktop {
-    padding: 0 20px 50px;
-  }
-
-  .profileTopRow {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* Avatar smaller */
-  .avatarLarge {
-    width: 100px;
-    height: 100px;
-    margin: -50px auto 15px;
-  }
-
-  /* Name smaller */
-  .profileName {
-    font-size: 28px;
-  }
-
-  /* Bio tighter */
-  .profileBio {
-    font-size: 15px;
-    padding: 0 10px;
-  }
-
-  /* Buttons stack */
-  .mainButtons {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .primaryBtn,
-  .secondaryBtn {
-    width: 100%;
-  }
-
-  /* Left actions centered */
-  .profileLeftActions {
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  /* Stats stacked */
-  .profileRightStats {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .statBlock {
-    align-items: center;
-  }
-
-
-
-}
-
-/* ================= Tabs ================= */
-
-.marketTabsWrapper {
-  margin-top: 60px;
-}
-
-.marketTabs {
-  display: flex;
-  gap: 20px;
-  border-bottom: 1px solid #eee;
-  margin-bottom: 40px;
-}
-
-.marketTab {
-  background: none;
-  border: none;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 12px 0;
-  cursor: pointer;
-  color: #777;
-  position: relative;
+/* ─── TOKENS ─── */
+:root {
+  --bg:       #f5f4f0;
+  --bg-2:     #eceae6;
+  --bg-3:     #e4e2de;
+  --white:    #ffffff;
+  --ink:      #0f0e0c;
+  --ink-2:    #1c1b18;
+  --ink-3:    #2e2d2a;
+  --muted:    #6b7280;
+  --muted-l:  #9ca3af;
+  --bd:       #e2e0db;
+  --bd-2:     #d4d1cb;
+  --indigo:   #5b5bff;
+  --indigo-d: #4545ee;
+  --indigo-bg:#eff0ff;
+  --amber:    #a07a2e;
+  --amber-bg: #fdf4e3;
+  --cyan:     #0891b2;
+  --red:      #dc2626;
+  --R:        14px;
+  --stagger:  44px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--bg);color:var(--ink);
+  font-size:15px;line-height:1.6;
+  overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;height:auto;}
+
+/* ─── HEADER ─── */
+.hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;height:66px;
+  position:sticky;top:0;z-index:300;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bd);gap:24px;
+}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.logo-mark{width:34px;height:34px;background:var(--indigo);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:16px;height:16px;}
+.logo-name{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;letter-spacing:-.02em;color:var(--ink);}
+.logo-name em{color:var(--indigo);font-style:normal;}
+.nav{display:flex;align-items:center;gap:26px;}
+.nav-a{background:none;border:none;color:var(--muted);font-size:13.5px;font-weight:500;cursor:pointer;font-family:inherit;transition:color .2s;padding:0;}
+.nav-a:hover{color:var(--ink);}
+.srch{
+  flex:1;max-width:420px;position:relative;
+  display:flex;align-items:center;gap:10px;
+  background:var(--bg);border:1px solid var(--bd);
+  border-radius:9px;padding:8px 14px;transition:all .2s;
+}
+.srch:focus-within{background:#fff;border-color:rgba(91,91,255,.4);box-shadow:0 0 0 3px rgba(91,91,255,.08);}
+.srch svg{width:14px;height:14px;opacity:.38;flex-shrink:0;color:var(--ink);}
+.srch input{flex:1;background:transparent;border:none;outline:none;color:var(--ink);font-size:13.5px;font-family:inherit;}
+.srch input::placeholder{color:var(--muted-l);}
+.srch-kbd{background:var(--bg-2);color:var(--muted-l);padding:2px 6px;border-radius:4px;font-size:10px;font-family:'DM Mono',monospace;white-space:nowrap;}
+.srch-drop{position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border:1px solid var(--bd);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.1);max-height:420px;overflow-y:auto;display:none;z-index:600;}
+.srch-drop.show{display:block;}
+.sd-lbl{padding:7px 14px;font-size:9px;font-weight:600;color:var(--muted-l);text-transform:uppercase;background:var(--bg);letter-spacing:.12em;font-family:'DM Mono',monospace;border-bottom:1px solid var(--bd);}
+.sd-row{display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;transition:background .15s;color:var(--ink);text-decoration:none;}
+.sd-row:hover{background:var(--bg);}
+.sd-row img{width:42px;height:42px;border-radius:7px;object-fit:cover;flex-shrink:0;}
+.sd-row h6{margin:0;font-weight:600;font-size:12.5px;color:var(--ink);}
+.sd-row small{color:var(--muted-l);font-size:11px;}
+.sd-av{width:42px;height:42px;border-radius:50%;background:var(--indigo);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;}
+.h-acts{display:flex;align-items:center;gap:10px;}
+.btn-gl{background:none;border:1px solid var(--bd-2);color:var(--muted);padding:7px 17px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .2s;}
+.btn-gl:hover{border-color:var(--ink-3);color:var(--ink);}
+.btn-pm{background:var(--indigo);color:#fff;padding:8px 20px;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s;}
+.btn-pm:hover{background:var(--indigo-d);}
+.h-ico{display:none;width:38px;height:38px;background:transparent;border:none;cursor:pointer;align-items:center;justify-content:center;}
+
+/* ─── COVER ─── */
+.cover{
+  position:relative;width:100%;height:320px;overflow:hidden;
+  background:var(--bg-2);
+}
+.cover-img{width:100%;height:100%;object-fit:cover;display:block;}
+.cover-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 30%,rgba(245,244,240,.96) 100%);
+}
+.cover-blob{position:absolute;border-radius:50%;pointer-events:none;filter:blur(90px);}
+.cb1{width:500px;height:500px;background:#c7d2fe;opacity:.35;top:-180px;left:-80px;}
+.cb2{width:350px;height:350px;background:#a5f3fc;opacity:.22;bottom:-100px;right:-60px;}
+.cover-sk{
+  width:100%;height:100%;
+  background:linear-gradient(90deg,var(--bg-2) 25%,var(--bg-3) 50%,var(--bg-2) 75%);
+  background-size:800px 100%;animation:sk 1.6s infinite;
+}
+@keyframes sk{0%{background-position:-800px 0}100%{background-position:800px 0}}
+
+/* ─── PROFILE ZONE ─── */
+.profile-zone{
+  max-width:1300px;margin:0 auto;
+  padding:0 48px;
+}
+.profile-row{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:32px;align-items:flex-start;
+  padding-bottom:40px;
+}
+
+/* Avatar */
+.av-wrap{display:flex;flex-direction:column;align-items:center;margin-top:-72px;position:relative;z-index:2;}
+.av-ring{
+  width:130px;height:130px;border-radius:50%;
+  border:5px solid var(--bg);
+  box-shadow:0 0 0 2px var(--indigo),0 10px 36px rgba(0,0,0,.14);
+  overflow:hidden;background:var(--bg-2);flex-shrink:0;
+}
+.av-ring img{width:100%;height:100%;object-fit:cover;display:block;}
+.av-init{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:40px;font-weight:800;
+  background:linear-gradient(135deg,var(--indigo),#818cf8);
+  color:#fff;
+}
+.verified{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:9px;
+  background:var(--indigo-bg);border:1px solid #c7d2fe;
+  padding:3px 10px;border-radius:20px;
+  font-family:'DM Mono',monospace;font-size:9px;
+  color:var(--indigo);letter-spacing:.08em;
+}
+.verified svg{width:9px;height:9px;fill:var(--indigo);}
+
+/* Left actions */
+.profile-left{display:flex;flex-direction:column;gap:10px;padding-top:20px;align-items:flex-start;}
+.p-act{
+  display:inline-flex;align-items:center;gap:7px;
+  background:#fff;border:1px solid var(--bd);
+  color:var(--muted);padding:9px 16px;border-radius:9px;
+  font-size:12.5px;font-weight:500;cursor:pointer;
+  font-family:inherit;transition:all .2s;
+  box-shadow:0 1px 3px rgba(0,0,0,.05);
+}
+.p-act:hover{border-color:var(--bd-2);color:var(--ink);box-shadow:0 3px 10px rgba(0,0,0,.08);}
+.p-act svg{width:13px;height:13px;}
+
+/* Center: name, bio */
+.profile-center{text-align:center;padding-top:14px;}
+.p-name{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(26px,3.2vw,44px);
+  letter-spacing:-.04em;color:var(--ink);
+  margin-bottom:10px;line-height:1.05;
+}
+.p-bio{font-size:13.5px;color:var(--muted);line-height:1.75;max-width:440px;margin:0 auto 22px;}
+.p-ctas{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
+.p-follow{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--indigo);color:#fff;padding:11px 26px;
+  border-radius:9px;font-size:13px;font-weight:600;
+  border:none;cursor:pointer;font-family:inherit;transition:all .2s;
+  box-shadow:0 4px 16px rgba(91,91,255,.28);
+}
+.p-follow:hover{background:var(--indigo-d);transform:translateY(-1px);}
+.p-follow.following{background:var(--bg-2);border:1px solid var(--bd-2);color:var(--muted);box-shadow:none;}
+.p-follow.following:hover{background:#fef2f2;border-color:#fca5a5;color:var(--red);}
+.p-secondary{
+  display:inline-flex;align-items:center;gap:7px;
+  background:#fff;border:1px solid var(--bd);
+  color:var(--muted);padding:11px 20px;border-radius:9px;
+  font-size:13px;font-weight:500;cursor:pointer;
+  font-family:inherit;transition:all .2s;
+  box-shadow:0 1px 3px rgba(0,0,0,.05);
+}
+.p-secondary:hover{border-color:var(--bd-2);color:var(--ink);box-shadow:0 3px 10px rgba(0,0,0,.08);}
+.p-secondary svg{width:12px;height:12px;}
+
+/* Right stats */
+.profile-right{display:flex;flex-direction:column;gap:8px;padding-top:20px;align-items:flex-end;}
+.stat-row{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 15px;
+  background:#fff;border:1px solid var(--bd);
+  border-radius:11px;min-width:185px;
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
+  transition:box-shadow .2s,border-color .2s;
+}
+.stat-row:hover{box-shadow:0 4px 14px rgba(0,0,0,.08);border-color:var(--bd-2);}
+.stat-icon{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--indigo-bg);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.stat-icon svg{width:13px;height:13px;stroke:var(--indigo);}
+.stat-body{flex:1;}
+.stat-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1;}
+.stat-lbl{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted-l);text-transform:uppercase;letter-spacing:.12em;margin-top:1px;}
+
+/* ─── DIVIDER ─── */
+.divl{height:1px;background:var(--bd);margin:0 48px;}
+
+/* ─── TABS ─── */
+.tabs-wrap{max-width:1300px;margin:0 auto;padding:0 48px;}
+.tabs-bar{
+  display:flex;align-items:center;gap:2px;
+  border-bottom:1px solid var(--bd);
+  margin-bottom:32px;padding-top:8px;
+}
+.tab-btn{
+  background:none;border:none;color:var(--muted);
+  font-size:13px;font-weight:600;padding:11px 18px;
+  cursor:pointer;font-family:inherit;position:relative;
+  transition:color .18s;display:flex;align-items:center;gap:6px;
+}
+.tab-btn:hover{color:var(--ink-2);}
+.tab-btn.on{color:var(--ink);}
+.tab-btn.on::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;
+  height:2px;background:var(--indigo);border-radius:2px 2px 0 0;
+}
+.tab-pill{
+  background:var(--bg-2);color:var(--muted-l);
+  font-family:'DM Mono',monospace;font-size:9px;padding:2px 6px;
+  border-radius:4px;font-weight:500;
+}
+.tab-btn.on .tab-pill{background:var(--indigo-bg);color:var(--indigo);}
+.tab-panel{display:none;}
+.tab-panel.on{display:block;}
+
+/* ─── NFT CARD (light) ─── */
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start;}
+.cgrid .ncard:nth-child(3n+2){margin-top:var(--stagger);}
+.ncard{
+  background:#fff;border:1px solid var(--bd);
+  border-radius:var(--R);overflow:hidden;cursor:pointer;
+  transition:transform .28s cubic-bezier(.22,1,.36,1),box-shadow .28s,border-color .2s;
+  height:fit-content;box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+.ncard:hover{transform:translateY(-9px);box-shadow:0 20px 48px rgba(0,0,0,.1);border-color:#c7d2fe;}
+.ncard-iw{position:relative;overflow:hidden;}
+.ncard-img{width:100%;height:280px;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.22,1,.36,1);}
+.ncard:hover .ncard-img{transform:scale(1.07);}
+.ncard-iw::after{content:'';position:absolute;bottom:0;left:0;right:0;height:70px;background:linear-gradient(to top,rgba(255,255,255,.8),transparent);pointer-events:none;}
+.ncard-badge{position:absolute;top:10px;left:10px;z-index:1;background:var(--indigo);color:#fff;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:5px;}
+.ncard-badge.a{background:#d97706;color:#fff;}
+.ncard-like{position:absolute;top:10px;right:10px;z-index:1;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);border:1px solid var(--bd);color:var(--muted);display:flex;align-items:center;gap:4px;padding:5px 9px;border-radius:20px;font-size:11px;cursor:pointer;transition:all .18s;}
+.ncard-like:hover{background:var(--indigo);color:#fff;border-color:var(--indigo);}
+.ncard-body{padding:14px 16px 18px;}
+.ncard-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;}
+.ncard-title{font-family:'Syne',sans-serif;font-size:14.5px;font-weight:700;color:var(--ink);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em;}
+.ncard-cat{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted-l);text-transform:uppercase;letter-spacing:.08em;background:var(--bg);padding:2px 6px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;border:1px solid var(--bd);}
+.ncard-by{font-size:11.5px;color:var(--muted-l);margin-bottom:14px;}
+.ncard-foot{display:flex;align-items:center;justify-content:space-between;padding-top:11px;border-top:1px solid var(--bd);gap:8px;}
+.ncard-plbl{font-size:9px;color:var(--muted-l);text-transform:uppercase;letter-spacing:.08em;font-family:'DM Mono',monospace;margin-bottom:1px;}
+.ncard-pval{font-family:'DM Mono',monospace;font-size:14px;color:var(--indigo);font-weight:600;}
+.ncard-btn{background:var(--indigo);color:#fff;padding:8px 15px;border-radius:7px;font-size:11.5px;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:background .18s;white-space:nowrap;}
+.ncard-btn:hover{background:var(--indigo-d);}
+
+/* ─── COLLECTION CARDS ─── */
+.collg{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start;}
+.collg .cc:nth-child(3n+2){margin-top:30px;}
+.cc{
+  border-radius:var(--R);overflow:hidden;cursor:pointer;
+  position:relative;aspect-ratio:4/5;
+  border:1px solid var(--bd);
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+  transition:transform .28s cubic-bezier(.22,1,.36,1),box-shadow .28s;
+}
+.cc:hover{transform:translateY(-7px);box-shadow:0 18px 44px rgba(0,0,0,.13);}
+.cc-bg{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;}
+.cc-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,transparent 55%);}
+.cc-info{position:absolute;bottom:0;left:0;right:0;padding:14px;}
+.cc-name{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:#fff;margin-bottom:3px;}
+.cc-tag{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.08em;text-transform:uppercase;}
+.cc-author{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:11px;padding:4px 9px;border-radius:20px;}
+
+/* ─── AUCTION CARDS ─── */
+.aucg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+.ac{background:#fff;border:1px solid var(--bd);border-radius:var(--R);overflow:hidden;cursor:pointer;transition:all .25s;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.ac:hover{border-color:#c7d2fe;transform:translateY(-5px);box-shadow:0 14px 38px rgba(0,0,0,.1);}
+.ac-img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;}
+.ac-body{padding:13px 15px 15px;}
+.ac-title{font-family:'Syne',sans-serif;font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ac-prices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px;}
+.ac-pl{font-family:'DM Mono',monospace;font-size:8.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-l);display:block;margin-bottom:1px;}
+.ac-pv{font-family:'DM Mono',monospace;font-size:12.5px;color:var(--ink);font-weight:600;}
+.ac-prog{height:2px;background:var(--bg-2);border-radius:1px;margin-bottom:10px;overflow:hidden;}
+.ac-pf{height:100%;border-radius:1px;transition:width .5s;}
+.ac-foot{display:flex;align-items:center;justify-content:space-between;}
+.ac-cd{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted-l);}
+.ac-bbtn{background:var(--indigo);color:#fff;padding:6px 14px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:background .18s;}
+.ac-bbtn:hover{background:var(--indigo-d);}
+
+/* ─── SKELETON ─── */
+.sk-card{background:#fff;border:1px solid var(--bd);border-radius:var(--R);overflow:hidden;}
+.sk{border-radius:8px;background:linear-gradient(90deg,var(--bg-2) 25%,var(--bg-3) 50%,var(--bg-2) 75%);background-size:600px 100%;animation:sk 1.5s infinite;}
+.sk-img{height:240px;}
+.sk-bd{padding:13px 15px;}
+.sk-ln{height:10px;margin-bottom:8px;border-radius:5px;}
+
+/* ─── EMPTY ─── */
+.empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted-l);}
+.empty svg{width:38px;height:38px;opacity:.3;margin:0 auto 14px;display:block;}
+.empty h4{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--muted);margin-bottom:5px;}
+.empty p{font-size:12.5px;}
+
+/* ─── EXHIBITION MODAL ─── */
+.ex-ov{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(14px);z-index:900;display:flex;align-items:center;justify-content:center;padding:20px;}
+.ex-box{background:#fff;border:1px solid var(--bd);border-radius:16px;width:100%;max-width:820px;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.18);}
+.ex-box-hdr{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--bd);}
+.ex-box-hdr h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--ink);}
+.ex-close{background:var(--bg);border:1px solid var(--bd);color:var(--muted);width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
+.ex-close:hover{background:var(--bg-2);color:var(--ink);}
+.ex-body{overflow-y:auto;padding:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.exc{background:var(--bg);border:1px solid var(--bd);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .2s;}
+.exc:hover{border-color:#c7d2fe;transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.08);}
+.ex-img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;}
+.ex-info{padding:12px 14px;}
+.ex-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.ex-date{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted-l);text-transform:uppercase;letter-spacing:.08em;}
+
+/* ─── FOOTER ─── */
+.ft{background:var(--ink);border-top:1px solid rgba(255,255,255,.06);padding:54px 40px 30px;margin-top:72px;}
+.ft-in{max-width:1300px;margin:0 auto;}
+.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px;}
+.ft-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.03em;margin-bottom:9px;color:#fff;}
+.ft-brand em{color:var(--indigo);font-style:normal;}
+.ft-tag{font-size:12.5px;color:rgba(255,255,255,.28);line-height:1.72;max-width:210px;}
+.ft-col h4{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#c8a96e;font-weight:500;margin-bottom:15px;}
+.ft-col ul{list-style:none;}
+.ft-col li{margin-bottom:9px;}
+.ft-col a{color:rgba(255,255,255,.33);font-size:12.5px;transition:color .2s;}
+.ft-col a:hover{color:#fff;}
+.ft-soc{display:flex;gap:7px;margin-top:3px;}
+.ft-s{width:32px;height:32px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:7px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.ft-s:hover{background:rgba(91,91,255,.18);border-color:rgba(91,91,255,.28);}
+.ft-s svg{width:13px;height:13px;fill:rgba(255,255,255,.42);}
+.ft-bot{border-top:1px solid rgba(255,255,255,.06);padding-top:20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.ft-copy{font-family:'DM Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.16);}
+.ft-leg{display:flex;gap:18px;}
+.ft-leg a{font-family:'DM Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.16);transition:color .2s;}
+.ft-leg a:hover{color:rgba(255,255,255,.55);}
+
+/* ─── MOBILE MODAL ─── */
+.mm{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:800;padding:14px;backdrop-filter:blur(8px);}
+.mm.open{display:flex;flex-direction:column;}
+.mm-box{background:#fff;border-radius:14px;padding:18px;max-width:460px;width:100%;margin:10px auto;border:1px solid var(--bd);box-shadow:0 20px 50px rgba(0,0,0,.15);}
+.mm-top{display:flex;align-items:center;gap:9px;margin-bottom:18px;}
+.mm-inp{flex:1;background:var(--bg);border:1px solid var(--bd);outline:none;color:var(--ink);font-size:14px;padding:9px 13px;border-radius:8px;font-family:inherit;}
+.mm-inp::placeholder{color:var(--muted-l);}
+.mm-cancel{background:transparent;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:5px;}
+.mm-cat{display:block;padding:12px 14px;color:var(--ink-2);font-size:13.5px;border-radius:8px;transition:background .15s;}
+.mm-cat:hover{background:var(--bg);}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1100px){
+  .profile-row{grid-template-columns:1fr;justify-items:center;text-align:center;}
+  .profile-left{flex-direction:row;justify-content:center;}
+  .profile-right{align-items:center;flex-direction:row;justify-content:center;flex-wrap:wrap;}
+  .stat-row{min-width:140px;}
+  .av-wrap{margin-top:-72px;}
+}
+@media(max-width:1024px){
+  .nav,.srch{display:none;}
+  .h-ico{display:flex;}
+}
+@media(max-width:768px){
+  .hdr{padding:0 16px;height:58px;}
+  .profile-zone,.tabs-wrap{padding:0 16px;}
+  .divl{margin:0 16px;}
+  .cover{height:200px;}
+  .av-ring{width:90px;height:90px;}
+  .av-wrap{margin-top:-45px;}
+  .p-name{font-size:24px;}
+  .cgrid,.collg,.aucg{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;scrollbar-width:none;}
+  .cgrid::-webkit-scrollbar,.collg::-webkit-scrollbar,.aucg::-webkit-scrollbar{display:none;}
+  .ncard,.cc,.ac{min-width:80vw!important;scroll-snap-align:center;flex-shrink:0;}
+  .cgrid .ncard:nth-child(3n+2),.collg .cc:nth-child(3n+2){margin-top:0!important;}
+  .ft{padding:36px 16px 22px;}
+  .ft-top{grid-template-columns:1fr 1fr;gap:20px;}
+  .ft-bot{flex-direction:column;text-align:center;}
 }
-
-.marketTab.active {
-  color: #111;
-}
-
-.marketTab.active::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: #111;
-}
-
-/* ================= Panels ================= */
-/* ================= MOBILE PROFILE (EXACT OPENSEA STYLE) ================= */
-@media (max-width: 768px) {
-
-  /* Main wrapper becomes card-like */
-  .profileDesktop {
-    margin-top: -60px;
-    padding: 0 16px 40px;
-  }
-
-  .profileTopRow {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    background: #fff;
-    border-radius: 24px;
-    padding: 24px 18px 28px;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.06);
-  }
-
-  /* Hide desktop side sections */
-  .profileLeftActions {
-    order: 2;
-    margin-top: 10px;
-    justify-content: center;
-    gap: 16px;
-  }
-
-  .profileRightStats {
-    order: 4;
-    margin-top: 18px;
-    flex-direction: row;
-    justify-content: center;
-    gap: 24px;
-  }
-
-  /* Avatar */
-  .avatarLarge {
-    width: 90px;
-    height: 90px;
-    margin: -45px auto 12px;
-    border: 5px solid #fff;
-  }
-
-  /* Name */
-  .profileName {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-
-  /* Bio */
-  .profileBio {
-    font-size: 15px;
-    color: #6b7280;
-    line-height: 1.6;
-    max-width: 320px;
-    margin: 0 auto 8px;
-  }
-
-  /* Follow + Wallets row style */
-  .profileLeftActions .actionBtn {
-    font-size: 15px;
-    color: #6b7280;
-    font-weight: 500;
-  }
-
-  /* Stats like screenshot */
-  .statBlock {
-    align-items: center;
-  }
-
-  .statValue {
-    font-size: 16px;
-    font-weight: 600;
-  }
-
-  .statLabel {
-    font-size: 13px;
-    color: #9ca3af;
-  }
-
-  /* Buttons row */
-  .mainButtons {
-    order: 5;
-    flex-direction: row;
-    justify-content: center;
-    gap: 14px;
-    margin-top: 22px;
-    width: 100%;
-  }
-
-  /* Shop button (purple gradient like screenshot) */
-  .primaryBtn {
-    flex: 1;
-    max-width: 160px;
-    padding: 14px 0;
-    border-radius: 16px;
-    font-size: 16px;
-    box-shadow: 0 10px 24px rgba(92,84,249,0.35);
-  }
-
-  /* Exhibition button (light pill) */
-  .secondaryBtn {
-    flex: 1;
-    max-width: 160px;
-    padding: 14px 0;
-    border-radius: 16px;
-    background: #f3f4f6;
-    border: 1px solid #e5e7eb;
-    color: #374151;
-    font-weight: 600;
-  }
-
-  /* Tabs spacing under card */
-  .marketTabsWrapper {
-    margin-top: 24px;
-  }
-}
-
-.tabPanel {
-  display: none;
-}
-
-.tabPanel.active {
-  display: block;
-}
-
-/* ================= Card Grid ================= */
-
-.cardGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-}
-
-/* ================= Minimal Card ================= */
-
-.simpleCard {
-  border: 1px solid #eee;
-  border-radius: 16px;
-  padding: 20px;
-  background: #fff;
-  transition: 0.2s ease;
-}
-
-.simpleCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-}
-
-.cardTitle {
-  font-weight: 600;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-.cardPrice {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 6px;
-}
-
-.cardStatus {
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.status-sale { color: #16a34a; }
-.status-auction { color: #d97706; }
-.status-sold { color: #777; }
-
-/* ================= Responsive ================= */
-
-@media (max-width: 1100px) {
-  .cardGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .cardGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .marketTabs {
-    gap: 12px;
-  }
-}
-
-
 </style>
-
-
-<style>
-        /* ── SEARCH DROPDOWN STYLES (corrected) ── */
-        .vx-search-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            margin-top: 6px;
-            max-height: 400px;
-            overflow-y: auto;
-            display: none;
-            z-index: 1002;
-        }
-        .vx-search-dropdown.show { display: block; }
-
-        .vx-search-section-label {
-            padding: 8px 16px;
-            font-size: 11px;
-            font-weight: 600;
-            color: #6b7280;
-            text-transform: uppercase;
-            background: #f9fafb;
-            border-bottom: 1px solid #e5e7eb;
-            letter-spacing: 0.05em;
-        }
-
-        .vx-search-result {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 16px;
-            cursor: pointer;
-            transition: background 0.2s;
-            text-decoration: none;
-            color: #111111;
-        }
-
-        .vx-search-result:hover { background: #f5f5f5; color: #111111; }
-
-        /* FIX 1: constrain image to fixed size */
-        .vx-search-result img {
-            width: 48px !important;
-            height: 48px !important;
-            min-width: 48px !important;
-            border-radius: 8px;
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        /* FIX 3: ensure text info is visible and laid out correctly */
-        .vx-search-result-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            flex: 1;
-            min-width: 0;
-        }
-
-        .vx-search-result-info h6 {
-            margin: 0;
-            font-weight: 600;
-            font-size: 14px;
-            color: #111111;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .vx-search-result-info small {
-            color: #6b7280;
-            font-size: 12px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .vx-search-result.artist-result {
-            background: linear-gradient(135deg, rgba(59,130,246,0.05), transparent);
-        }
-        .vx-search-result.artist-result:hover {
-            background: linear-gradient(135deg, rgba(59,130,246,0.1), #f9fafb);
-        }
-
-        .vx-artist-avatar {
-            width: 48px !important;
-            height: 48px !important;
-            min-width: 48px !important;
-            border-radius: 50%;
-            background: #5b5bff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        /* FIX 2: mobile categories hide when searching */
-        .categoryList.hide { display: none !important; }
-        .mobileSearchResults { display: none; padding: 8px; }
-        .mobileSearchResults.show { display: block; }
-</style>
-    <style>
-        /* ── NAVBAR LIGHT THEME OVERRIDE ── */
-        .mainHeader {
-            background: #ffffff !important;
-            border-bottom: 1px solid #e5e7eb !important;
-            padding: 0 32px !important;
-            height: 64px !important;
-        }
-
-        .navDropdown {
-            color: #1a1a1a !important;
-        }
-        .navDropdown:hover {
-            color: #5b5bff !important;
-        }
-        .navDropdown:hover .dropdownIcon {
-            transform: rotate(180deg);
-        }
-
-        .searchContainer {
-            background: #f3f4f6 !important;
-            border-radius: 8px !important;
-            border: 1px solid #e5e7eb !important;
-        }
-        .searchContainer:focus-within {
-            background: #f3f4f6 !important;
-            border-color: #5b5bff !important;
-            box-shadow: 0 0 0 3px rgba(91,91,255,0.08) !important;
-        }
-
-        .searchIcon {
-            opacity: 0.45 !important;
-            /* override white stroke to dark */
-        }
-
-        /* desktop search svg uses stroke="currentColor" — color it dark */
-        .searchContainer .searchIcon {
-            color: #374151 !important;
-        }
-
-        .searchInput {
-            color: #1a1a1a !important;
-        }
-        .searchInput::placeholder {
-            color: #9ca3af !important;
-        }
-
-        .searchShortcut {
-            background: #e5e7eb !important;
-            color: #6b7280 !important;
-        }
-
-        .signInButton {
-            background: #5b5bff !important;
-            color: #ffffff !important;
-        }
-        .signInButton:hover {
-            background: #4a4aee !important;
-        }
-
-        /* hamburger & mobile search icon — dark on light bg */
-        .menuButton svg,
-        .searchIconButton svg {
-            stroke: #1a1a1a !important;
-        }
-    </style>
 </head>
 <body>
 
-    <header class="mainHeader">
-        <a href="/" class="brandLogo">
-            <div class="logoImage"></div>
-        </a>
-
-        <nav class="navigationMenu">
-            <button class="navDropdown" onclick="window.location.href='marketplace.html'">
-                Explore
-                <svg class="dropdownIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M6 9l6 6 6-6"/>
-                </svg>
-            </button>
-            <button class="navDropdown" onclick="window.location.href='allcollections.html'">
-                Collections
-                <svg class="dropdownIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M6 9l6 6 6-6"/>
-                </svg>
-            </button>
-        </nav>
-
-        <div class="searchContainer vx-search-container">
-            <svg class="searchIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.35-4.35"></path>
-            </svg>
-            <input id="searchInput" type="text" id="searchInput" class="searchInput vx-search-input" placeholder="Search Exchange">
-            <span class="searchShortcut">Ctrl K</span>
-            <div class="vx-search-dropdown" id="searchDropdown"></div>
-        </div>
-
-        <div class="headerActions">
-            <button class="searchIconButton" onclick="toggleSearch()">
-                <svg class="searchIcon" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.35-4.35"></path>
-                </svg>
-            </button>
-            <button class="signInButton" onclick="window.location.href='login.html'">Sign in</button>
-            <button class="menuButton" onclick="toggleSearch()">
-                <svg class="menuIcon" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </button>
-        </div>
-    </header>
-
-    <div class="mobileSearchModal" id="searchModal" onclick="closeSearchIfOutside(event)">
-        <div class="searchModalContent" onclick="event.stopPropagation()">
-            <div class="searchModalHeader">
-                <svg class="searchIcon" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.35-4.35"></path>
-                </svg>
-                <input type="text" class="searchModalInput" placeholder="Search Exchange" id="searchInput2" autofocus>
-                <button class="cancelButton" onclick="toggleSearch()">Cancel</button>
-            </div>
-            <div class="categoryList" id="mobileCategories">
-                <a href="#" class="categoryItem">Music</a>
-                <a href="#" class="categoryItem">Painting</a>
-                <a href="#" class="categoryItem">Photography</a>
-                <a href="#" class="categoryItem">Physical</a>
-                <a href="#" class="categoryItem">Pixel Art</a>
-            </div>
-            <div class="mobileSearchResults" id="mobileResults"></div>
-        </div>
+<!-- HEADER -->
+<header class="hdr">
+  <a href="index.html" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
     </div>
+    <span class="logo-name">Blockto<em>art</em></span>
+  </a>
+  <nav class="nav">
+    <button class="nav-a" onclick="location.href='marketplace.html'">Explore</button>
+    <button class="nav-a" onclick="location.href='allcollections.html'">Collections</button>
+    <button class="nav-a" onclick="location.href='category.html?category=Auctions'">Auctions</button>
+    <button class="nav-a" onclick="location.href='artists.html'">Artists</button>
+  </nav>
+  <div class="srch">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input id="searchInput" type="text" placeholder="Search artworks, artists…">
+    <span class="srch-kbd">⌘K</span>
+    <div class="srch-drop" id="searchDrop"></div>
+  </div>
+  <div class="h-acts">
+    <button class="h-ico" onclick="toggleMM()">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </button>
+    <button class="btn-gl" onclick="location.href='login.html'">Log in</button>
+    <button class="btn-pm" onclick="location.href='signup.html'">Get started</button>
+    <button class="h-ico" onclick="toggleMM()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
 
+<!-- MOBILE MODAL -->
+<div class="mm" id="mm" onclick="closeMM(event)">
+  <div class="mm-box" onclick="event.stopPropagation()">
+    <div class="mm-top">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" class="mm-inp" placeholder="Search artworks…" id="mmSrch">
+      <button class="mm-cancel" onclick="toggleMM()">Cancel</button>
+    </div>
+    <div id="mmCats">
+      <a href="category.html?category=Music" class="mm-cat">Music</a>
+      <a href="category.html?category=Painting" class="mm-cat">Painting</a>
+      <a href="category.html?category=Photography" class="mm-cat">Photography</a>
+      <a href="category.html?category=Pixel+Art" class="mm-cat">Pixel Art</a>
+      <a href="category.html?category=Sculpture" class="mm-cat">Sculpture</a>
+    </div>
+  </div>
+</div>
 
-<section class="cover" id="coverage" >
- 
-</section>
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div class="cover-blob cb1"></div>
+  <div class="cover-blob cb2"></div>
+  <div class="cover-sk" id="coverSk"></div>
+  <div class="cover-overlay"></div>
+</div>
 
-<!-- IMPORTANT: Script renders inside here -->
-<div id="pageContent"></div>
-  <!-- Footer -->
-  <footer>
-    <div class="container" style="max-width: 100%; padding: 0;">
-      <div class="footer-header">
-        <div class="footer-logo">
-          <img src="https://ext.same-assets.com/1288399759/1188727251.svg" alt="Exchange.Art">
-          <span class="footer-logo-text">Blockto<span>art</span></span>
-        </div>
-        <!-- <div class="theme-toggle">
-          <div class="toggle-switch"></div>
-          Dark
-        </div> -->
+<!-- PROFILE -->
+<div class="profile-zone">
+  <div class="profile-row" id="profileRow">
+    <div style="padding-top:20px;display:flex;flex-direction:column;gap:10px;">
+      <div class="sk sk-ln" style="width:120px;height:34px;border-radius:8px;"></div>
+      <div class="sk sk-ln" style="width:100px;"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;margin-top:-72px;">
+      <div class="av-ring"><div class="av-init" id="avInitSk">…</div></div>
+      <div class="sk sk-ln" style="width:140px;height:22px;margin-top:12px;border-radius:6px;"></div>
+      <div class="sk sk-ln" style="width:200px;margin-top:8px;"></div>
+    </div>
+    <div style="padding-top:20px;display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
+      <div class="sk sk-ln" style="width:185px;height:52px;border-radius:11px;"></div>
+      <div class="sk sk-ln" style="width:185px;height:52px;border-radius:11px;"></div>
+      <div class="sk sk-ln" style="width:185px;height:52px;border-radius:11px;"></div>
+    </div>
+  </div>
+</div>
+
+<div class="divl" id="divider"></div>
+
+<!-- TABS + CONTENT -->
+<div class="tabs-wrap" id="tabsArea" style="display:none;">
+  <div class="tabs-bar">
+    <button class="tab-btn on" data-tab="collections">
+      Collections <span class="tab-pill" id="tpColl">—</span>
+    </button>
+    <button class="tab-btn" data-tab="nfts">
+      All NFTs <span class="tab-pill" id="tpNfts">—</span>
+    </button>
+    <button class="tab-btn" data-tab="auctions">
+      Auctions <span class="tab-pill" id="tpAuc">—</span>
+    </button>
+  </div>
+  <div class="tab-panel on" id="tab-collections">
+    <div class="collg" id="collGrid">
+      <div class="sk-card"><div class="sk sk-img"></div><div class="sk-bd"><div class="sk sk-ln" style="width:65%"></div></div></div>
+      <div class="sk-card"><div class="sk sk-img"></div><div class="sk-bd"><div class="sk sk-ln" style="width:72%"></div></div></div>
+      <div class="sk-card"><div class="sk sk-img"></div><div class="sk-bd"><div class="sk sk-ln" style="width:58%"></div></div></div>
+    </div>
+  </div>
+  <div class="tab-panel" id="tab-nfts">
+    <div class="cgrid" id="nftsGrid">
+      <div class="sk-card"><div class="sk sk-img"></div><div class="sk-bd"><div class="sk sk-ln" style="width:68%"></div><div class="sk sk-ln" style="width:48%"></div></div></div>
+      <div class="sk-card"><div class="sk sk-img"></div><div class="sk-bd"><div class="sk sk-ln" style="width:72%"></div><div class="sk sk-ln" style="width:52%"></div></div></div>
+      <div class="sk-card"><div class="sk sk-img"></div><div class="sk-bd"><div class="sk sk-ln" style="width:60%"></div><div class="sk sk-ln" style="width:44%"></div></div></div>
+    </div>
+  </div>
+  <div class="tab-panel" id="tab-auctions">
+    <div class="aucg" id="aucGrid">
+      <div class="sk-card"><div class="sk" style="height:180px;"></div><div class="sk-bd"><div class="sk sk-ln" style="width:65%"></div></div></div>
+      <div class="sk-card"><div class="sk" style="height:180px;"></div><div class="sk-bd"><div class="sk sk-ln" style="width:58%"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<div style="padding-bottom:20px;"></div>
+
+<!-- FOOTER -->
+<footer class="ft">
+  <div class="ft-in">
+    <div class="ft-top">
+      <div>
+        <div class="ft-brand">Blockto<em>art</em></div>
+        <p class="ft-tag">Collect &amp; sell digital fine art from independent creators worldwide.</p>
       </div>
-      <p class="footer-tagline">Collect & sell digital fine art</p>
-
-      <div class="footer-links">
-        <div class="footer-column">
-          <h4>Marketplace</h4>
-          <ul>
-            <li><a href="./marketplace.html">Artworks</a></li>
-            <li><a href="./allcollections.html">Collections</a></li>
-            <!-- <li><a href="#">Series</a></li>
-            <li><a href="#">Profiles</a></li>
-            <li><a href="#">Leaderboards</a></li> -->
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>Resources</h4>
-          <ul>
-            <!-- <li><a href="#">ArtDrop</a></li> -->
-            <li><a href="./blog.html">Blog</a></li>
-            <li><a href="./support.html">Helpdesk</a></li>
-            <!-- <li><a href="#">Suggest a feature</a></li>
-            <li><a href="#">Branding</a></li> -->
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>Account</h4>
-          <ul>
-            <li><a href="./signup.html">Sign up</a></li>
-            <li><a href="./login.html">Sign in</a></li>
-            <!-- <li><a href="#">Legacy Sign In</a></li> -->
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>Community</h4>
-          <div class="social-links">
-            <a href="#"><img src="https://ext.same-assets.com/1288399759/2388733996.svg" alt="X"></a>
-            <a href="#"><img src="https://ext.same-assets.com/1288399759/1750959219.svg" alt="YouTube"></a>
-            <a href="#"><img src="https://ext.same-assets.com/1288399759/2443148422.svg" alt="Instagram"></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <span>Copyright 2026 EXCHANGE.ART, All rights reserved</span>
-        <div class="footer-legal">
-          <a href="#">Terms of service</a>
-          <a href="#">Privacy policy</a>
+      <div class="ft-col"><h4>Marketplace</h4><ul>
+        <li><a href="marketplace.html">Artworks</a></li>
+        <li><a href="allcollections.html">Collections</a></li>
+        <li><a href="category.html?category=Auctions">Auctions</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Resources</h4><ul>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="support.html">Helpdesk</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Account</h4><ul>
+        <li><a href="signup.html">Sign up</a></li>
+        <li><a href="login.html">Sign in</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Community</h4>
+        <div class="ft-soc">
+          <a href="#" class="ft-s"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="#" class="ft-s"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg></a>
         </div>
       </div>
     </div>
-  </footer>
+    <div class="ft-bot">
+      <span class="ft-copy">© 2026 Blocktoart. All rights reserved.</span>
+      <div class="ft-leg"><a href="#">Terms</a><a href="#">Privacy</a></div>
+    </div>
+  </div>
+</footer>
 
 <script>
-/* ================= GLOBAL ================= */
-let artistName = '';
-let username = '';
-let artistNFTs = [];
-let allNFTs = [];
-let allCollections = [];
-let collectionNFTImages = {};
-let allAuctions = [];
-let followers = '';
-let following = '';
-let volumeSold = '';
-let artistMage=''
+/* ─── GLOBALS ─── */
+let artistName='',artistNFTs=[],allNFTs=[],allCollections=[],allAuctions=[],allExhibitions=[];
+let collMap={},nftMap={};
+let volumeSold='—',artistId='';
 
-/* ================= DOM LOAD ================= */
-document.addEventListener('DOMContentLoaded', async () => {
-    const params = new URLSearchParams(window.location.search);
-    artistName = decodeURIComponent(params.get('name') || '');
-    username = artistName;
-
-    if (!artistName) return showError("Artist not found");
-
-    try {
-        await loadArtistProfile();
-        await loadCollections();
-        await loadAuctions();
-        setupTabs(); // activate tab switching
-          renderCollections();
-    } catch (err) {
-        console.error(err);
-        showError("Error loading page");
-    }
+document.addEventListener('DOMContentLoaded',async()=>{
+  const p=new URLSearchParams(location.search);
+  artistName=decodeURIComponent(p.get('name')||'');
+  if(!artistName){showError('Artist not found');return;}
+  setupSearch();setupMM();
+  await Promise.all([loadAvatar(),loadNFTs(),loadCollections(),loadAuctions(),loadExhibitions()]);
+  renderProfile();
+  setupTabs();
+  renderCollections();
+  document.getElementById('tabsArea').style.display='block';
 });
 
-/* ================= ERROR ================= */
-function showError(message) {
-    document.getElementById('pageContent').innerHTML = `
-        <div class="centerMessage">
-            <h4>${message}</h4>
-            <a href="/index.html" class="backBtn">Back to Marketplace</a>
-        </div>
-    `;
+async function loadAvatar(){
+  try{
+    const token=localStorage.getItem('token');if(!token)return;
+    const r=await fetch(`https://changes-sample.onrender.com/api/user/avatar/${encodeURIComponent(artistName)}`,{headers:{'Authorization':`Bearer ${token}`}});
+    if(!r.ok)return;
+    const d=await r.json();
+    artistId=d._id||'';localStorage.setItem('artistId',artistId);
+    if(d.profileImage){
+      const c=document.getElementById('cover');
+      c.innerHTML=`<div class="cover-blob cb1"></div><div class="cover-blob cb2"></div><img src="${d.profileImage}" class="cover-img" alt="${artistName}"><div class="cover-overlay"></div>`;
+    }
+  }catch{}
 }
 
+async function loadNFTs(){
+  try{
+    const r=await fetch('https://changes-sample.onrender.com/api/marketplace/nfts');
+    if(!r.ok)throw 0;
+    allNFTs=await r.json();allNFTs.forEach(n=>nftMap[n._id]=n);
+    const email=localStorage.getItem('creatorEmail')||'';
+    artistNFTs=allNFTs.filter(n=>n.owner===email);
+    const sold=artistNFTs.filter(n=>n.status==='sold').reduce((s,n)=>s+(n.price||0),0);
+    volumeSold=sold.toFixed(2)+' ETH';
+  }catch{}
+}
 
+async function loadCollections(){
+  try{const r=await fetch('https://changes-sample.onrender.com/api/marketplace/collections');if(!r.ok)throw 0;allCollections=await r.json();}catch{}
+}
+async function loadAuctions(){
+  try{const r=await fetch('https://changes-sample.onrender.com/api/marketplace/auctions');if(!r.ok)throw 0;allAuctions=await r.json();}catch{}
+}
+async function loadExhibitions(){
+  try{const r=await fetch('https://changes-sample.onrender.com/api/marketplace/exhibitions');if(!r.ok)throw 0;allExhibitions=await r.json();}catch{}
+}
 
-async function loadArtistProfileAvatar() {
-  try {
-    const token = localStorage.getItem("token");
-    if (!token) throw new Error("No token found");
-
-    const params = new URLSearchParams(window.location.search);
-    const username = params.get("name");
-
-    if (!username) throw new Error("No username in URL");
-
-    const res = await fetch(
-      `https://changes-sample.onrender.com/api/user/avatar/${encodeURIComponent(username)}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (!res.ok) throw new Error("Failed to load avatar");
-
-    const data = await res.json();
-    const coverageEl = document.getElementById("coverage");
-localStorage.setItem("artistId",data._id)
-    if (!coverageEl) return;
-
-    coverageEl.innerHTML = `
-      <img 
-        src="${data.profileImage || 'default-avatar.png'}" 
-        alt="${username}" 
-        class="artist-cover-img"
-      >
-    `;
-  } catch (err) {
-    console.error("Avatar load error:", err);
+async function renderProfile(){
+  allCollections.forEach(c=>{collMap[c._id]=allNFTs.filter(n=>(n.collectionId?._id||n.collectionId)===c._id).map(n=>n.imageUrl);});
+  const userId=localStorage.getItem('userId');
+  let isFollowing=false;
+  if(userId&&artistId){
+    try{const r=await fetch(`https://changes-sample.onrender.com/api/follow-status?userId=${userId}&targetUserId=${artistId}`);if(r.ok){const d=await r.json();isFollowing=d.following;}}catch{}
   }
-}
+  const initials=artistName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)||'?';
+  const avatarEl=document.getElementById('cover').querySelector('img');
+  const avatarSrc=avatarEl?avatarEl.src:'';
+  const now=new Date();
+  const liveAuc=allAuctions.filter(a=>new Date(a.startTime)<=now&&new Date(a.endTime)>now).length;
 
-/* ================= LOAD ARTIST NFTS ================= */
-async function loadArtistProfile() {
-    const res = await fetch('https://changes-sample.onrender.com/api/marketplace/nfts');
-    if (!res.ok) throw new Error('Failed to fetch NFTs');
-    allNFTs = await res.json();
-
-    const creatorEmail = localStorage.getItem("creatorEmail");
-    artistNFTs = allNFTs.filter(n => n.owner === creatorEmail);
-
-    if (!artistNFTs.length) showError("No artworks found for this artist");
-    renderProfile();
-}
-
-/* ================= RENDER PROFILE ================= */
-function renderProfile() {
-   var artistId=localStorage.getItem("artistId")
-    document.getElementById("pageContent").innerHTML = `
-<section class="profileDesktop">
-    <div class="profileTopRow">
-        <div class="profileLeftActions">
-            <button class="actionBtn" id="followBtn">♡ Follow</button>
-            <button class="actionBtn" id="exhibitionBtn">Exhibition</button>
-            <button class="iconBtn">↗</button>
-        </div>
-        <div class="profileCenter">
-            <div class="avatarLarge"></div>
-            <h1 class="profileName">${artistName}</h1>
-            <p class="profileBio">Artist on Blocktoart platform creating digital collectibles.</p>
-            <div class="mainButtons">
-                <button class="primaryBtn">Shop</button>
-            </div>
-        </div>
-        <div class="profileRightStats">
-            <div class="statBlock"><span class="statLabel">Followers</span><span class="statValue">${followers}</span></div>
-            <div class="statBlock"><span class="statLabel">Following</span><span class="statValue">${following}</span></div>
-            <div class="statBlock"><span class="statLabel">Volume sold</span><span class="statValue">${volumeSold}</span></div>
-        </div>
+  document.getElementById('profileRow').innerHTML=`
+  <div class="profile-left">
+    <button class="p-act" onclick="showExhibitions()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      Exhibitions
+    </button>
+    <button class="p-act" onclick="shareProfile()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+      Share
+    </button>
+  </div>
+  <div class="av-wrap">
+    <div class="av-ring">${avatarSrc?`<img src="${avatarSrc}" alt="${artistName}">`:`<div class="av-init">${initials}</div>`}</div>
+    <div class="verified"><svg viewBox="0 0 10 10"><path d="M5 1L6.2 3.5H9L6.9 5.3 7.6 8 5 6.5 2.4 8 3.1 5.3 1 3.5h2.8z"/></svg>Verified Creator</div>
+    <div class="profile-center">
+      <h1 class="p-name">${artistName}</h1>
+      <p class="p-bio">Digital artist on Blocktoart — creating one-of-a-kind collectibles at the intersection of code and culture.</p>
+      <div class="p-ctas">
+        <button class="p-follow${isFollowing?' following':''}" id="followBtn">${isFollowing?'♥ Following':'♡ Follow'}</button>
+        <button class="p-secondary" onclick="location.href='marketplace.html'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Shop
+        </button>
+      </div>
     </div>
-
-    <div class="marketTabsWrapper">
-        <div class="marketTabs">
-            <button class="marketTab active" data-tab="collections">Collections</button>
-            <button class="marketTab" data-tab="nfts">All NFTs</button>
-            <button class="marketTab" data-tab="auctions">Auctions</button>
-        </div>
-
-        <div class="marketTabContent">
-            <div id="collectionsTab" class="tabPanel active"><div id="collectionsContainer" class="cardGrid"></div></div>
-            <div id="nftsTab" class="tabPanel"><div id="nftsContainer" class="cardGrid"></div></div>
-            <div id="auctionsTab" class="tabPanel"><div id="auctionsContainer" class="cardGrid"></div></div>
-        </div>
+  </div>
+  <div class="profile-right">
+    <div class="stat-row">
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="stat-body"><div class="stat-val">—</div><div class="stat-lbl">Followers</div></div>
     </div>
-</section>
-`;
+    <div class="stat-row">
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg></div>
+      <div class="stat-body"><div class="stat-val">${artistNFTs.length}</div><div class="stat-lbl">Artworks</div></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="stat-body"><div class="stat-val">${volumeSold}</div><div class="stat-lbl">Volume Sold</div></div>
+    </div>
+  </div>`;
 
-    // EXHIBITION BUTTON
-    document.getElementById("exhibitionBtn").addEventListener("click", () => {
-         showExhibitions();
+  document.getElementById('tpColl').textContent=allCollections.length;
+  document.getElementById('tpNfts').textContent=artistNFTs.length;
+  document.getElementById('tpAuc').textContent=liveAuc;
+  document.getElementById('followBtn').addEventListener('click',toggleFollow);
+}
+
+async function toggleFollow(){
+  const btn=document.getElementById('followBtn');
+  const userId=localStorage.getItem('userId');
+  const aId=localStorage.getItem('artistId');
+  if(!userId||!aId){location.href='login.html';return;}
+  try{
+    const r=await fetch('https://changes-sample.onrender.com/api/follow',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId,targetUserId:aId})});
+    if(!r.ok)throw 0;
+    const d=await r.json();
+    btn.innerHTML=d.following?'♥ Following':'♡ Follow';
+    btn.classList.toggle('following',d.following);
+  }catch{alert('Please sign in to follow artists.');}
+}
+function shareProfile(){
+  if(navigator.share)navigator.share({title:artistName,url:location.href});
+  else navigator.clipboard.writeText(location.href).then(()=>alert('Profile link copied!'));
+}
+
+function setupTabs(){
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('on'));
+      btn.classList.add('on');
+      const t=btn.dataset.tab;
+      document.getElementById('tab-'+t).classList.add('on');
+      if(t==='collections')renderCollections();
+      if(t==='nfts')renderNFTs();
+      if(t==='auctions')renderAuctions();
     });
-
-    // FOLLOW BUTTON (NOW SAFE)
-   const followBtn = document.getElementById("followBtn");
-
-followBtn.addEventListener("click", async () => {
-    const userId = localStorage.getItem("userId");
-    const targetUserId = localStorage.getItem("artistId");
-
-    const res = await fetch("https://changes-sample.onrender.com/api/follow", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, targetUserId })
-    });
-
-    const data = await res.json();
-
-    updateFollowButton(followBtn, data.following);
-});
-
-// ✅ CHECK FOLLOW STATUS ON LOAD
-const userId = localStorage.getItem("userId");
-// const artistId = localStorage.getItem("artistId");
-
-if (userId && artistId) {
-    checkFollowStatus(userId, artistId, followBtn);
-}
-    renderNFTs();
+  });
 }
 
-
-async function checkFollowStatus(userId, artistId, followBtn) {
-    try {
-        const res = await fetch(
-            `https://changes-sample.onrender.com/api/follow-status?userId=${userId}&targetUserId=${artistId}`
-        );
-
-        if (!res.ok) return;
-
-        const data = await res.json();
-
-        updateFollowButton(followBtn, data.following);
-
-    } catch (err) {
-        console.error("Follow status check failed:", err);
-    }
+function renderCollections(){
+  const el=document.getElementById('collGrid');if(!el)return;
+  if(!allCollections.length){el.innerHTML=emptyState('No collections yet','This artist has not created any collections.');return;}
+  el.innerHTML=allCollections.map(c=>{
+    const img=collMap[c._id]?.[0]||'https://via.placeholder.com/600x750';
+    const cnt=collMap[c._id]?.length||0;
+    return `<a href="collection.html?id=${c._id}" class="cc"><img src="${img}" alt="${c.name}" class="cc-bg" loading="lazy"><div class="cc-ov"></div><div class="cc-author">${artistName[0]?.toUpperCase()||'A'} ${artistName}</div><div class="cc-info"><div class="cc-name">${c.name}</div><span class="cc-tag">${cnt} item${cnt!==1?'s':''}</span></div></a>`;
+  }).join('');
 }
 
-function updateFollowButton(button, isFollowing) {
-    if (!button) return;
-
-    if (isFollowing) {
-        button.innerHTML = "♥ Following";
-        button.classList.add("following");
-    } else {
-        button.innerHTML = "♡ Follow";
-        button.classList.remove("following");
-    }
-}
-let allExhibitions = []; // global
-
-// 1️⃣ Fetch exhibitions when the page loads
-async function loadExhibitions() {
-    try {
-        const res = await fetch('https://changes-sample.onrender.com/api/marketplace/exhibitions');
-        if (!res.ok) throw new Error('Failed to fetch exhibitions');
-        allExhibitions = await res.json();
-    } catch (err) {
-        console.error("Failed to load exhibitions:", err);
-    }
+function renderNFTs(){
+  const el=document.getElementById('nftsGrid');if(!el)return;
+  if(!artistNFTs.length){el.innerHTML=emptyState('No artworks yet','This artist has not listed any works.');return;}
+  el.innerHTML=artistNFTs.map(n=>{
+    const pr=n.price?`${n.price.toFixed(2)} ${n.currency||'ETH'}`:'Not listed';
+    const badge=n.status==='auction'?`<span class="ncard-badge a">Auction</span>`:n.status==='listed'?`<span class="ncard-badge">For Sale</span>`:'';
+    const btn=(n.status==='listed'||n.status==='auction')?`<button class="ncard-btn" onclick="event.stopPropagation();location.href='artwork.html?id=${n._id}'">${n.status==='auction'?'Place Bid':'Buy Now'}</button>`:'';
+    return `<div class="ncard" onclick="location.href='artwork.html?id=${n._id}'"><div class="ncard-iw"><img src="${n.imageUrl}" alt="${n.name}" class="ncard-img" loading="lazy">${badge}<div class="ncard-like"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>${n.likes||0}</div></div><div class="ncard-body"><div class="ncard-top"><h3 class="ncard-title">${n.name}</h3><span class="ncard-cat">${n.category||'Art'}</span></div><div class="ncard-by">@${n.creator||artistName}</div><div class="ncard-foot"><div><div class="ncard-plbl">Price</div><div class="ncard-pval">${pr}</div></div>${btn}</div></div></div>`;
+  }).join('');
 }
 
-// 2️⃣ Render exhibitions in a modal or container
-function showExhibitions() {
-    if (!allExhibitions.length) {
-        alert("No exhibitions available at the moment");
-        return;
-    }
-
-    // Example: render in a simple modal-like overlay
-    let html = `
-        <div class="exhibitionOverlay" style="
-            position:fixed;top:0;left:0;width:100%;height:100%;
-            background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;
-            overflow:auto;z-index:9999;
-        ">
-            <div class="exhibitionContent" style="background:#fff;padding:24px;border-radius:8px;max-width:800px;width:90%;">
-                <button id="closeExhibition" style="float:right;font-size:18px;">✖</button>
-                <h2>Exhibitions</h2>
-                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:16px;">
-    `;
-
-    allExhibitions.forEach(e => {
-        html += `
-            <div class="exhibitionCard" style="border:1px solid #ddd;border-radius:8px;overflow:hidden;">
-                <img src="${e.thumbnailUrl || 'https://via.placeholder.com/400'}" alt="${e.title}" style="width:100%;height:150px;object-fit:cover;">
-                <div style="padding:8px;">
-                    <h4>${e.title || 'Untitled'}</h4>
-                    <p style="font-size:12px;color:#666;">${e.description || 'No description'}</p>
-                    <span style="font-size:12px;color:#333;">Start: ${new Date(e.startDate).toLocaleDateString()}</span>
-                </div>
-            </div>
-        `;
-    });
-
-    html += `</div></div></div>`; // close grid & overlay
-
-    // append overlay to body
-    const div = document.createElement('div');
-    div.innerHTML = html;
-    document.body.appendChild(div);
-
-    // close button
-    document.getElementById("closeExhibition").addEventListener("click", () => {
-        div.remove();
-    });
+function renderAuctions(){
+  const el=document.getElementById('aucGrid');if(!el)return;
+  const now=new Date();
+  const active=allAuctions.filter(a=>new Date(a.startTime)<=now&&new Date(a.endTime)>now);
+  if(!active.length){el.innerHTML=emptyState('No live auctions','Check back soon for upcoming auction events.');return;}
+  el.innerHTML=active.map(a=>{
+    const nft=nftMap[a.nft]||{};
+    const img=nft.imageUrl||'https://via.placeholder.com/600';
+    const td=Math.max(1,(new Date(a.endTime)-new Date(a.startTime))/1000);
+    const ts=Math.max(0,(new Date(a.endTime)-new Date())/1000);
+    const pp=Math.max(0,Math.min(100,(ts/td)*100));
+    const pc=pp>50?'#16a34a':pp>20?'#d97706':'#dc2626';
+    const t=tLeft(a.endTime);
+    return `<div class="ac" onclick="location.href='artwork.html?auction=${a._id}'"><img src="${img}" alt="${nft.name||'Auction'}" class="ac-img" loading="lazy"><div class="ac-body"><div class="ac-title">${nft.name||a.title||'Untitled Auction'}</div><div class="ac-prices"><div><span class="ac-pl">Current Bid</span><span class="ac-pv">${a.currentBid||a.startingPrice} ${a.currency||'ETH'}</span></div><div><span class="ac-pl">Min Bid</span><span class="ac-pv">${a.minimumBid} ${a.currency||'ETH'}</span></div></div><div class="ac-prog"><div class="ac-pf" id="apf_${a._id}" style="width:${pp}%;background:${pc};"></div></div><div class="ac-foot"><span class="ac-cd" id="acd_${a._id}">${fmtT(t)}</span><button class="ac-bbtn" onclick="event.stopPropagation();location.href='artwork.html?auction=${a._id}'">Place Bid</button></div></div></div>`;
+  }).join('');
+  active.forEach(a=>{
+    const td=Math.max(1,(new Date(a.endTime)-new Date(a.startTime))/1000);
+    setInterval(()=>{
+      const cd=document.getElementById(`acd_${a._id}`),pf=document.getElementById(`apf_${a._id}`);
+      const s=Math.max(0,(new Date(a.endTime)-new Date())/1000);
+      const p=Math.max(0,Math.min(100,(s/td)*100));
+      if(cd)cd.textContent=fmtT(tLeft(a.endTime));
+      if(pf){pf.style.width=p+'%';pf.style.background=p>50?'#16a34a':p>20?'#d97706':'#dc2626';}
+    },1000);
+  });
 }
 
-
-/* ================= TABS ================= */
-function setupTabs() {
-    document.querySelectorAll('.marketTab').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.marketTab').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tabPanel').forEach(p => p.classList.remove('active'));
-
-            btn.classList.add('active');
-            const tab = btn.dataset.tab;
-
-            if (tab === 'collections') renderCollections();
-            if (tab === 'nfts') renderNFTs();
-            if (tab === 'auctions') renderAuctions();
-            
-            document.getElementById(tab + 'Tab').classList.add('active');
-        });
-    });
+function showExhibitions(){
+  const ex=document.getElementById('_exMod');if(ex)ex.remove();
+  const ov=document.createElement('div');ov.id='_exMod';ov.className='ex-ov';
+  const inner=!allExhibitions.length
+    ?`<div class="ex-box"><div class="ex-box-hdr"><h3>Exhibitions</h3><button class="ex-close" onclick="document.getElementById('_exMod').remove()">✕</button></div><div style="padding:40px;text-align:center;color:var(--muted-l);font-size:13px;">No exhibitions available at the moment.</div></div>`
+    :`<div class="ex-box"><div class="ex-box-hdr"><h3>Exhibitions</h3><button class="ex-close" onclick="document.getElementById('_exMod').remove()">✕</button></div><div class="ex-body">${allExhibitions.map(e=>`<div class="exc"><img src="${e.thumbnailUrl||'https://via.placeholder.com/400'}" alt="${e.title||''}" class="ex-img" loading="lazy"><div class="ex-info"><div class="ex-title">${e.title||'Untitled Exhibition'}</div><div class="ex-date">${new Date(e.startDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</div></div></div>`).join('')}</div></div>`;
+  ov.innerHTML=inner;
+  document.body.appendChild(ov);
+  ov.addEventListener('click',e=>{if(e.target===ov)ov.remove();});
 }
 
-/* ================= COLLECTIONS ================= */
-async function loadCollections() {
-    const res = await fetch('https://changes-sample.onrender.com/api/marketplace/collections');
-    if (!res.ok) throw new Error('Failed to fetch collections');
-    allCollections = await res.json();
-    mapNFTsToCollections();
+function tLeft(end){const d=Math.max(0,new Date(end)-new Date());return{d:Math.floor(d/86400000),h:Math.floor(d/3600000)%24,m:Math.floor(d/60000)%60,s:Math.floor(d/1000)%60};}
+function fmtT(t){return`${t.d?t.d+'d ':''}${t.h}h ${t.m}m ${t.s}s`;}
+function emptyState(title,msg){return`<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><h4>${title}</h4><p>${msg}</p></div>`;}
+function showError(msg){document.body.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:14px;color:var(--muted);font-family:'DM Sans',sans-serif;"><p>${msg}</p><a href="index.html" style="color:var(--indigo);font-size:13px;">← Back to Marketplace</a></div>`;}
+
+let _st=null;
+function setupSearch(){
+  const inp=document.getElementById('searchInput'),drop=document.getElementById('searchDrop');
+  if(!inp||!drop)return;
+  inp.addEventListener('input',e=>{clearTimeout(_st);_st=setTimeout(()=>runSrch(e.target.value,drop),280);});
+  inp.addEventListener('focus',()=>{if(inp.value.length>=2)drop.classList.add('show');});
+  document.addEventListener('click',e=>{if(!inp.contains(e.target)&&!drop.contains(e.target))drop.classList.remove('show');});
+  document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();inp.focus();}});
 }
-
-function mapNFTsToCollections() {
-    allCollections.forEach(col => {
-        const nftsInCollection = allNFTs.filter(n => (n.collectionId?._id || n.collectionId) === col._id);
-        collectionNFTImages[col._id] = nftsInCollection.map(n => n.imageUrl);
-    });
+async function runSrch(q,drop){
+  if(q.length<2){drop.classList.remove('show');return;}
+  try{
+    const r=await fetch(`https://changes-sample.onrender.com/api/marketplace/search?q=${encodeURIComponent(q)}`);
+    if(!r.ok)throw 0;
+    const res=await r.json();
+    if(!res.length){drop.innerHTML='<div style="padding:14px;color:var(--muted-l);text-align:center;font-size:12.5px;">No results found</div>';drop.classList.add('show');return;}
+    const artists=[...new Set(res.map(n=>n.creator).filter(x=>x&&x.toLowerCase().includes(q.toLowerCase())))].slice(0,3);
+    let html='';
+    if(artists.length){html+='<div class="sd-lbl">Artists</div>';artists.forEach(a=>{html+=`<a href="artist.html?name=${encodeURIComponent(a)}" class="sd-row"><div class="sd-av">${a[0].toUpperCase()}</div><div><h6>${a}</h6><small>View Profile</small></div></a>`;});}
+    html+='<div class="sd-lbl">Artworks</div>';
+    res.slice(0,6).forEach(n=>{html+=`<a href="artwork.html?id=${n._id}" class="sd-row"><img src="${n.imageUrl||''}" alt="${n.name||''}"><div><h6>${n.name||'Untitled'}</h6><small>by ${n.creator||'Unknown'} · ${n.category||''}</small></div></a>`;});
+    drop.innerHTML=html;drop.classList.add('show');
+  }catch{}
 }
-
-function renderCollections() {
-    const container = document.getElementById('collectionsContainer');
-    if (!container) return;
-    let html = '';
-    allCollections.forEach(col => {
-        const firstImg = collectionNFTImages[col._id]?.[0] || 'https://via.placeholder.com/400';
-        html += `
-            <div class="artworkCard" onclick="alert('Go to collection ${col._id}')">
-                <div class="artworkImage" style="background-image:url('${firstImg}')"></div>
-                <div class="artworkDetails">
-                    <div class="artworkTitle">${col.name}</div>
-                    <div class="artworkPrice">${collectionNFTImages[col._id]?.length || 0} items</div>
-                </div>
-            </div>
-        `;
-    });
-    container.innerHTML = html;
+function setupMM(){
+  const inp=document.getElementById('mmSrch');if(!inp)return;
+  inp.addEventListener('input',async e=>{
+    const q=e.target.value.trim();
+    document.getElementById('mmCats').style.display=q.length>=2?'none':'';
+  });
 }
-
-/* ================= ALL NFTs ================= */
-function renderNFTs() {
-    const container = document.getElementById("nftsContainer");
-
-    // artistNFTs is already filtered during loadArtistProfile()
-    if (!artistNFTs || !artistNFTs.length) {
-        container.innerHTML = `<div class="emptyState">No artworks found</div>`;
-        return;
-    }
-
-    container.innerHTML = artistNFTs.map(nft => renderArtworkCard(nft)).join('');
-}
-
-function renderArtworkCard(nft) {
-    const image = nft.imageUrl || 'https://via.placeholder.com/400';
-    const title = nft.name || 'Untitled Artwork';
-    const price = nft.price 
-        ? `${Number(nft.price).toFixed(2)} ${nft.currency || 'SOL'}` 
-        : 'Not listed';
-
-    return `
-        <div class="artworkCard" onclick="window.location.href='artwork.html?id=${nft._id}'">
-            <div class="artworkImage" style="background-image:url('${image}')"></div>
-            <div class="artworkDetails">
-                <div class="artworkTitle">${title}</div>
-                <div class="artworkPrice">${price}</div>
-            </div>
-        </div>
-    `;
-}
-
-
-/* ================= AUCTIONS ================= */
-async function loadAuctions() {
-    const res = await fetch('https://changes-sample.onrender.com/api/marketplace/auctions');
-    if (!res.ok) throw new Error('Failed to fetch auctions');
-    allAuctions = await res.json();
-    renderAuctions();
-}
-
-function renderAuctions() {
-    const container = document.getElementById('auctionsContainer');
-    if (!container) return;
-    const now = new Date();
-
-    let nftMap = {};
-    allNFTs.forEach(nft => nftMap[nft._id] = nft);
-
-    const activeAuctions = allAuctions.filter(a => new Date(a.startTime) <= now && new Date(a.endTime) > now);
-
-    if (!activeAuctions.length) {
-        container.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:32px;">No live auctions at the moment</div>';
-        return;
-    }
-
-    container.innerHTML = activeAuctions.map(a => {
-        const nft = nftMap[a.nft] || {};
-        const img = nft.imageUrl || 'https://via.placeholder.com/400';
-        const t = getTimeLeft(new Date(a.endTime));
-
-        return `
-        <div class="artworkCard" id="auction-${a._id}" onclick="alert('Open auction ${a._id}')">
-            <div class="artworkImage" style="background-image:url('${img}')"></div>
-            <div class="artworkDetails">
-                <div class="artworkTitle">${nft.name || a.title || 'Untitled'}</div>
-                <div class="artworkPrice">Current Bid: ${a.currentBid || a.startingPrice} ${a.currency || 'ETH'}</div>
-                <div>Time left: <span id="countdown-${a._id}">${t.hours}h ${t.minutes}m ${t.seconds}s</span></div>
-            </div>
-        </div>
-        `;
-    }).join('');
-
-    // Start countdowns
-    activeAuctions.forEach(a => startAuctionCountdown(a));
-}
-
-function startAuctionCountdown(a) {
-    const countdownEl = document.getElementById(`countdown-${a._id}`);
-    const endTime = new Date(a.endTime);
-
-    const interval = setInterval(() => {
-        const t = getTimeLeft(endTime);
-        if (!countdownEl) { clearInterval(interval); return; }
-        if (endTime - new Date() <= 0) {
-            countdownEl.textContent = 'Ended';
-            clearInterval(interval);
-            return;
-        }
-        countdownEl.textContent = `${t.hours}h ${t.minutes}m ${t.seconds}s`;
-    }, 1000);
-}
-
-function getTimeLeft(endTime) {
-    const diff = Math.max(0, endTime - new Date());
-    return {
-        hours: Math.floor(diff / 1000 / 60 / 60),
-        minutes: Math.floor((diff / 1000 / 60) % 60),
-        seconds: Math.floor((diff / 1000) % 60)
-    };
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  loadArtistProfileAvatar();
-});
+function toggleMM(){document.getElementById('mm').classList.toggle('open');}
+function closeMM(e){if(e.target.id==='mm')toggleMM();}
 </script>
-
-
-    
-
-
-    <script>
-        /* ── HEADER SEARCH JS (index.html pattern) ── */
-        let __hdrSearchTimeout = null;
-
-        function setupSearch(inputId, dropdownId) {
-            const input = document.getElementById(inputId);
-            const dropdown = document.getElementById(dropdownId);
-            if (!input || !dropdown) return;
-
-            input.addEventListener('input', function(e) {
-                clearTimeout(__hdrSearchTimeout);
-                __hdrSearchTimeout = setTimeout(function() {
-                    runHeaderSearch(e.target.value, dropdown);
-                }, 300);
-            });
-
-            input.addEventListener('focus', function() {
-                if (input.value.length >= 2) dropdown.classList.add('show');
-            });
-
-            document.addEventListener('click', function(e) {
-                if (!input.contains(e.target) && !dropdown.contains(e.target)) {
-                    dropdown.classList.remove('show');
-                }
-            });
-
-            document.addEventListener('keydown', function(e) {
-                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                    e.preventDefault();
-                    input.focus();
-                }
-            });
-        }
-
-        async function runHeaderSearch(query, dropdown) {
-            if (!query || query.length < 2) {
-                dropdown.classList.remove('show');
-                return;
-            }
-            try {
-                const res = await fetch(
-                    'https://changes-sample.onrender.com/api/marketplace/search?q=' + encodeURIComponent(query)
-                );
-                if (!res.ok) throw new Error('Search failed');
-                const results = await res.json();
-
-                if (!results || !results.length) {
-                    dropdown.innerHTML = '<div style="padding:14px 16px;color:#6b7280;text-align:center;font-size:14px;">No results found</div>';
-                    dropdown.classList.add('show');
-                    return;
-                }
-
-                // Separate artists from artworks
-                const uniqueArtists = [];
-                const seen = new Set();
-                results.forEach(function(nft) {
-                    const c = nft.creator;
-                    if (c && !seen.has(c) && c.toLowerCase().includes(query.toLowerCase())) {
-                        seen.add(c);
-                        uniqueArtists.push(c);
-                    }
-                });
-
-                let html = '';
-
-                if (uniqueArtists.length) {
-                    html += '<div class="vx-search-section-label">Artists</div>';
-                    uniqueArtists.slice(0, 3).forEach(function(artist) {
-                        html += '<a href="artist.html?name=' + encodeURIComponent(artist) + '" class="vx-search-result artist-result">'
-                            + '<div class="vx-artist-avatar">' + artist.charAt(0).toUpperCase() + '</div>'
-                            + '<div class="vx-search-result-info">'
-                            + '<h6>' + artist + '</h6>'
-                            + '<small>View Artist Profile</small>'
-                            + '</div></a>';
-                    });
-                }
-
-                html += '<div class="vx-search-section-label">Artworks</div>';
-                results.slice(0, 6).forEach(function(nft) {
-                    html += '<a href="artwork.html?id=' + nft._id + '" class="vx-search-result">'
-                        + '<img src="' + (nft.imageUrl || '') + '" alt="' + (nft.name || '') + '">'
-                        + '<div class="vx-search-result-info">'
-                        + '<h6>' + (nft.name || 'Untitled') + '</h6>'
-                        + '<small>by ' + (nft.creator || 'Unknown') + ' &middot; ' + (nft.category || '') + '</small>'
-                        + '</div></a>';
-                });
-
-                dropdown.innerHTML = html;
-                dropdown.classList.add('show');
-
-            } catch (err) {
-                console.error('Search error:', err);
-            }
-        }
-
-        /* ── MOBILE SEARCH ── */
-        function initMobileSearch() {
-            const mobileInput = document.getElementById('searchInput2');
-            const mobileResults = document.getElementById('mobileResults');
-            const mobileCategories = document.getElementById('mobileCategories');
-
-            if (!mobileInput || !mobileResults || !mobileCategories) return;
-
-            mobileInput.addEventListener('input', async function(e) {
-                const query = e.target.value.trim();
-
-                if (query.length < 2) {
-                    /* FIX 2: show categories again when query is cleared */
-                    mobileResults.classList.remove('show');
-                    mobileResults.innerHTML = '';
-                    mobileCategories.classList.remove('hide');
-                    return;
-                }
-
-                /* FIX 2: hide categories when typing */
-                mobileCategories.classList.add('hide');
-                mobileResults.classList.add('show');
-                mobileResults.innerHTML = '<div style="padding:14px 16px;color:#6b7280;font-size:14px;">Searching...</div>';
-
-                try {
-                    const res = await fetch(
-                        'https://changes-sample.onrender.com/api/marketplace/search?q=' + encodeURIComponent(query)
-                    );
-                    if (!res.ok) throw new Error('failed');
-                    const results = await res.json();
-
-                    if (!results || !results.length) {
-                        mobileResults.innerHTML = '<div style="padding:14px 16px;color:#6b7280;text-align:center;font-size:14px;">No results found</div>';
-                        return;
-                    }
-
-                    mobileResults.innerHTML = results.slice(0, 10).map(function(nft) {
-                        return '<a href="artwork.html?id=' + nft._id + '" class="vx-search-result">'
-                            + '<img src="' + (nft.imageUrl || '') + '" alt="' + (nft.name || '') + '">'
-                            + '<div class="vx-search-result-info">'
-                            + '<h6>' + (nft.name || 'Untitled') + '</h6>'
-                            + '<small>by ' + (nft.creator || 'Unknown') + ' &middot; ' + (nft.category || '') + '</small>'
-                            + '</div></a>';
-                    }).join('');
-
-                } catch (err) {
-                    console.error('Mobile search error:', err);
-                    mobileResults.innerHTML = '<div style="padding:14px 16px;color:#e53e3e;font-size:14px;">Search error. Try again.</div>';
-                }
-            });
-        }
-
-        function toggleSearch() {
-            const modal = document.getElementById('searchModal');
-            if (modal) modal.classList.toggle('active');
-        }
-
-        function closeSearchIfOutside(event) {
-            if (event.target.id === 'searchModal') toggleSearch();
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            setupSearch('searchInput', 'searchDropdown');
-            initMobileSearch();
-
-            /* mobile category links */
-            var catLinks = document.querySelectorAll('#mobileCategories .categoryItem');
-            catLinks.forEach(function(link) {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    var cat = link.textContent.trim();
-                    window.location.href = 'category.html?category=' + encodeURIComponent(cat);
-                });
-            });
-        });
-    </script>
-
 </body>
 </html>
