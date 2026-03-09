@@ -596,7 +596,15 @@ img{max-width:100%;height:auto;}
   }
   .cgrid::-webkit-scrollbar,.collg::-webkit-scrollbar,
   .aucg::-webkit-scrollbar,.exg::-webkit-scrollbar,.artg::-webkit-scrollbar{display:none;}
-  .ncard,.cc,.ac,.exc,.artc{min-width:80vw!important;scroll-snap-align:center;flex-shrink:0;}
+  .ncard,.cc,.ac,.artc{min-width:72vw!important;max-width:72vw!important;scroll-snap-align:center;flex-shrink:0;}
+  .exc{min-width:72vw!important;max-width:72vw!important;scroll-snap-align:center;flex-shrink:0;}
+  /* ncard image: switch from fixed px height to aspect-ratio so it scales properly */
+  .ncard-img{height:auto!important;aspect-ratio:3/4;width:100%;object-fit:cover;}
+  /* Auction card image fix */
+  .ac-img{height:auto!important;aspect-ratio:16/10;width:100%;object-fit:cover;}
+  /* Exhibition image wrapper fix */
+  .ex-iw{width:100%;aspect-ratio:16/10;overflow:hidden;position:relative;}
+  .ex-img{position:absolute!important;inset:0;width:100%!important;height:100%!important;object-fit:cover!important;}
   #xGrid.cgrid .ncard:nth-child(3n+2),
   #xGrid.cgrid .ncard:nth-child(2n),
   #fGrid.cgrid .ncard:nth-child(3n+2),
