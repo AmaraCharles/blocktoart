@@ -588,16 +588,20 @@ img{max-width:100%;height:auto;}
   .ft-top{grid-template-columns:1fr 1fr;gap:20px;}
   .ft-bot{flex-direction:column;text-align:center;}
   /* CAROUSELS on mobile */
+  .sec{overflow:hidden;}
   .cgrid,.collg,.aucg,.exg,.artg,.catsec .cgrid{
     display:flex!important;
     overflow-x:auto;scroll-snap-type:x mandatory;
     gap:12px;padding-bottom:4px;
+    /* Bleed past section padding so no phantom right margin */
+    margin-left:-16px;margin-right:-16px;
+    padding-left:16px;padding-right:16px;
     scrollbar-width:none;-ms-overflow-style:none;
   }
   .cgrid::-webkit-scrollbar,.collg::-webkit-scrollbar,
   .aucg::-webkit-scrollbar,.exg::-webkit-scrollbar,.artg::-webkit-scrollbar{display:none;}
-  .ncard,.cc,.ac,.artc{min-width:72vw!important;max-width:72vw!important;scroll-snap-align:center;flex-shrink:0;}
-  .exc{min-width:72vw!important;max-width:72vw!important;scroll-snap-align:center;flex-shrink:0;}
+  .ncard,.cc,.ac,.artc{min-width:78vw!important;max-width:78vw!important;scroll-snap-align:start;flex-shrink:0;}
+  .exc{min-width:78vw!important;max-width:78vw!important;scroll-snap-align:start;flex-shrink:0;}
   /* ncard image: switch from fixed px height to aspect-ratio so it scales properly */
   .ncard-img{height:auto!important;aspect-ratio:3/4;width:100%;object-fit:cover;}
   /* Auction card image fix */
