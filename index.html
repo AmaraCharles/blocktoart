@@ -1268,7 +1268,7 @@ function openAucModal(id){
       <div class="_acd" style="font-family:'DM Mono',monospace;font-size:16px;color:#818cf8;">${fmtT(t)}</div>
     </div>
   </div>
-  <button onclick="location.href='artwork.html?auction=${a._id}'" style="width:100%;background:var(--indigo);color:#fff;border:none;border-radius:9px;padding:13px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .18s;" onmouseover="this.style.background='var(--indigo-d)'" onmouseout="this.style.background='var(--indigo)'">Place Bid</button>`;
+  <button onclick="location.href='artwork.html?id=${a.nft}'" style="width:100%;background:var(--indigo);color:#fff;border:none;border-radius:9px;padding:13px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .18s;" onmouseover="this.style.background='var(--indigo-d)'" onmouseout="this.style.background='var(--indigo)'">Place Bid</button>`;
   if(!document.getElementById('_aFSt')){
     const s=document.createElement('style');s.id='_aFSt';
     s.textContent='@keyframes _aFade{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}';
