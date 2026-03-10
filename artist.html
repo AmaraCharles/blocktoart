@@ -384,9 +384,26 @@ img{max-width:100%;height:auto;}
   .av-ring{width:90px;height:90px;}
   .av-wrap{margin-top:-45px;}
   .p-name{font-size:24px;}
-  .cgrid,.collg,.aucg{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;scrollbar-width:none;}
+  .profile-zone,.tabs-wrap{overflow:hidden;}
+  .cgrid,.collg,.aucg{
+    display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;
+    gap:12px;scrollbar-width:none;
+    margin-left:-16px;margin-right:-16px;
+    padding-left:16px;padding-right:16px;
+  }
   .cgrid::-webkit-scrollbar,.collg::-webkit-scrollbar,.aucg::-webkit-scrollbar{display:none;}
-  .ncard,.cc,.ac{min-width:80vw!important;scroll-snap-align:center;flex-shrink:0;}
+  .ncard,.cc,.ac{min-width:78vw!important;max-width:78vw!important;scroll-snap-align:start;flex-shrink:0;}
+
+  /* Artwork cards — drop fixed height, use aspect-ratio */
+  .ncard-img{height:auto!important;aspect-ratio:4/5;width:100%;object-fit:cover;display:block;}
+
+  /* Auction cards */
+  .ac-img{height:auto!important;aspect-ratio:16/10;width:100%;object-fit:cover;display:block;}
+
+  /* Collection cards — re-declare aspect-ratio after min/max-width so browser
+     recalculates height; ensure the absolutely-positioned image fills the card */
+  .cc{aspect-ratio:4/5!important;height:auto!important;}
+  .cc-bg{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover!important;}
   .cgrid .ncard:nth-child(3n+2),.collg .cc:nth-child(3n+2){margin-top:0!important;}
   .ft{padding:36px 16px 22px;}
   .ft-top{grid-template-columns:1fr 1fr;gap:20px;}
