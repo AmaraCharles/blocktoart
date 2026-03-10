@@ -30,7 +30,7 @@
   --card-dark: #13130f;
   --white: #ffffff;
   /* legacy compat */
-  --indigo: #c8a96e;
+  --indigo: #5b5bff;
   --indigo-light: #f0ece3;
   --indigo-muted: #a8893e;
   --vx-primary: #c8a96e;
@@ -131,7 +131,7 @@ a { text-decoration: none; color: inherit; }
 
 .headerActions { display: flex; align-items: center; gap: 16px; }
 .signInButton {
-  background: var(--accent); color: var(--ink);
+  background:#5b5bff; color:#fff;
   font-family: "DM Mono", monospace; font-size: 11px;
   font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
   border: none; border-radius: 2px; padding: 10px 22px;
@@ -236,7 +236,7 @@ a { text-decoration: none; color: inherit; }
   font-size: clamp(30px, 4vw, 54px); letter-spacing: -0.02em;
   color: #fff; line-height: 1.05; margin-bottom: 12px;
 }
-.cat-hero-title em { color: var(--accent); font-style: normal; }
+.cat-hero-title em { color:#5b5bff; font-style: normal; }
 .cat-hero-sub { font-size: 14px; color: rgba(255,255,255,0.42); max-width: 480px; line-height: 1.6; margin-bottom: 28px; }
 .cat-hero-pills { display: flex; gap: 8px; flex-wrap: wrap; }
 .cat-pill {
@@ -645,13 +645,26 @@ a { text-decoration: none; color: inherit; }
 </style>
 </head>
 <body>
-
+<style>
+    .logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.logo-mark{
+  width:34px;height:34px;background:var(--indigo);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+}
+.logo-mark svg{width:16px;height:16px;}
+.logo-name{font-family:'Syne',sans-serif;color:#fff;font-weight:800;font-size:16px;letter-spacing:-.02em;}
+.logo-name em{color:var(--indigo);font-style:normal;}
+</style>
 <!-- HEADER -->
 <header class="mainHeader">
-    <a href="/" class="brandLogo">
-        <div class="logoImage"></div>
-        Blocktoart
-    </a>
+   <a href="/" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+    </div>
+    <span class="logo-name">Blockto<em>art</em></span>
+  </a>
     <nav class="navigationMenu">
         <button class="navDropdown" onclick="window.location.href='marketplace.html'">
             Explore
